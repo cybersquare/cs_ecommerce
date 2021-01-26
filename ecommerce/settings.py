@@ -58,7 +58,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'ecom/templates'],
+        'DIRS': [BASE_DIR/'ecom/templates', BASE_DIR/'reseller/templates',  ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,6 +120,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+### Refer this document for adding static files in heroku
+#  https://devcenter.heroku.com/articles/django-assets#:~:text=Django%20does%20not%20support%20serving,exactly%20this%20purpose%20in%20mind.
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
@@ -130,4 +133,5 @@ STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '/ecom/static'),
+    os.path.join(PROJECT_ROOT, '/reseller/static'),
 )

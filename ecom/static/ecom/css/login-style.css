@@ -1,0 +1,47 @@
+.login-container {
+    padding-top: 10%;
+    background-color: rgb(230, 218, 240);
+}
+
+.signup-container {
+    background-color: #b2dfdb;
+    padding-top: 30px;
+}
+
+.login-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-login {
+    background-color: #410ca3;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color: #d2d2d2;
+    border-width: 5px;
+    box-shadow: 0 1px 0 #cfcfcf;
+}
+
+.login-head {
+    border: 0 solid #fff;
+    border-bottom-width: 1px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.fgt-password {
+    text-decoration: none;
+    color: black;
+}

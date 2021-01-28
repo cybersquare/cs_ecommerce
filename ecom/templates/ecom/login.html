@@ -1,4 +1,5 @@
-{% load static %}
+{% extends "ecom/cust_master.html" %} {% load static %} {% block content %}
+<!-- {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,36 +14,36 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<body class="login-container">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-3 col-sm-2"></div>
-            <div class="col-lg-4 col-md-6 col-sm-8">
-                <div class="form-login">
-                    <br>
-                    <h3 class="login-head">Login</h3><br>
-                    <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
-                    </br><br>
-                    <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
-                    </br>
-                    <div class="wrapper">
-                        <span class="group-btn">
+<body class="login-container"> -->
+<div class="container-fluid login-container">
+    <div class="row">
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="form-login">
+                <br>
+                <h3 class="login-head">Login</h3><br>
+                <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+                </br><br>
+                <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                </br>
+                <div class="wrapper">
+                    <span class="group-btn">
                             <br>     
                             <a href="#" class="btn btn-light btn-md">login <i class="fa fa-sign-in"></i></a>
                         </span><br>
-                        <span>
+                    <span>
                             <br>
                             <a href=""><label for="" class="fgt-password">Forgot password?</label></a>
                         </span>
-                    </div>
                 </div>
-
             </div>
-            <div class="col-lg-4 col-md-3 col-sm-2"></div>
+
         </div>
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
     </div>
-
-
+</div>
+{% endblock %}
+<!-- 
 </body>
 
-</html>
+</html> -->

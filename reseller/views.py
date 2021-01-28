@@ -5,7 +5,7 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("hello cybersquare, welcome")
 def reseller_home(request):
-    return render(request,"Reseller_home.html")
+    return render(request,"reseller/Reseller_home.html")
 def reseller_products(request):
     return render(request,"reseller/Reseller_products.html")
 

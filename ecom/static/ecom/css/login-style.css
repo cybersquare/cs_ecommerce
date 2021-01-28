@@ -1,7 +1,7 @@
-.login-container {
+/* .login-container {
     padding-top: 10%;
     background-color: rgb(230, 218, 240);
-}
+} */
 
 .signup-container {
     background-color: #b2dfdb;
@@ -14,7 +14,7 @@
 }
 
 .form-login {
-    background-color: #410ca3;
+    background-color: #80CBC4;
     padding-top: 10px;
     padding-bottom: 20px;
     padding-left: 20px;

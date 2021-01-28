@@ -1,5 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
+{% extends "ecom/cust_master.html" %} {% load static %} {% block content %}
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,10 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
+</head> -->
 
-<body class="signup-container">
-    <div class="container">
+<body>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-2 col-sm-2"></div>
             <div class="col-lg-6 col-md-8 col-sm-8">
@@ -45,7 +45,7 @@
                     <div class="wrapper">
                         <span class="group-btn">
                             <br>     
-                            <a href="#" class="btn btn-light btn-md">Signup<i class="fa fa-sign-in"></i></a>
+                            <a href="#" class="btn btn-light btn-md">Signup</a>
                         </span><br>
 
                     </div>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
+    {% endblock %}
+    <!-- </body>
 
-</body>
-
-</html>
+</html> -->

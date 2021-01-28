@@ -7,7 +7,7 @@ def index(request):
 def reseller_home(request):
     return render(request,"Reseller_home.html")
 def reseller_products(request):
-    return render(request,"Reseller_products.html")
+    return render(request,"reseller/Reseller_products.html")
 
 
 

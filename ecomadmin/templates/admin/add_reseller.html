@@ -1,0 +1,73 @@
+{% extends "admin/admin-master.html" %} {% load static %} {% block admin_content %}
+<br>
+<h3>Approve Resellers</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Reseller Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Email</th>
+            <th scope="col">Contact</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>Adidassales@adidas.com</td>
+            <td>+12 522366</td>
+            <td><button type="button" class="btn btn-success">Approve</button> <button type="button" class="btn btn-danger">Decline</button></td>
+        </tr>
+        <tr>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>Adidassales@adidas.com</td>
+            <td>+12 522366</td>
+            <td><button type="button" class="btn btn-success">Approve</button> <button type="button" class="btn btn-danger">Decline</button></td>
+        </tr>
+        <tr>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>+12 522366</td>
+            <td>Adidassales@adidas.com</td>
+            <td><button type="button" class="btn btn-success">Approve</button> <button type="button" class="btn btn-danger">Decline</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<h3>Reseller Request History</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Reseller Name</th>
+            <th scope="col">Address</th>
+
+            <th scope="col">Requested Date</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+
+            <td>Dec20,2020</td>
+            <td>Approved</td>
+        </tr>
+        <tr>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>Dec20,2020</td>
+            <td>Declined</td>
+        </tr>
+        <tr>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>Dec20,2020</td>
+            <td>Approved</td>
+        </tr>
+    </tbody>
+</table>
+<br> {% endblock %}

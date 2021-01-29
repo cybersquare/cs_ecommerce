@@ -1,0 +1,68 @@
+{% extends "admin/admin-master.html" %} {% load static %} {% block admin_content %}
+<h3>Approve Resellers</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Reseller Id</th>
+            <th scope="col">Reseller Name</th>
+            <th scope="col">Address</th>
+
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>
+                <div class="btn-group ">
+                    <button type="button" class="btn btn-light " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Delete User </a>
+                        <a class="dropdown-item" href="#">Suspend user  </a>
+                        <a class="dropdown-item" href="#">Revoke selling </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>
+                <div class="btn-group ">
+                    <button type="button" class="btn btn-light " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Delete User  </a>
+                        <a class="dropdown-item" href="#">Suspend user  </a>
+                        <a class="dropdown-item" href="#">Revoke Selling </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <th>Adidas</th>
+            <td>Mumbai</td>
+            <td>
+                <div class="btn-group ">
+                    <button type="button" class="btn btn-light " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Delete User  </a>
+                        <a class="dropdown-item" href="#">Suspend user  </a>
+                        <a class="dropdown-item" href="#">Revoke selling </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

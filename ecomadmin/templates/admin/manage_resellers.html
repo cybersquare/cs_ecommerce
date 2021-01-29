@@ -1,0 +1,40 @@
+{% extends "admin/admin-master.html" %} {% load static %} {% block admin_content %}
+
+<h3 class="headsection">Manage Resellers</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Reseller Id</th>
+            <th scope="col">Reseller Name</th>
+            <th scope="col">Head Office</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td><a href="#">Adidas</a></td>
+            <td>Mumbai</td>
+            <td>adidassellers@adidas.com</td>
+            <td>+12 513685</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td><a href="#">Nike</a></td>
+            <td>Kerala</td>
+            <td>nikesellers@nike.com</td>
+            <td>+12 513685</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td><a href="#">Puma</a></td>
+            <td>Tamilnadu</td>
+            <td>pumaserllers@puma.com</td>
+            <td>+12 513685</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

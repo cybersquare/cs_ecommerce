@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ecom',
     'reseller',
     'common',
+    'ecomadmin',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,7 @@ TEMPLATES = [
         'DIRS': [BASE_DIR/'ecom/templates', 
                 BASE_DIR/'reseller/templates', 
                 BASE_DIR/'common/templates', 
+                BASE_DIR/'ecomadmin/templates',
                 ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,6 +140,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [ 
     os.path.join(PROJECT_ROOT, '/ecom/static'),
     os.path.join(PROJECT_ROOT, '/reseller/static'),
-     os.path.join(PROJECT_ROOT, '/common/static'),
+    os.path.join(PROJECT_ROOT, '/common/static'),
+    os.path.join(PROJECT_ROOT, '/ecomadmin/static'),
    ]
 

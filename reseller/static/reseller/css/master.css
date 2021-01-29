@@ -1,3 +1,4 @@
+
 #wrapper {
     overflow-x: hidden;
 }
@@ -41,4 +42,10 @@
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+
+  .theme-color{
+  background-color: #e0f2f1;
 }
+  
+}
+

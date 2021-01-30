@@ -1,18 +1,12 @@
-#logo{max-height: 75px;}
 #card-img-top {
-        width: 40vw;
-        height: 30vh;
-        object-fit: contain;
-        }  
-.logo-panel-color{
-  background-color: rgb(238,238,238);
-}   
-body{
- font-family: 'Libre Baskerville', serif;   
-
-}
+    width: 40vw;
+    height: 30vh;
+    object-fit: contain;
+    }  
 ul li:hover{    
-    text-decoration:underline;
-    
-
+text-decoration:underline; 
+}
+.orange-btn{
+color: white;
+background-color: #ff6f00;
 }

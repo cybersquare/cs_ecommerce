@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{% static 'ecom/css/style-home.css' %}">
     <link rel="stylesheet" href="{% static 'ecom/css/customer-style.css'%}">
 
+    <link rel="stylesheet" href="{% static 'ecom/css/style-home.css' %}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
@@ -24,7 +24,7 @@
               </button>
             <img src="{% static '/images/cs_ecom_logo.png' %} " alt=" " class="logo-nav">
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse  navbar-collapse" id="navbarSupportedContent">
             <form class="mx-2 my-auto d-inline w-100">
                 <div class="input-group">
                     <input type="text" class="form-control border border-right-0" placeholder="Search...">
@@ -35,7 +35,7 @@
                 </span>
                 </div>
             </form>
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto ">
                 <div class="login-nav">
                     <button onclick="location.href = 'login'" type="button" class="btn">Login</button>
                 </div>
@@ -45,11 +45,12 @@
             </ul>
         </div>
     </nav>
-    <nav class=" navbar navbar-expand-lg nav-list  rounded-bottom ">
+    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+    <nav class=" navbar navbar-expand-lg nav-list rounded-bottom ">
         <ul class="navbar-nav">
-            <div class="dropdown">
+            <div class="dropdown drpdown">
                 <li class="dropbtn">Electronics </li>
-                <div class="dropdown-content">
+                <div class="dropdown-content drpdown-content">
                     <a href="#" class="btn">Mobile & accessories</a>
                     <a href="#" class="btn">Laptop</a>
                     <a href="#" class="btn">Speaker</a>
@@ -57,26 +58,26 @@
                     <a href="#" class="btn">Gaming & Accessories</a>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown drpdown">
                 <li class="dropbtn">TV & appliances </li>
-                <div class="dropdown-content">
+                <div class="dropdown-content drpdown-content">
                     <li><a href="#" class="btn">Television</a></li>
                     <li><a href="#" class="btn">Refrigerators</a></li>
                     <li><a href="#" class="btn">Washing Machine</a></li>
                     <li><a href="#" class="btn">Kitchen Appliances</a></li>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown drpdown">
                 <li class="dropbtn">Sports </li>
-                <div class="dropdown-content">
+                <div class="dropdown-content drpdown-content">
                     <li><a href="#" class="btn">Football</a></li>
                     <li><a href="#" class="btn">Cricket</a></li>
                     <li><a href="#" class="btn">Tennis</a></li>
                 </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown drpdown">
                 <li class="dropbtn">Fashion </li>
-                <div class="dropdown-content">
+                <div class="dropdown-content drpdown-content">
                     <li><a href="#" class="btn">Mens</a></li>
                     <li><a href="#" class="btn">Womens</a></li>
                     <li><a href="#" class="btn">kids</a></li>
@@ -84,6 +85,8 @@
             </div>
         </ul>
     </nav>
+    <!-- </div> -->
+
 
     <!-- Navigation bar ends here -->
 

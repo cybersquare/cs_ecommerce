@@ -7,12 +7,12 @@
     width: 70%;
 }
 
-.dropdown {
+.drpdown {
     padding-left: 20px;
     list-style-type: none;
 }
 
-.dropdown-content {
+.drpdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -21,7 +21,7 @@
     z-index: 1;
 }
 
-.dropdown-content a {
+.drpdown-content a {
     float: none;
     color: black;
     padding: 12px 16px;
@@ -30,16 +30,17 @@
     text-align: left;
 }
 
-.dropdown-content a:hover {
+.drpdown-content a:hover {
     background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {
+.drpdown:hover .drpdown-content {
     display: block;
 }
 
 .navigation {
-    background-color: #b2dfdb;
+    /* background-color: #b2dfdb; */
+    background-color: #e0f2f1;
 }
 
 .searh-btn {
@@ -58,7 +59,7 @@
 
 .container-fluid {
     padding: 20px;
-    background-color: #e0f2f1;
+    background-color: #fbfbfb;
 }
 
 .home-img {
@@ -78,14 +79,6 @@
     background-color: #0288d1;
 }
 
-.col-lg-6 {
-    height: 100%;
-}
-
-.col-lg-4 {
-    height: 100%;
-}
-
 .usp2 {
     height: 100%;
     padding: 10px;
@@ -102,8 +95,4 @@
     color: white;
     margin: 10px;
     background-color: rgb(170, 182, 240);
-}
-
-.foot {
-    background-color: #b2dfdb;
 }

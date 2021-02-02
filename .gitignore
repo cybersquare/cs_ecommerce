@@ -1,0 +1,3 @@
+**/*.pyc
+*.pyc
+ecommerce/settings.py

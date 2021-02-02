@@ -1,0 +1,326 @@
+{% extends "ecom/cust_master.html" %}  {% block content %}{% load static %}
+  <div class="container-fluid"> 
+<!-- start of navigation links to other pages -->   
+      <div class="row">       
+        <div class="col-md-12">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link link-dark" href="#">Home /</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-dark  " href="#">Accessories /</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold  disabled" href="#">Men Watches</a>
+            </li>
+          </ul>
+        </div>             
+      </div>
+  <!-- end of navigation links to other pages --> 
+  <!-- start of sorting products dropdown  -->
+        <div class="d-flex justify-content-end ">
+          <div class="dropdown">
+            <button class="btn orange-btn dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Sort:What's New
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">What's New</a></li>
+              <li><a class="dropdown-item" href="#">Better Discount</a></li>
+              <li><a class="dropdown-item" href="#">Popularity</a></li>
+              <li><a class="dropdown-item" href="#">Price:Low to High</a></li>
+              <li><a class="dropdown-item" href="#">Price:Low to High</a></li>
+            </ul>
+          </div>
+        </div>
+<!-- end of sorting products dropdown  -->  
+      <div class="row border-top ">
+<!-- start of filter products  -->
+        <div class="col-md-2 border-end">
+          <b>FILTERS</b>
+<!-- start of gender filter  -->
+          <div class="gender">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Men
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Women
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Boys
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Girls
+              </label>
+            </div>
+          </div>
+<!-- start of gender filter  -->
+<!-- start of categories filter  -->
+          <div class="categories border-top">
+            <h6>CATEGORIES</h6>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Watches(12218)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Watch Gift Set(389)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Smart Watches(110)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Watch Organiser(45)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Fitness Bands(17)
+              </label>
+            </div>
+          </div>
+<!-- end of categories filter  -->
+<!-- start of brands filter  -->
+          <div class="brands border-top">
+            <h6>BRAND</h6>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Daniel Klein(1082)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                CASIO(641)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Titan(568)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Fastrack(553)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                GIORDANO(480)
+              </label>
+            </div>
+          </div>          
+          <a href="#" class="link-danger">173 more</a>
+<!-- end of brands filter  -->          
+<!-- start of price filter  -->
+          <div class="price border-top">
+            <h6>PRICE</h6>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Rs. 272 to Rs. 28914(12455)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Rs. 28914 to Rs. 57556(281)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Rs. 57556 to Rs. 86198(40)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Rs. 86198 to Rs. 114840(5)
+              </label>
+            </div>
+          </div>
+<!-- end of price filter  -->          
+<!-- start of color filter  -->
+          <div class="color border-top">
+            <h6>COLOR</h6>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Black
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                White
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Silver
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Blue
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Grey
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Navy Blue
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Brown
+              </label>
+            </div>
+          </div> 
+<!-- end of color filter  -->         
+        </div>
+<!-- end of filter products  --> 
+<!-- start of products display  -->
+        <div class="col-md-10 pt-2">
+          <div class="row">
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/DanielKlein.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Daniel Klein</h5>
+                  <p class="card-text">Women analogue Watch<br>Rs. 1312</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/DressBerry.jpg'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Dress Berry</h5>
+                  <p class="card-text">Women analogue Watch<br>Rs. 1399</p>
+                  <a href="#" class="btn orange-btn  ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/Fossil.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Fossil</h5>
+                  <p class="card-text">Women CECILE Watch<br>Rs. 6377</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/French Connection.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">French Connection</h5>
+                  <p class="card-text">Women analogue Watch<br>Rs. 2780</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/MarieClaire.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Marie Claire</h5>
+                  <p class="card-text">Women analogue Watch<br>Rs. 874</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/Mast$Harbour.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Mast $ Harbour</h5>
+                  <p class="card-text">Unisex Analogue Watch<br>Rs. 1319</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/Montvitton.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">MONTVITTON</h5>
+                  <p class="card-text">Men Analogue Watch<br>Rs. 399</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/Roadster.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Roadster</h5>
+                  <p class="card-text">Men Analogue Watch<br>Rs. 919</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card" style="width: 18rem;">
+                <img src="{% static '/ecom/images/French Connection.webp'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">French Connection</h5>
+                  <p class="card-text">Women analogue Watch<br>Rs. 2780</p>
+                  <a href="#" class="btn orange-btn ">View Product</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+<!-- end of products display  -->
+      </div>    
+  </div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "ecom/cust_master.html" %}  {% block content %}{% load static %}
+  <div class="container-fluid">
+    <div class="row">
+<!-- start of navigation links to other pages --> 
+      <div class="col-md-12">
+        <ul class="nav ">
+          <li class="nav-item">
+            <a class="nav-link  link-dark" href="#">Home /</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-dark  " href="#">Accessories /</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-dark  " href="#">Women Accessories /</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-dark  " href="#">Watches /</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold  disabled" href="#">Daniel Klein Watches></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold  disabled" href="#">More By Daniel Klein</a>
+          </li>
+        </ul>
+      </div>
+<!-- end of navigation links to other pages --> 
+<!-- start of product pictures --> 
+<div class="col-md-8">
+    <div class="row">
+      <div class="col">
+        <div class="thumbnail pb-2 ">
+          <a href="{% static '/ecom/images/dk1.jpg'%}" target="_blank">
+            <img src="{% static '/ecom/images/dk1.jpg'%}" alt="Lights" style="width:100%">
+          </a>
+        </div>
+      </div>
+      <div class="col">
+        <div class="thumbnail">
+          <a href="{% static '/ecom/images/dk2.jpg'%}" target="_blank">
+            <img src="{% static '/ecom/images/dk2.jpg'%}" alt="Nature" style="width:100%">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+          <div class="thumbnail">
+            <a href="{% static '/ecom/images/dk3.webp'%}" target="_blank">
+              <img src="{% static '/ecom/images/dk3.webp'%}"  alt="Lights" style="width:100%">
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="thumbnail">
+            <a href="{% static '/ecom/images/dk5.webp'%}" target="_blank">
+              <img src="{% static '/ecom/images/dk5.webp'%}"  alt="Nature" style="width:100%">
+            </a>
+          </div>
+        </div>
+      </div>
+</div>
+<!-- end of product pictures -->
+<!-- start product details -->
+      <div class="col-md-4">
+        <h3>Daniel Klein</h3>
+        <h6>Women Black Analogue Watch DK11421-5</h6>
+        <button type="button" class="btn-xs rounded-3 bg-transparent">4.5 stars</button>
+        <hr>
+        <h4 style="display: inline;" class="p-1">Rs. 2499 <small><del> Rs. 5100 </del> </small> (51% OFF) </h4><br><br>
+        <h6 class="font-weight-bolder">SELECT SIZE</h6>
+        <button type="button" class="btn btn-outline-secondary">One Size</button><br><br>
+        <button type="button" class="btn orange-btn">Add to Bag</button>
+        <button type="button" class="btn border-dark">Wishlist</button>
+      </div>
+<!-- end of product details -->
+    </div>
+  </div>
+  {% endblock %}

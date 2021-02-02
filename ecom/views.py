@@ -42,5 +42,8 @@ def login(request):
 def signup(request):
     return render(request,"ecom/signup.html")
 
-
+def search_products(request):
+    return render(request,"ecom/search_products.html")
+def view_product(request):
+    return render(request,"ecom/view_product.html")
 

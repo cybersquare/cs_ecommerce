@@ -7,5 +7,6 @@ urlpatterns=[
     path('home', views.reseller_home, name='reseller_home'),
     path('products', views.reseller_products, name= 'reseller_products'),
     path('addProducts', views.reseller_addProducts, name= 'reseller_addProducts'),
+    path('signup', views.reseller_signup, name= 'reseller_signup'),
 
 ]

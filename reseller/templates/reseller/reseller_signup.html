@@ -1,0 +1,155 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="{% static 'reseller/css/add_product.css' %}" rel="stylesheet"> -->
+   
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> -->
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+</head>
+
+<body>
+    <div class="container">
+      <div class="py-5 text-left">
+        
+
+        <h2>Signup</h2>
+        
+      </div>
+      <form class="needs-validation" novalidate>
+        <div class="row">
+        
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Payment information</span>
+                </h4>
+                <div class="mb-3">
+                    <label>Account holder name</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="username" placeholder="" required>
+                      <div class="invalid-feedback" style="width: 100%;">
+                       please enter name of account holder
+                      </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="title">Account number</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="username" placeholder="" required>
+                      <div class="invalid-feedback" style="width: 100%;">
+                        Product account number
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-6">
+                        <label for="title">Branch</label>
+                        <div class="input-group">
+                        <input type="text" class="form-control" id="username" placeholder="" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Please enter branch
+                        </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6 mb-6">
+                        <label for="state">IFSC number</label>
+                        <input type="text" class="form-control" id="weight" placeholder="">
+                        <div class="invalid-feedback">
+                        Please enter IFSC number
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            
+            <div class="col-md-8 order-md-1">
+            <!-- <h4 class="mb-3">Billing address</h4> -->
+            
+                <div class="row">
+                    <div class="col-md-6 mb-6">
+                        <label for="state">First name</label>
+                        <input type="text" class="form-control" id="weight" placeholder="First name">
+                        <div class="invalid-feedback">
+                        Please enter first name
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6 mb-6">
+                        <label for="state">Last name</label>
+                        <input type="text" class="form-control" id="weight" placeholder="Last name">
+                        <div class="invalid-feedback">
+                        Please enter last name
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description"required>Address </label>
+                    <textarea class="form-control" id="address"></textarea>
+                    <div class="invalid-feedback">
+                        Please enter your address
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <label for="state">City</label>
+                        <input type="text" class="form-control" id="weight" placeholder="City">
+                        <div class="invalid-feedback">
+                        Please enter City name
+                        </div>
+                    </div>
+                
+                    <div class="col-md-4 mb-4">
+                        <label for="state">Country/Region</label>
+                        <input type="text" class="form-control" id="weight" placeholder="Country/Region">
+                        <div class="invalid-feedback">
+                        Please enter Country/Region
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label for="state">Pin</label>
+                        <input type="text" class="form-control" id="weight" placeholder="Pin">
+                        <div class="invalid-feedback">
+                        Please enter Pincode
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-6">
+                        <label for="title">Phone</label>
+                        <div class="input-group">
+                        <input type="text" class="form-control" id="username" placeholder="Phone number" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Please enter your phone number
+                        </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6 mb-6">
+                        <label for="state">Email</label>
+                        <input type="email" class="form-control" id="weight" placeholder="Email id">
+                        <div class="invalid-feedback">
+                        Please enter email
+                        </div>
+                    </div>
+                </div>
+            
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            
+            </div>
+      </div>
+    </form>
+    </div> 
+</body>
+
+</html>

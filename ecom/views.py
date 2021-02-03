@@ -9,12 +9,13 @@ from django.contrib.auth import authenticate
 # Create your views here.
 
 def home(request):
+ 
     return render(request,"ecom/cust_home.html")
 
 def login(request):
     if request.method == 'POST':
-        usrname=request.POST['userName']
-        passwd=request.POST['userPassword']
+        usrname = request.POST['userName']
+        passwd = request.POST['userPassword']
         user = authenticate(username=usrname, password=passwd)
  
    
@@ -23,7 +24,7 @@ def login(request):
             request.session['customerid']=user.id
             return redirect('home')
         else:
-            return render(request,'ecom/login.html',{'error':'Incorrect user details'})
+            return render(request,'ecom/login.html',{'error':'Invalid user details'})
             
         # try:
         #     logindata = User.objects.get(username=usrname)
@@ -41,17 +42,16 @@ def login(request):
 
 def signup(request):
     if request.method == "POST":
-        firstname=request.POST['firstname']
-        # firstname=request.POST['firstname']
-        lastname=request.POST['lastname']
-        gender=request.POST['gender']
-        dateofbirth=request.POST['dateofbirth']
-        address=request.POST['address']
-        country=request.POST['country']
-        mobile=request.POST['mobile']
-        email=request.POST['email']
-        password=request.POST['password']
-        newuser=User.objects.create_user(email, email, password)
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        gender = request.POST['gender']
+        dateofbirth = request.POST['dateofbirth']
+        address = request.POST['address']
+        country = request.POST['country']
+        mobile = request.POST['mobile']
+        email = request.POST['email']
+        password = request.POST['password']
+        newuser = User.objects.create_user(email, email, password)
         newuser.first_name = firstname
         newuser.last_name = lastname
         newuser.save()

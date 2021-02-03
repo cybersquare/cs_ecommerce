@@ -36,12 +36,18 @@
                 </div>
             </form>
             <ul class="navbar-nav mr-auto ">
+                {% if customerid not in request.session %}
                 <div class="login-nav">
                     <button onclick="location.href = 'login'" type="button" class="btn">Login</button>
                 </div>
                 <div class="login-nav">
                     <button onclick="location.href = 'signup'" type="button" class="btn">Sign up</button>
                 </div>
+                {% else %}
+                <div class="login-nav">
+                    <button onclick="location.href = 'signup'" type="button" class="btn">Sign up</button>
+                </div>
+                {% endif %}
             </ul>
         </div>
     </nav>

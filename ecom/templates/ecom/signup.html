@@ -21,58 +21,69 @@
                 <div class="form-login">
                     <br>
                     <h3 class="login-head">Signup</h3><br>
-                    <form action="{% url 'signup' %}" method="POST">
+                    <form action="{% url 'signup' %}" onsubmit="return checkform()" method="POST">
                         {% csrf_token %}
-                        <div class="form-row">
+                        <div class="form-row form-group">
                             <div class="col">
-                                <input type="text" class="form-control" name="firstname" placeholder="First name">
+                                <label for="">First name</label>
+                                <input type="text" class="form-control" name="firstname" placeholder="First name" required>
                             </div>
                             <div class="col">
+                                <label for="">Last name</label>
                                 <input type="text" class="form-control" name="lastname" placeholder="Last name">
                             </div>
                         </div>
-                        </br>
-                        </br>
-                        <div style="display: inline;">
-                            <label for="" class="">gender: </label>&nbsp;&nbsp;&nbsp;
-                            <label for="male">Male</label>
-                            <input type="radio" id="male" name="gender" class=""> &nbsp;&nbsp;&nbsp;
-                            <label for="Female">Female</label>
-                            <input type="radio" id="female" name="gender" class="">
+
+                        <!-- <div style="display: inline;"> -->
+                        <div class="form-group ">
+                            <label for="" class="">gender: </label>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="male" value="male" name="gender" class="form-check-input" checked>
+                                <label for="male" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="female" name="gender" value="female" class="form-check-input">
+                                <label for="female" class="form-check-label">Female</label>
+                            </div>
                         </div>
-                        <br>
-                        <br>
-                        <label for="dob">Date of Birth</label>&nbsp;&nbsp;&nbsp;
-                        <input type="date" id="dob" name="dateofbirth" class="">
-                        <br><br>
-                        <label for="adrs">Address</label>
-                        <textarea name="address" id="adrs" cols="30" rows="10"></textarea>
-                        </br>
-                        </br>
-                        <label for="cntry">Country</label>&nbsp;&nbsp;&nbsp;
-                        <select name="country" id="cntry">
-                        <option  disabled selected>Select your Country</option>
-                        <option value="India">India</option>
-                    </select>
-                        <br><br>
-                        <input type="text" id="userMobile" class="form-control input-sm chat-input" name="mobile" placeholder="Enter mobile number" />
-                        </br>
-                        </br>
-                        <input type="text" id="userEmail" class="form-control input-sm chat-input" placeholder="Enter your Email" name="email" />
-                        </br>
-                        </br>
-                        <input type="password" id="userPassword" name="password" class="form-control input-sm chat-input" placeholder="password" />
-                        </br>
-                        </br>
-                        <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" />
-                        </br>
+                        <div class="form-group ">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dateofbirth" class="form-control" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="adrs">Address</label>
+                            <textarea name="address" id="adrs" cols="30" rows="3" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group ">
+                            <label for="cntry">Country</label>
+                            <select name="country" class="form-control" id="cntry" required>
+                                <option  disabled selected value="">Select your Country</option>
+                                <option value="India">India</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mobile (optional)</label>
+                            <input type="tel" pattern="[0-9]{10}" id="userMobile" class="form-control input-sm chat-input" name="mobile" placeholder="Enter mobile number" />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" id="userEmail" class="form-control input-sm chat-input" placeholder="Enter your Email" name="email" required/>
+                        </div>
+                        <div class="form-group">
+                            <h6 id="pswerror" name="err" style="color: brown;"></h6>
+                            <label for="">Password</label>
+                            <input type="password" id="userPassword" name="password" class="form-control input-sm chat-input" placeholder="password" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Confirm password</label>
+                            <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" required/>
+                        </div>
                         <div class="wrapper">
+
                             <span class="group-btn">
                             <br>     
-                            <button type="submit" class="btn btn-light btn-md">Signup</button>
+                            <button type="submit"  class="btn btn-md" style="background-color: #00796b; color: white;">Signup</button>
                         </span><br>
-
-
                         </div>
                     </form>
                 </div>
@@ -82,18 +93,16 @@
         </div>
     </div>
     <script>
-        // function checkpassword() {
-        //     password = document.getElementById("userPassword").value;
-        //     cnfpassword = document.getElementById("cnfPassword").value;
-        //     if (password != cnfpassword) {
-        //         alert("Not match");
-        //         return false;
-        //     }
+        function checkform() {
+            document.getElementById("pswerror").innerHTML = ""
+            password = document.getElementById("userPassword").value;
+            cnfpassword = document.getElementById("cnfPassword").value;
+            if (password != cnfpassword) {
+                document.getElementById("pswerror").innerHTML = "password mismatch"
+                return false;
+            }
 
-        // }
+        }
     </script>
 
     {% endblock %}
-    <!-- </body>
-
-</html> -->

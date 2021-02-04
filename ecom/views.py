@@ -9,20 +9,25 @@ from django.contrib.auth import authenticate
 # Create your views here.
 
 def home(request):
- 
+    # newuser = User.objects.create_user('administrator', 'ecomadmin@cs.com', 'Admin@123')
+    # newuser.save()
     return render(request,"ecom/cust_home.html")
-
+    
 def login(request):
     if request.method == 'POST':
         usrname = request.POST['userName']
         passwd = request.POST['userPassword']
         user = authenticate(username=usrname, password=passwd)
- 
-   
-
         if user is not None:
-            request.session['customerid']=user.id
-            return redirect('home')
+            try:
+                customerdata = Customer.objects.get(login_id = user.id)
+                request.session['customerid']=user.id
+                return redirect('home')
+                
+
+            except Customer.DoesNotExist:
+                return redirect('/reseller/home')
+
         else:
             return render(request,'ecom/login.html',{'error':'Invalid user details'})
             
@@ -40,8 +45,10 @@ def login(request):
     else:
         return render(request,"ecom/login.html")
 
+
 def signup(request):
     if request.method == "POST":
+        usertype = request.POST['usertype']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
         gender = request.POST['gender']
@@ -55,13 +62,12 @@ def signup(request):
         newuser.first_name = firstname
         newuser.last_name = lastname
         newuser.save()
-        # usrtyp = UserType.objects.get(type='customer')
-        print(newuser.id)
-        # usertype = usrtyp.id
-        customerdata = Customer(firstname=firstname,gender=gender,mobile=mobile,dateofbirth=dateofbirth,address=address,country=country,user_type_id=1,login_id_id=newuser.id)
-        # newuser.save()
-        customerdata.save()
-        return redirect('login')
+        if usertype == 'customer':
+            customerdata = Customer(firstname=firstname,gender=gender,mobile=mobile,dateofbirth=dateofbirth,address=address,country=country,user_type_id=1,login_id_id=newuser.id)
+            customerdata.save()
+            return redirect('login')
+        else:
+            pass
     else:
         return render(request,"ecom/signup.html")
 

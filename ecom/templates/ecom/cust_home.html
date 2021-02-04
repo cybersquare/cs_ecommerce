@@ -2,54 +2,187 @@
 
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
+    <!-- <div class="row"> -->
+    <!-- <div class="col-lg-12">
             <a href="" style="text-decoration: none;">
                 <div class="usp">
                     <h3 class="home-header">U.S.POLO ASSN.</h3>
                     <img src="{% static 'ecom/images/usp-offer3.png' %}" class="img-fluid home-img" alt="">
                 </div>
             </a>
+        </div> -->
+    <!--slider-->
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                <img class="first-slider" src="{% static 'ecom/images/125.jpg'%}" alt="">
+
+                <!-- </svg> -->
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>Example headline.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Another example headline.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1>One more for good measure.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
+    <!--end slider-->
+    <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-6">
-            <a href="" style="text-decoration: none;">
+            <!-- <a href="" style="text-decoration: none;">
                 <div class="usp2">
                     <h3 class="home-header" style="font-family: sans-serif">Oppo mobiles</h3>
                     <img src="{% static 'ecom/images/oppo-1.jpg' %}" class="img-fluid home-img" alt="">
                 </div>
-            </a>
+            </a> -->
+            <div class="card">
+                <img src="{% static 'ecom/images/oppo-1.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 align="center" class="card-title">OPPO A83</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label for=""> <b> &#x20B9; 13999 </b></label>
+                        </div>
+                        <button class="btn btn-info"> <i class="fa fa-shopping-cart"> Buy Now</i></button>
+                        <!-- <button class="btn btn-info">Buy Now</button> -->
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6">
-            <a href="" style="text-decoration: none;">
+            <div class="card">
+                <img src="{% static 'ecom/images/vivo-2.jpeg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 align="center" class="card-title">Vivo v9</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label for=""> <b> &#x20B9; 10200 </b></label>
+                        </div>
+                        <button class="btn btn-info"> <i class="fa fa-shopping-cart"> Buy Now</i></button>
+                        <!-- <button class="btn btn-info">Buy Now</button> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <a href="" style="text-decoration: none;">
                 <div class="usp2">
                     <h3 class="home-header" style="font-family: Century Gothic">Vivo mobiles</h3>
                     <img src="{% static 'ecom/images/vivo-2.jpeg' %}" class="img-fluid home-img" alt="">
                 </div>
-            </a>
+            </a> -->
         </div>
         <div class="col-lg-4 col-md-4">
-            <a href="" style="text-decoration: none;">
+            <!-- <a href="" style="text-decoration: none;">
                 <div class="usp2">
                     <h3 class="home-header" style="font-family: ITC Avant Garde Gothic Demi Bold">Samsung mobiles</h3>
                     <img src="{% static 'ecom/images/samsung-1.jpg' %}" class="img-fluid home-img" alt="">
                 </div>
-            </a>
+            </a> -->
+            <div class="card">
+                <img src="{% static 'ecom/images/samsung-1.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 align="center" class="card-title">Samsung Galaxy F41</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label for=""> <b> &#x20B9; 16599 </b></label>
+                        </div>
+                        <button class="btn btn-info"> <i class="fa fa-shopping-cart"> Buy Now</i></button>
+                        <!-- <button class="btn btn-info">Buy Now</button> -->
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <a href="" style="text-decoration: none;">
+            <!-- <a href="" style="text-decoration: none;">
                 <div class="usp3">
                     <h3 class="home-header">Adidas</h3>
                     <img src="{% static 'ecom/images/adidas.jpg' %}" class="img-fluid home-img" alt="">
                 </div>
-            </a>
+            </a> -->
+            <div class="card">
+                <img src="{% static 'ecom/images/adidas.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 align="center" class="card-title">Oppo mobiles</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label for=""> <b>Adidas Shoes | &#x20B9; starting from 1900 </b></label>
+                        </div>
+                        <button class="btn btn-info">  View products</i></button>
+                        <!-- <button class="btn btn-info">Buy Now</button> -->
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <a href="" style="text-decoration: none;">
+            <!-- <a href="" style="text-decoration: none;">
                 <div class="usp3">
                     <h3 class="home-header">Nike</h3>
                     <img src="{% static 'ecom/images/nike.jpg' %}" class="img-fluid home-img" alt="">
                 </div>
-            </a>
+            </a> -->
+            <div class="card">
+                <img src="{% static 'ecom/images/nike.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 align="center" class="card-title">Nike</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label for=""> <b>Nike shoes | starting from &#x20B9; 1200 </b></label>
+                        </div>
+                        <button class="btn btn-info"> View products</i></button>
+                        <!-- <button class="btn btn-info">Buy Now</button> -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -21,68 +21,99 @@
                 <div class="form-login">
                     <br>
                     <h3 class="login-head">Signup</h3><br>
-                    <form action="{% url 'signup' %}" onsubmit="return checkform()" method="POST">
+                    <form action="{% url 'signup' %}" method="POST">
                         {% csrf_token %}
-                        <div class="form-row form-group">
-                            <div class="col">
-                                <label for="">First name</label>
-                                <input type="text" class="form-control" name="firstname" placeholder="First name" required>
+                        <!-- <div class="form-group ">
+                            <label for="" class="">Type of user : </label>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="cust" value="customer" name="usertype" class="form-check-input" checked>
+                                <label for="cust" class="form-check-label">customer</label>
                             </div>
-                            <div class="col">
-                                <label for="">Last name</label>
-                                <input type="text" class="form-control" name="lastname" placeholder="Last name">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="resell" name="usertype" value="reseller" class="form-check-input">
+                                <label for="resell" class="form-check-label">Female</label>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <!-- <div style="display: inline;"> -->
-                        <div class="form-group ">
-                            <label for="" class="">gender: </label>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" id="male" value="male" name="gender" class="form-check-input" checked>
-                                <label for="male" class="form-check-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" id="female" name="gender" value="female" class="form-check-input">
-                                <label for="female" class="form-check-label">Female</label>
+                        <div class="form-group">
+                            <label for="usrtyp">User Type</label>
+                            <select name="usertype" class="form-control" id="usrtyp" onchange="usertypehide()">
+                                <option  selected value="customer">Customer</option>
+                                <option value="reseller">Reseller</option>
+                            </select>
+                        </div>
+                        <!--only Reseller data reading -->
+                        <div id="resel" style="display: none;">
+                            <div class="form-group">
+                                <label for="Rname">Reseller Company Name</label>
+                                <input id="Rname" class="form-control input-sm chat-input" name="resellername" placeholder="Enter Reseller company name" />
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" id="dob" name="dateofbirth" class="form-control" required>
+                        <!-- end only reseller data  -->
+                        <!--only Customer data reading -->
+                        <div id="custom">
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <label for="">First name</label>
+                                    <input type="text" class="form-control" id="fname" name="firstname" placeholder="First name">
+                                </div>
+                                <div class="col">
+                                    <label for="">Last name (optional)</label>
+                                    <input type="text" class="form-control" name="lastname" placeholder="Last name">
+                                </div>
+                            </div>
+
+                            <!-- <div style="display: inline;"> -->
+                            <div class="form-group ">
+                                <label for="" class="">gender: </label>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="male" value="male" name="gender" class="form-check-input" checked>
+                                    <label for="male" class="form-check-label">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="female" name="gender" value="female" class="form-check-input">
+                                    <label for="female" class="form-check-label">Female</label>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dateofbirth" class="form-control">
+                            </div>
+                            <!-- end only reseller data  -->
                         </div>
                         <div class="form-group ">
                             <label for="adrs">Address</label>
-                            <textarea name="address" id="adrs" cols="30" rows="3" class="form-control" required></textarea>
+                            <textarea name="address" id="adrs" cols="30" rows="3" class="form-control" id="adrs"></textarea>
                         </div>
                         <div class="form-group ">
                             <label for="cntry">Country</label>
-                            <select name="country" class="form-control" id="cntry" required>
+                            <select name="country" class="form-control" id="cntry">
                                 <option  disabled selected value="">Select your Country</option>
-                                <option value="India">India</option>
+                                <option>India</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Mobile (optional)</label>
-                            <input type="tel" pattern="[0-9]{10}" id="userMobile" class="form-control input-sm chat-input" name="mobile" placeholder="Enter mobile number" />
+                            <label for="">mobile</label>
+                            <input id="userMobile" class="form-control input-sm chat-input" name="mobile" placeholder="Enter mobile number" />
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="email" id="userEmail" class="form-control input-sm chat-input" placeholder="Enter your Email" name="email" required/>
+                            <input type="email" id="userEmail" class="form-control input-sm chat-input" placeholder="Enter your Email" name="email" />
                         </div>
                         <div class="form-group">
                             <h6 id="pswerror" name="err" style="color: brown;"></h6>
                             <label for="">Password</label>
-                            <input type="password" id="userPassword" name="password" class="form-control input-sm chat-input" placeholder="password" required />
+                            <input type="password" id="userPassword" name="password" class="form-control input-sm chat-input" placeholder="password" />
                         </div>
                         <div class="form-group">
                             <label for="">Confirm password</label>
-                            <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" required/>
+                            <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" />
                         </div>
                         <div class="wrapper">
 
                             <span class="group-btn">
                             <br>     
-                            <button type="submit"  class="btn btn-md" style="background-color: #00796b; color: white;">Signup</button>
+                            <button type="submit"  class="btn btn-md" style="background-color: #00796b; color: white;" onclick="return signup_validate()" >Signup</button>
                         </span><br>
                         </div>
                     </form>
@@ -93,13 +124,17 @@
         </div>
     </div>
     <script>
-        function checkform() {
-            document.getElementById("pswerror").innerHTML = ""
-            password = document.getElementById("userPassword").value;
-            cnfpassword = document.getElementById("cnfPassword").value;
-            if (password != cnfpassword) {
-                document.getElementById("pswerror").innerHTML = "password mismatch"
-                return false;
+        // hide signup form content based on user type
+        function usertypehide() {
+            usrtype = document.getElementById("usrtyp");
+            resellerdata = document.getElementById("resel");
+            customerdata = document.getElementById("custom");
+            if (usrtype.value == "reseller") {
+                resellerdata.style.display = "block";
+                customerdata.style.display = "none";
+            } else {
+                resellerdata.style.display = "none";
+                customerdata.style.display = "block";
             }
 
         }

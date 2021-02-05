@@ -157,4 +157,5 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, '/ecomadmin/static'),
    ]
 
-django_heroku.settings(locals())
+django_heroku.settings(locals()) 
+# changes

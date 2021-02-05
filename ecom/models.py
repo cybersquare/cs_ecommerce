@@ -11,5 +11,6 @@ class Customer(models.Model):
     address = models.CharField(max_length=70)
     country = models.CharField(max_length=30)
     status = models.CharField(max_length=20,default="")
+    #usertype as the foriegn key of user type table
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE)
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)

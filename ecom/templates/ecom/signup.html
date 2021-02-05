@@ -46,8 +46,35 @@
                         <div id="resel" style="display: none;">
                             <div class="form-group">
                                 <label for="Rname">Reseller Company Name</label>
-                                <input id="Rname" class="form-control input-sm chat-input" name="resellername" placeholder="Enter Reseller company name" />
+                                <input id="Rname" class="form-control input-sm chat-input" name="resellercompanyname" placeholder="Enter Reseller company name" />
                             </div>
+                            <div class="form-group">
+                                <label for="Rcompanyid">Company registration id</label>
+                                <input id="Rcompanyid" class="form-control input-sm chat-input" name="resellercompanyid" placeholder="Enter Reseller company registration id" />
+                            </div>
+                            
+                            <!-- <div class="form-group">
+                                <label for="Rproducttype">Type of product</label>
+                                <select name="Rproducttype" class="form-control" id="Rproducttype">
+                                    <option  disabled selected value="">Type of your product</option>
+                                    <option>Cloths</option>
+                                    <option>Books</option>
+                                </select>
+                            </div> -->
+                            <h4>Bank details</h4>
+                            <div class="form-group">
+                                <label for="Rbankname">Bank account holder name</label>
+                                <input id="Rbankname" class="form-control input-sm chat-input" name="resellerbankaccountname" placeholder="Enter account holder name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Rbanknumber">Bank account number</label>
+                                <input id="Rbanknumber" class="form-control input-sm chat-input" name="resellerbankaccountnumber" placeholder="Enter account number" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Raccountifsc">Bank account IFSC number</label>
+                                <input id="Raccountifsc" class="form-control input-sm chat-input" name="resellerbankaccountifsc" placeholder="Enter account IFSC number" />
+                            </div>
+
                         </div>
                         <!-- end only reseller data  -->
                         <!--only Customer data reading -->
@@ -109,6 +136,7 @@
                             <label for="">Confirm password</label>
                             <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" />
                         </div>
+                        
                         <div class="wrapper">
 
                             <span class="group-btn">

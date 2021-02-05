@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,38 +89,19 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# DATABASES = {
-
-#     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-#         'NAME': 'ecom',
-
-#         'USER': 'ecommerce',
-
-#         'PASSWORD': '1234',
-
-#         'HOST': '127.0.0.1',
-
-#         'PORT': '5432',
-
-#     }
-
-# }
 DATABASES = {
 
     'default': {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'd4v9j0fe08jdcq',
+        'NAME': 'ecom',
 
-        'USER': 'znlmihmfwalguo',
+        'USER': 'ecommerce',
 
-        'PASSWORD': '3631c0e52ce865d9f43962e0c7ca03e8b711cc113b962f1bc16ce63cf8e3989a',
+        'PASSWORD': '12345',
 
-        'HOST': 'ec2-54-156-73-147.compute-1.amazonaws.com',
+        'HOST': '127.0.0.1',
 
         'PORT': '5432',
 
@@ -183,6 +163,3 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, '/common/static'),
     os.path.join(PROJECT_ROOT, '/ecomadmin/static'),
    ]
-
-
-django_heroku.settings(locals())

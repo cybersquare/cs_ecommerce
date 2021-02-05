@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
+from reseller.models import Resellers
 # from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate
@@ -58,16 +59,30 @@ def signup(request):
         mobile = request.POST['mobile']
         email = request.POST['email']
         password = request.POST['password']
-        newuser = User.objects.create_user(email, email, password)
-        newuser.first_name = firstname
-        newuser.last_name = lastname
-        newuser.save()
+
+        #reseller specific information   
+        resellercompanyname = request.POST['resellercompanyname']
+        resellercompanyid = request.POST['resellercompanyid']
+        resellerbankaccountname = request.POST['resellerbankaccountname']
+        resellerbankaccountnumber = request.POST['resellerbankaccountnumber']
+        resellerbankaccountifsc = request.POST['resellerbankaccountifsc']
+
+
+       
         if usertype == 'customer':
+            newuser = User.objects.create_user(email, email, password)
+            newuser.first_name = firstname
+            newuser.last_name = lastname
+            newuser.save()
             customerdata = Customer(firstname=firstname,gender=gender,mobile=mobile,dateofbirth=dateofbirth,address=address,country=country,user_type_id=1,login_id_id=newuser.id)
             customerdata.save()
             return redirect('login')
         else:
-            pass
+            newuser = User.objects.create_user(email, email, password)
+            newuser.save()
+            resellerdata = Resellers(companyname=resellercompanyname,companyregid=resellercompanyid,address=address,country=country,mobile=mobile,bankaccountholder=resellerbankaccountname,bankacccountnumber = resellerbankaccountnumber,bankacccountifsc=resellerbankaccountifsc,user_type_id=2,login_id_id=newuser.id)
+            resellerdata.save()
+            return redirect('login')
     else:
         return render(request,"ecom/signup.html")
 

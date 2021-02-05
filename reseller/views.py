@@ -12,8 +12,7 @@ def reseller_products(request):
     return render(request,"reseller/reseller_products.html")
 def reseller_addProducts(request):
     return render(request,"reseller/reseller_addProduct.html")
-def reseller_signup(request):
-    return render(request,"reseller/reseller_signup.html")
+
 
 
 

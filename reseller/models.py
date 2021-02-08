@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from common.models import UserType
 
+
 # Create your models here.
 class Resellers(models.Model):
     companyname = models.CharField(max_length=30)
@@ -12,6 +13,6 @@ class Resellers(models.Model):
     bankaccountholder = models.CharField(max_length=30)
     bankacccountnumber = models.CharField(max_length=30)
     bankacccountifsc = models.CharField(max_length=30)
-    #usertype as the foriegn key of user type table
+    # usertype as the foriegn key of user type table
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE)
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)

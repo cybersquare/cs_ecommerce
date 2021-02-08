@@ -1,29 +1,14 @@
 {% extends "ecom/cust_master.html" %} {% load static %} {% block content %}
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{%static 'ecom/css/login-style.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head> -->
-
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-md-2 col-sm-2"></div>
-            <div class="col-lg-6 col-md-8 col-sm-8">
-                <div class="form-login">
-                    <br>
-                    <h3 class="login-head">Signup</h3><br>
-                    <form action="{% url 'signup' %}" method="POST">
-                        {% csrf_token %}
-                        <!-- <div class="form-group ">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-md-2 col-sm-2"></div>
+        <div class="col-lg-6 col-md-8 col-sm-8">
+            <div class="form-login">
+                <br>
+                <h3 class="login-head">Signup</h3><br>
+                <form action="{% url 'signup' %}" method="POST">
+                    {% csrf_token %}
+                    <!-- <div class="form-group ">
                             <label for="" class="">Type of user : </label>
                             <div class="form-check form-check-inline">
                                 <input type="radio" id="cust" value="customer" name="usertype" class="form-check-input" checked>
@@ -35,25 +20,25 @@
                             </div>
                         </div> -->
 
-                        <div class="form-group">
-                            <label for="usrtyp">User Type</label>
-                            <select name="usertype" class="form-control" id="usrtyp" onchange="usertypehide()">
+                    <div class="form-group">
+                        <label for="usrtyp">User Type</label>
+                        <select name="usertype" class="form-control" id="usrtyp" onchange="usertypehide()">
                                 <option  selected value="customer">Customer</option>
                                 <option value="reseller">Reseller</option>
                             </select>
+                    </div>
+                    <!--only Reseller data reading -->
+                    <div id="resel" class="reseldata" style="display: none;">
+                        <div class="form-group">
+                            <label for="Rname">Reseller Company Name</label>
+                            <input id="Rname" class="form-control input-sm chat-input" name="resellercompanyname" placeholder="Enter Reseller company name" />
                         </div>
-                        <!--only Reseller data reading -->
-                        <div id="resel" style="display: none;">
-                            <div class="form-group">
-                                <label for="Rname">Reseller Company Name</label>
-                                <input id="Rname" class="form-control input-sm chat-input" name="resellercompanyname" placeholder="Enter Reseller company name" />
-                            </div>
-                            <div class="form-group">
-                                <label for="Rcompanyid">Company registration id</label>
-                                <input id="Rcompanyid" class="form-control input-sm chat-input" name="resellercompanyid" placeholder="Enter Reseller company registration id" />
-                            </div>
-                            
-                            <!-- <div class="form-group">
+                        <div class="form-group">
+                            <label for="Rcompanyid">Company registration id</label>
+                            <input id="Rcompanyid" class="form-control input-sm chat-input" name="resellercompanyid" placeholder="Enter Reseller company registration id" />
+                        </div>
+
+                        <!-- <div class="form-group">
                                 <label for="Rproducttype">Type of product</label>
                                 <select name="Rproducttype" class="form-control" id="Rproducttype">
                                     <option  disabled selected value="">Type of your product</option>
@@ -61,111 +46,119 @@
                                     <option>Books</option>
                                 </select>
                             </div> -->
-                            <h4>Bank details</h4>
-                            <div class="form-group">
-                                <label for="Rbankname">Bank account holder name</label>
-                                <input id="Rbankname" class="form-control input-sm chat-input" name="resellerbankaccountname" placeholder="Enter account holder name" />
-                            </div>
-                            <div class="form-group">
-                                <label for="Rbanknumber">Bank account number</label>
-                                <input id="Rbanknumber" class="form-control input-sm chat-input" name="resellerbankaccountnumber" placeholder="Enter account number" />
-                            </div>
-                            <div class="form-group">
-                                <label for="Raccountifsc">Bank account IFSC number</label>
-                                <input id="Raccountifsc" class="form-control input-sm chat-input" name="resellerbankaccountifsc" placeholder="Enter account IFSC number" />
-                            </div>
 
+                    </div>
+                    <!-- end only reseller data  -->
+                    <!--only Customer data reading -->
+                    <div id="custom">
+                        <div class="form-row form-group">
+                            <div class="col">
+                                <label for="">First name</label>
+                                <input type="text" class="form-control" id="fname" name="firstname" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <label for="">Last name (optional)</label>
+                                <input type="text" class="form-control" name="lastname" placeholder="Last name">
+                            </div>
+                        </div>
+
+                        <!-- <div style="display: inline;"> -->
+                        <div class="form-group ">
+                            <label for="" class="">gender: </label>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="male" value="male" name="gender" class="form-check-input" checked>
+                                <label for="male" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="female" name="gender" value="female" class="form-check-input">
+                                <label for="female" class="form-check-label">Female</label>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dateofbirth" class="form-control">
                         </div>
                         <!-- end only reseller data  -->
-                        <!--only Customer data reading -->
-                        <div id="custom">
-                            <div class="form-row form-group">
-                                <div class="col">
-                                    <label for="">First name</label>
-                                    <input type="text" class="form-control" id="fname" name="firstname" placeholder="First name">
-                                </div>
-                                <div class="col">
-                                    <label for="">Last name (optional)</label>
-                                    <input type="text" class="form-control" name="lastname" placeholder="Last name">
-                                </div>
-                            </div>
-
-                            <!-- <div style="display: inline;"> -->
-                            <div class="form-group ">
-                                <label for="" class="">gender: </label>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="male" value="male" name="gender" class="form-check-input" checked>
-                                    <label for="male" class="form-check-label">Male</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" id="female" name="gender" value="female" class="form-check-input">
-                                    <label for="female" class="form-check-label">Female</label>
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" name="dateofbirth" class="form-control">
-                            </div>
-                            <!-- end only reseller data  -->
-                        </div>
-                        <div class="form-group ">
-                            <label for="adrs">Address</label>
-                            <textarea name="address" id="adrs" cols="30" rows="3" class="form-control" id="adrs"></textarea>
-                        </div>
-                        <div class="form-group ">
-                            <label for="cntry">Country</label>
-                            <select name="country" class="form-control" id="cntry">
+                    </div>
+                    <div class="form-group ">
+                        <label for="adrs">Address</label>
+                        <textarea name="address" id="adrs" cols="30" rows="3" class="form-control" id="adrs"></textarea>
+                    </div>
+                    <div class="form-group ">
+                        <label for="cntry">Country</label>
+                        <select name="country" class="form-control" id="cntry">
                                 <option  disabled selected value="">Select your Country</option>
                                 <option>India</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="">mobile</label>
-                            <input id="userMobile" class="form-control input-sm chat-input" name="mobile" placeholder="Enter mobile number" />
-                        </div>
-                        <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="email" id="userEmail" class="form-control input-sm chat-input" placeholder="Enter your Email" name="email" />
-                        </div>
-                        <div class="form-group">
-                            <h6 id="pswerror" name="err" style="color: brown;"></h6>
-                            <label for="">Password</label>
-                            <input type="password" id="userPassword" name="password" class="form-control input-sm chat-input" placeholder="password" />
-                        </div>
-                        <div class="form-group">
-                            <label for="">Confirm password</label>
-                            <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" />
-                        </div>
-                        
-                        <div class="wrapper">
+                    </div>
+                    <div class="form-group">
+                        <label for="">mobile</label>
+                        <input id="userMobile" class="form-control input-sm chat-input" name="mobile" placeholder="Enter mobile number" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" id="userEmail" class="form-control input-sm chat-input" placeholder="Enter your Email" name="email" />
 
-                            <span class="group-btn">
+                    </div>
+                    <div class="form-group">
+                        <h6 id="pswerror" name="err" style="color: brown;"></h6>
+                        <label for="">Password</label>
+                        <input type="password" id="userPassword" name="password" class="form-control input-sm chat-input" placeholder="password" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Confirm password</label>
+                        <input type="password" id="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" />
+                    </div>
+                    <div id="bnkdetails" style="display: none;">
+                        <h4>Bank details</h4>
+                        <div class="form-group">
+                            <label for="Rbankname">Bank account holder name</label>
+                            <input id="Rbankname" class="form-control input-sm chat-input" name="resellerbankaccountname" placeholder="Enter account holder name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Rbanknumber">Bank account number</label>
+                            <input id="Rbanknumber" class="form-control input-sm chat-input" name="resellerbankaccountnumber" placeholder="Enter account number" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Raccountifsc">Bank account IFSC number</label>
+                            <input id="Raccountifsc" class="form-control input-sm chat-input" name="resellerbankaccountifsc" placeholder="Enter account IFSC number" />
+                        </div>
+
+                    </div>
+
+                    <div class="wrapper">
+
+                        <span class="group-btn">
                             <br>     
                             <button type="submit"  class="btn btn-md" style="background-color: #00796b; color: white;" onclick="return signup_validate()" >Signup</button>
                         </span><br>
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
-            <div class="col-lg-3 col-md-2 col-sm-2"></div>
+
         </div>
+        <div class="col-lg-3 col-md-2 col-sm-2"></div>
     </div>
-    <script>
-        // hide signup form content based on user type
-        function usertypehide() {
-            usrtype = document.getElementById("usrtyp");
-            resellerdata = document.getElementById("resel");
-            customerdata = document.getElementById("custom");
-            if (usrtype.value == "reseller") {
-                resellerdata.style.display = "block";
-                customerdata.style.display = "none";
-            } else {
-                resellerdata.style.display = "none";
-                customerdata.style.display = "block";
-            }
-
+</div>
+<script>
+    // hide signup form content based on user type
+    function usertypehide() {
+        usrtype = document.getElementById("usrtyp");
+        resellerdata = document.getElementById("resel");
+        bankdetails = document.getElementById("bnkdetails");
+        customerdata = document.getElementById("custom");
+        // resellerdata = document.getElementsByClassName("reseldata");
+        if (usrtype.value == "reseller") {
+            resellerdata.style.display = "block";
+            bankdetails.style.display = "block"
+            customerdata.style.display = "none";
+        } else {
+            resellerdata.style.display = "none";
+            bankdetails.style.display = "none"
+            customerdata.style.display = "block";
         }
-    </script>
 
-    {% endblock %}
+    }
+</script>
+
+{% endblock %}

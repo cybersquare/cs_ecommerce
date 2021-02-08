@@ -30,6 +30,7 @@ if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
 }
 
+
 function signup_validate() {
 
     signinstatus = 1;

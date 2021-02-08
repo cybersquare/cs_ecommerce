@@ -183,4 +183,4 @@ STATICFILES_DIRS = [
 
 
 django_heroku.settings(locals())
-# changed
+# changed 1

@@ -93,6 +93,15 @@
                 </div>
               </div>
             </div>
+            <div class="mb-3">
+              <label for="title">Registered product id</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="username" placeholder="Registered product id" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  Registered product id is required.
+                </div>
+              </div>
+            </div>
 
             <div class="mb-3">
                 <label for="description"required>Description </label>
@@ -150,6 +159,39 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+              <div class="col-md-6 mb-6">
+                  <label for="state">Category</label>
+                  <select class="custom-select d-block w-100" id="category" required>
+                    <option>Gadgets</option>
+                    <option>Footwears</option>
+                    <option>Food</option>
+                    
+                    </select>
+                    <div class="invalid-feedback">
+                    Please select a category.
+                  </div>
+              </div>
+          
+              <div class="col-md-3 mb-3">
+                  <label for="unit">Sub category</label>
+                  <select class="custom-select d-block w-100" id="subcategory" required>
+                  <option>category</option>
+               
+                  
+                  </select>
+                  <div class="invalid-feedback">
+                  Please select a sub category.
+                  </div>
+              </div>
+          </div>
+          <div class="mb-3">
+            <label for="price">Vendor</label>
+            <input type="text" class="form-control" id="price" placeholder="ex: Nike" required>
+            <div class="invalid-feedback">
+              Please enter a vendor name.
+            </div>
+          </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
           </form>

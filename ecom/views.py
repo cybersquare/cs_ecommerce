@@ -16,9 +16,13 @@ def home(request):
     
 def login(request):
     if request.method == 'POST':
-        usrname = request.POST['userName']
-        passwd = request.POST['userPassword']
-        user = authenticate(username=usrname, password=passwd)
+        print(request.POST)
+        username = request.POST['userName']
+        print(username)
+        passwd = request.POST['password']
+        print(passwd)
+
+        user = authenticate(username=username, password=passwd)
         if user is not None:
             try:
                 customerdata = Customer.objects.get(login_id = user.id)

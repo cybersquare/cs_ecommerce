@@ -10,7 +10,9 @@ def mngreseller(request):
 
 
 def addreseller(request):
-    return render(request, "admin/add_reseller.html")
+    reqdata = Resellers.objects.filter(status='inactive')
+    print(reqdata)
+    return render(request, "admin/add_reseller.html", {"userrequests": reqdata})
 
 
 def deletereseller(request):

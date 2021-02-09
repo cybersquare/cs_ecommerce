@@ -12,7 +12,16 @@
         </tr>
     </thead>
     <tbody>
+        {% for req in reqdata %}
         <tr>
+            <th>{{ req.companyname }}</th>
+            <td>{{ req.address }}</td>
+            <td>{{ req.mobile }}</td>
+            <td>+12 522366</td>
+            <td><button type="button" class="btn btn-success">Approve</button> <button type="button" class="btn btn-danger">Decline</button></td>
+        </tr>
+        {% endfor %}
+        <!-- <tr>
             <th>Adidas</th>
             <td>Mumbai</td>
             <td>Adidassales@adidas.com</td>
@@ -22,17 +31,10 @@
         <tr>
             <th>Adidas</th>
             <td>Mumbai</td>
-            <td>Adidassales@adidas.com</td>
-            <td>+12 522366</td>
-            <td><button type="button" class="btn btn-success">Approve</button> <button type="button" class="btn btn-danger">Decline</button></td>
-        </tr>
-        <tr>
-            <th>Adidas</th>
-            <td>Mumbai</td>
             <td>+12 522366</td>
             <td>Adidassales@adidas.com</td>
             <td><button type="button" class="btn btn-success">Approve</button> <button type="button" class="btn btn-danger">Decline</button></td>
-        </tr>
+        </tr> -->
     </tbody>
 </table>
 

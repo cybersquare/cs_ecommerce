@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.utils import timezone
+from datetime import datetime, timedelta, tzinfo
 
 
 # Create your views here.
@@ -21,3 +23,12 @@ def reseller_products(request):
 
 def reseller_addProducts(request):
     return render(request, "reseller/reseller_addProduct.html")
+
+
+def reseller_editProducts(request):
+    return render(request, "reseller/edit_product.html")
+
+
+def return_date_time():
+    now = timezone.now()
+    return now + timedelta(days=1)

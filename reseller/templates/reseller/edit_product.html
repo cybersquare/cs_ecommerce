@@ -1,0 +1,98 @@
+{% extends "reseller/reseller_master.html" %} {% load static %} {% block reseller_content %}
+<div class="container">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
+            <div class="container">
+              <a class="navbar-brand text-dark font-weight-bold" href="#" >Products</a>
+
+
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+
+              </div>
+
+              <button class="btn btn-dark" id="menu-toggle">Save</button>
+
+
+            </div>
+        </nav>
+         -->
+    <div class="py-5 text-left">
+        <h2>Edit your product</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-8 order-md-1">
+            <form class="needs-validation" novalidate>
+                <!-- Hidden product id field -->
+                <input type="text" name="id" value="">
+                <div class="mb-3">
+                    <label for="title">Change product title</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="username" value="" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Product title is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" required>Change Description</label>
+                    <textarea class="form-control" id="editor"></textarea>
+                    <div class="invalid-feedback">
+                        Please enter a description about the product.
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label>Change product picture</label>
+                    <div class="custom-file">
+                        <label>Upload a picture</label>
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                        <input type="file" class="custom-file-input" id="customFile" value="">
+                    </div>
+                    <div class="invalid-feedback">
+                        Please add atleast one picture.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="price">Change Price</label>
+                    <input type="text" class="form-control" id="price" value="" required>
+                    <div class="invalid-feedback">
+                        Please enter price.
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="quantity">Update Quantity</label>
+                    <input type="number" class="form-control" id="quantity" value="">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-6">
+                        <label for="state">Change Weight</label>
+                        <input type="text" class="form-control" id="weight" value="">
+                        <div class="invalid-feedback">
+                            Please enter weight of the product.
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="unit">Weight unit</label>
+                        <select class="custom-select d-block w-100" id="unit">
+                            <option>kg</option>
+                            <option>g</option>
+                            <option>lb</option>
+                            <option>oz</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a unit.
+                        </div>
+
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="button">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

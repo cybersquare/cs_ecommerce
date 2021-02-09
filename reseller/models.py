@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from common.models import UserType
+from .views import return_date_time
 
 
 # Create your models here.
@@ -16,3 +17,5 @@ class Resellers(models.Model):
     # usertype as the foriegn key of user type table
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE)
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, default= 'inactive')
+    requestdate = models.DateField(default=return_date_time)

@@ -56,21 +56,18 @@ def reseller_addProducts(request):
 @csrf_exempt
 def reseller_editProducts(request):
     if request.method == "POST":
-        id=request.POST['id']
+        prdid=request.POST['id']
         title=request.POST['product_title']
-        print(title)
         description=request.POST['product_description']
-        print(description)
         image=request.POST['product_image']
-        print(image)
         price=request.POST['product_price']
-        print(price)
         quantity=request.POST['product_quantity']
-        print(quantity)
         weight=request.POST['product_weight']
-        print(weight)
         unit=request.POST['weight_unit']
-        print(unit)
+        category=request.POST['prdoct_category']
+        subcategory=request.POST['prdoct_subcategory']
+        vendor=request.POST['prdoct_vendor']
+        Products.objects.filter(id=prdid).update(title=title, desc=description, img=image, price=price, quantity=quantity, weight=weight, weightunit=unit, category=category, subcategory=subcategory, vendor=vendor)
         return JsonResponse({'message': "data inserted successfully"})
     else:
         return render(request, "reseller/edit_product.html")

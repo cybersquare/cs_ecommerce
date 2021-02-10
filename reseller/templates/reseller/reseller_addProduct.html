@@ -4,7 +4,41 @@
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+<script src="{% static 'reseller/scripts/jquery-3.5.1.min.js' %}"></script>
+<script>
+    // $.ajaxSetup({
+    //     headers: {
+    //         // "X-CSRFToken": '{{csrf_token}}'
+    //     }
+    // })
 
+    function add_products() {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/reseller/addProducts',
+            type: 'POST',
+            data: {
+                title : $('#title').val(),
+                regproductid : $('#regproductid').val(),
+                description : $('#description').val(),
+                image : $('#customFile').val(),
+                price : $('#price').val(),
+                quantity : $('#quantity').val(),
+                weight : $('#weight').val(),
+                weightunit : $('#weightunit').val(),
+                category : $('#category').val(),
+                subcategory : $('#subcategory').val(),
+                vendor : $('#vendor').val(),
+               
+
+
+
+            },
+            success: function(response) {
+                alert(response.message)
+            }
+        })
+    }
+</script>
 
 
 
@@ -87,30 +121,29 @@
                 <div class="mb-3">
                     <label for="title">Title</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="username" placeholder="Title of the product" required>
+                        <input type="text" class="form-control" id="title" placeholder="Title of the product" required>
                         <div class="invalid-feedback" style="width: 100%;">
                             Product title is required.
                         </div>
                     </div>
                 </div>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="title">Registered product id</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="username" placeholder="Registered product id" required>
-                <div class="invalid-feedback" style="width: 100%;">
-                  Registered product id is required.
+             
+                <div class="mb-3">
+                  <label for="title">Registered product id</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="regproductid" placeholder="Registered product id" required>
+                    <div class="invalid-feedback" style="width: 100%;">
+                      Registered product id is required.
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
                 <div class="mb-3">
-                    <label for="description" required>Description </label>
-                    <textarea class="form-control" id="editor"></textarea>
-                    <div class="invalid-feedback">
-                        Please enter a description about the product.
-                    </div>
+                        <label for="description" required>Description </label>
+                        <textarea class="form-control" id="description"></textarea>
+                        <div class="invalid-feedback">
+                            Please enter a description about the product.
+                        </div>
                 </div>
 
 
@@ -125,9 +158,10 @@
                         Please add atleast one picture.
                     </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="price">Price</label>
-                    <input type="text" class="form-control" id="price" placeholder="₹ 0.0" required>
+                    <input type="number" class="form-control" id="price" placeholder="₹ 0.0" required>
                     <div class="invalid-feedback">
                         Please enter price.
                     </div>
@@ -149,11 +183,11 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="unit">Weight unit</label>
-                        <select class="custom-select d-block w-100" id="unit" required>
-                    <option>kg</option>
-                    <option>g</option>
-                    <option>lb</option>
-                    <option>oz</option>
+                        <select class="custom-select d-block w-100" id="weightunit" required>
+                        <option>kg</option>
+                        <option>g</option>
+                        <option>lb</option>
+                        <option>oz</option>
                     
                     </select>
                         <div class="invalid-feedback">
@@ -161,44 +195,48 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-6">
-                  <label for="state">Category</label>
-                  <select class="custom-select d-block w-100" id="category" required>
-                    <option>Gadgets</option>
-                    <option>Footwears</option>
-                    <option>Food</option>
-                    
-                    </select>
-                    <div class="invalid-feedback">
-                    Please select a category.
+           
+                <div class="row">
+                  <div class="col-md-6 mb-6">
+                      <label for="state">Category</label>
+                      <select class="custom-select d-block w-100" id="category" required>
+                        <option>Gadgets</option>
+                        <option>Footwears</option>
+                        <option>Food</option>
+                        
+                        </select>
+                        <div class="invalid-feedback">
+                        Please select a category.
+                      </div>
                   </div>
-              </div>
           
-              <div class="col-md-3 mb-3">
-                  <label for="unit">Sub category</label>
-                  <select class="custom-select d-block w-100" id="subcategory" required>
-                  <option>category</option>
-               
+                  <div class="col-md-3 mb-3">
+                      <label for="unit">Sub category</label>
+                      <select class="custom-select d-block w-100" id="subcategory" required>
+                      <option>category</option>
                   
-                  </select>
-                  <div class="invalid-feedback">
-                  Please select a sub category.
+                      
+                      </select>
+                      <div class="invalid-feedback">
+                      Please select a sub category.
+                      </div>
                   </div>
-              </div>
-          </div>
-          <div class="mb-3">
-            <label for="price">Vendor</label>
-            <input type="text" class="form-control" id="price" placeholder="ex: Nike" required>
-            <div class="invalid-feedback">
-              Please enter a vendor name.
-            </div>
-          </div>
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+                </div>
+                <div class="mb-3">
+                  <label for="price">Vendor</label>
+                  <input type="text" class="form-control" id="vendor" placeholder="ex: Nike" required>
+                  <div class="invalid-feedback">
+                    Please enter a vendor name.
+                  </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="button" onclick="add_products()">Save</button>
           </form>
         </div>
+      </div>
+    </div>
     </div>
 </div>
+
+
 {% endblock %}

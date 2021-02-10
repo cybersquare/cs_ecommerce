@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from common.models import UserType
+from common.models import UserType, Products
 from .views import return_date_time
 
 
@@ -19,3 +19,10 @@ class Resellers(models.Model):
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, default= 'inactive')
     requestdate = models.DateField(default=return_date_time)
+
+class ProductResellerMapping(models.Model):
+    productid = models.ForeignKey(Products, on_delete=models.CASCADE)
+    resellerid = models.ForeignKey(Resellers, on_delete=models.CASCADE)
+    
+
+

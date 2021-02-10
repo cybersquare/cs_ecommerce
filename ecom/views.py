@@ -16,7 +16,7 @@ def login(request):
         print(request.POST)
         username = request.POST['userName']
         print(username)
-        passwd = request.POST['password']
+        passwd = request.POST['userPassword']
         print(passwd)
 
         user = authenticate(username=username, password=passwd)
@@ -26,6 +26,7 @@ def login(request):
                 request.session['customerid'] = user.id
                 return redirect('home')
             except Customer.DoesNotExist:
+                request.session['resellerid'] = user.id
                 return redirect('/reseller/home')
 
         else:

@@ -4,7 +4,8 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta, tzinfo
 from common.models import Products
-from .models import ProductResellerMapping
+from .models import ProductResellerMapping, Resellers
+
 
 
 # Create your views here.
@@ -40,12 +41,14 @@ def reseller_addProducts(request):
         vendor = request.POST['vendor']
 
         user = request.session['resellerid']
-        print(vendor)
+        
+        resellerid = Resellers.objects.get(login_id_id=user)
         product = Products(title = title, regproductid = regproductid, desc = description, img= img, price = price, quantity=quantity,weight=weight,weightunit=weightunit, category=category,subcategory=subcategory, vendor=vendor)
         product.save()
-
-        # mapping = ProductResellerMapping(productid = product.id, resellerid = user.id)
-        # print("@@@@@@@",mapping)
+        
+        mapping = ProductResellerMapping(productid_id = product.id, resellerid_id = resellerid.id)
+        mapping.save()
+        
     else:
         return render(request, "reseller/reseller_addProduct.html")
 

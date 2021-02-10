@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http.response import JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta, tzinfo
 from common.models import Products
 from .models import ProductResellerMapping
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -50,9 +52,27 @@ def reseller_addProducts(request):
         return render(request, "reseller/reseller_addProduct.html")
 
 
-
+@csrf_exempt
 def reseller_editProducts(request):
-    return render(request, "reseller/edit_product.html")
+    if request.method == "POST":
+        id=request.POST['id']
+        title=request.POST['product_title']
+        print(title)
+        description=request.POST['product_description']
+        print(description)
+        image=request.POST['product_image']
+        print(image)
+        price=request.POST['product_price']
+        print(price)
+        quantity=request.POST['product_quantity']
+        print(quantity)
+        weight=request.POST['product_weight']
+        print(weight)
+        unit=request.POST['weight_unit']
+        print(unit)
+        return JsonResponse({'message': "data inserted successfully"})
+    else:
+        return render(request, "reseller/edit_product.html")
 
 
 def return_date_time():

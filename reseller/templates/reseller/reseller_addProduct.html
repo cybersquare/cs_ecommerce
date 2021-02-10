@@ -17,18 +17,18 @@
             url: 'http://127.0.0.1:8000/reseller/addProducts',
             type: 'POST',
             data: {
-                title : $('#title').val(),
-                regproductid : $('#regproductid').val(),
-                description : $('#description').val(),
-                image : $('#customFile').val(),
-                price : $('#price').val(),
-                quantity : $('#quantity').val(),
-                weight : $('#weight').val(),
-                weightunit : $('#weightunit').val(),
-                category : $('#category').val(),
-                subcategory : $('#subcategory').val(),
-                vendor : $('#vendor').val(),
-               
+                title: $('#title').val(),
+                regproductid: $('#regproductid').val(),
+                description: $('#description').val(),
+                image: $('#customFile').val(),
+                price: $('#price').val(),
+                quantity: $('#quantity').val(),
+                weight: $('#weight').val(),
+                weightunit: $('#weightunit').val(),
+                category: $('#category').val(),
+                subcategory: $('#subcategory').val(),
+                vendor: $('#vendor').val(),
+
 
 
 
@@ -127,23 +127,23 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <div class="mb-3">
-                  <label for="title">Registered product id</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="regproductid" placeholder="Registered product id" required>
-                    <div class="invalid-feedback" style="width: 100%;">
-                      Registered product id is required.
+                    <label for="title">Registered product id</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="regproductid" placeholder="Registered product id" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Registered product id is required.
+                        </div>
                     </div>
-                  </div>
                 </div>
 
                 <div class="mb-3">
-                        <label for="description" required>Description </label>
-                        <textarea class="form-control" id="description"></textarea>
-                        <div class="invalid-feedback">
-                            Please enter a description about the product.
-                        </div>
+                    <label for="description" required>Description </label>
+                    <textarea class="form-control" id="description"></textarea>
+                    <div class="invalid-feedback">
+                        Please enter a description about the product.
+                    </div>
                 </div>
 
 
@@ -195,46 +195,44 @@
                         </div>
                     </div>
                 </div>
-           
+
                 <div class="row">
-                  <div class="col-md-6 mb-6">
-                      <label for="state">Category</label>
-                      <select class="custom-select d-block w-100" id="category" required>
+                    <div class="col-md-6 mb-6">
+                        <label for="state">Category</label>
+                        <select class="custom-select d-block w-100" id="category" required>
                         <option>Gadgets</option>
                         <option>Footwears</option>
                         <option>Food</option>
                         
                         </select>
                         <div class="invalid-feedback">
-                        Please select a category.
-                      </div>
-                  </div>
-          
-                  <div class="col-md-3 mb-3">
-                      <label for="unit">Sub category</label>
-                      <select class="custom-select d-block w-100" id="subcategory" required>
+                            Please select a category.
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="unit">Sub category</label>
+                        <select class="custom-select d-block w-100" id="subcategory" required>
                       <option>category</option>
                   
                       
                       </select>
-                      <div class="invalid-feedback">
-                      Please select a sub category.
-                      </div>
-                  </div>
+                        <div class="invalid-feedback">
+                            Please select a sub category.
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
-                  <label for="price">Vendor</label>
-                  <input type="text" class="form-control" id="vendor" placeholder="ex: Nike" required>
-                  <div class="invalid-feedback">
-                    Please enter a vendor name.
-                  </div>
+                    <label for="price">Vendor</label>
+                    <input type="text" class="form-control" id="vendor" placeholder="ex: Nike" required>
+                    <div class="invalid-feedback">
+                        Please enter a vendor name.
+                    </div>
                 </div>
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="button" onclick="add_products()">Save</button>
-          </form>
+            </form>
         </div>
-      </div>
-    </div>
     </div>
 </div>
 

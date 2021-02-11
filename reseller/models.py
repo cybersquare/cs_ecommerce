@@ -21,6 +21,7 @@ class Resellers(models.Model):
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, default= 'inactive')
     requestdate = models.DateField(default=datetime.now)
+    otp = models.CharField(max_length=70)
     # requestdate = models.DateField(default=return_date_time)
 
 class ProductResellerMapping(models.Model):

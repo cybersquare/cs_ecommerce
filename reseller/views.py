@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta, tzinfo
 from common.models import Products
 from .models import ProductResellerMapping, Resellers
+from random import randint
 
 
 # Create your views here.
@@ -18,6 +19,7 @@ def reseller_master(request):
 
 
 def reseller_home(request):
+    print(request.session['resellerid'])
     return render(request, "reseller/reseller_home.html")
 
 
@@ -27,7 +29,6 @@ def reseller_products(request):
 @csrf_exempt
 def reseller_addProducts(request):
     if request.method == 'POST':
-        print(request.body) 
         title = request.POST['title']
         regproductid = request.POST['regproductid']
         description = request.POST['description']
@@ -39,17 +40,16 @@ def reseller_addProducts(request):
         category = request.POST['category']
         subcategory = request.POST['subcategory']
         vendor = request.POST['vendor']
-
+        print(request.session['resellerid'])
         user = request.session['resellerid']
-        
         resellerid = Resellers.objects.get(login_id_id=user)
         product = Products(title = title, regproductid = regproductid, desc = description, img= img, price = price, quantity=quantity,weight=weight,weightunit=weightunit, category=category,subcategory=subcategory, vendor=vendor)
         product.save()
-        
         mapping = ProductResellerMapping(productid_id = product.id, resellerid_id = resellerid.id)
         mapping.save()
         
     else:
+        print(request.session['resellerid'])
         return render(request, "reseller/reseller_addProduct.html")
 
 

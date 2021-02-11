@@ -24,7 +24,7 @@ def login(request):
                 customerdata = Customer.objects.get(login_id=user.id)
                 request.session['customerid'] = user.id
                 if customerdata.status == 'otpverify':
-                    otp= randint(1000, 9999)
+                    otp = randint(1000, 9999)
                     send_mail(
                         'please verify your otp',
                         str(otp),
@@ -41,7 +41,7 @@ def login(request):
                 resellerdata = Resellers.objects.get(login_id=user.id)
                 request.session['resellerid'] = user.id
                 if resellerdata.status == 'otpverify':
-                    otp= randint(1000, 9999)
+                    otp = randint(1000, 9999)
                     send_mail(
                         'please verify your otp',
                         str(otp),
@@ -69,7 +69,7 @@ def signup(request):
         mobile = request.POST['mobile']
         email = request.POST['email']
         password = request.POST['password']
-        otp= randint(1000, 9999)
+        otp = randint(1000, 9999)
 
         send_mail(
                 'please verify your otp',
@@ -90,7 +90,7 @@ def signup(request):
             newuser.save()
             customerdata = Customer(firstname=firstname, gender=gender, mobile=mobile, dateofbirth=dateofbirth, address=address, country=country, user_type_id=1, login_id_id=newuser.id, status='otpverify', otp=str(otp))
             customerdata.save()
-            user=User.objects.get(username=email)
+            user = User.objects.get(username=email)
             request.session['otpid'] = user.id
             request.session['customerid'] = user.id
             return redirect('verifyotp')
@@ -103,9 +103,9 @@ def signup(request):
             resellerbankaccountifsc = request.POST['resellerbankaccountifsc']
             newuser = User.objects.create_user(email, email, password)
             newuser.save()
-            resellerdata = Resellers(companyname=resellercompanyname, companyregid=resellercompanyid, address=address, country=country, mobile=mobile, bankaccountholder=resellerbankaccountname, bankacccountnumber=resellerbankaccountnumber, bankacccountifsc=resellerbankaccountifsc, user_type_id=2, login_id_id=newuser.id, status='otpverify',otp=str(otp))
+            resellerdata = Resellers(companyname=resellercompanyname, companyregid=resellercompanyid, address=address, country=country, mobile=mobile, bankaccountholder=resellerbankaccountname, bankacccountnumber=resellerbankaccountnumber, bankacccountifsc=resellerbankaccountifsc, user_type_id=2, login_id_id=newuser.id, status='otpverify', otp=str(otp))
             resellerdata.save()
-            user=User.objects.get(username=email)
+            user = User.objects.get(username=email)
             request.session['otpid'] = user.id
             request.session['resellerid'] = user.id
             return redirect('verifyotp')
@@ -123,34 +123,35 @@ def view_product(request):
 
 def verifyotp(request):
     if request.method == "POST":
-        id=request.session['otpid']
-        otp=request.POST['inp_otp']
+        id = request.session['otpid']
+        otp = request.POST['inp_otp']
         try:
-            userdata=Customer.objects.get(login_id_id=id)
-            if( otp==userdata.otp ):
+            userdata = Customer.objects.get(login_id_id=id)
+            if(otp == userdata.otp):
                 Customer.objects.filter(login_id_id=id).update(status='active')
                 return redirect('/ecom/home')
             else:
-                return render(request,"ecom/verify_otp.html", { "msg" : "Invalid otp" })
+                return render(request, "ecom/verify_otp.html", {"msg": "Invalid otp"})
         except Customer.DoesNotExist:
-            userdata=Resellers.objects.get(login_id_id=id)
-            if( otp==userdata.otp ):
+            userdata = Resellers.objects.get(login_id_id=id)
+            if(otp == userdata.otp):
                 Resellers.objects.filter(login_id_id=id).update(status='inactive')
                 return redirect('/reseller/home')
             else:
-                return render(request,"ecom/verify_otp.html", { "msg" : "Invalid otp" })
+                return render(request, "ecom/verify_otp.html", {"msg": "Invalid otp"})
     else:
-        return render(request,"ecom/verify_otp.html")
+        return render(request, "ecom/verify_otp.html")
+
 
 @csrf_exempt
 def changepassword(request):
     if request.method == 'POST':
-        username=request.POST['usrname']
+        username = request.POST['usrname']
         try:
-            user=User.objects.get(username=username)
+            user = User.objects.get(username=username)
             try:
-                custdata=Customer.objects.filter(login_id_id=user.id)
-                otp= randint(1000, 9999)
+                custdata = Customer.objects.filter(login_id_id=user.id)
+                otp = randint(1000, 9999)
                 send_mail(
                         'please verify your otp',
                         str(otp),
@@ -160,8 +161,8 @@ def changepassword(request):
                     )
                 custdata.update(otp=otp)
             except Customer.DoesNotExist:
-                reseldata=Resellers.objects.filter(login_id_id=user.id)
-                otp= randint(1000, 9999)
+                reseldata = Resellers.objects.filter(login_id_id=user.id)
+                otp = randint(1000, 9999)
                 send_mail(
                         'please verify your otp',
                         str(otp),
@@ -170,20 +171,21 @@ def changepassword(request):
                         fail_silently=False,
                     )
                 reseldata.update(otp=otp)
-            return JsonResponse({'message': 'otp sent successfully','status' : 'success','userid' : username})
+            return JsonResponse({'message': 'otp sent successfully', 'status': 'success', 'userid': username})
         except User.DoesNotExist:
-            return JsonResponse({'message': 'Invalid username','status' : 'failed'})
+            return JsonResponse({'message': 'Invalid username', 'status': 'failed'})
     else:
-        return render(request,"ecom/forgotpassword.html")
+        return render(request, "ecom/forgotpassword.html")
+
 
 @csrf_exempt
 def changepass(request):
-    username=request.POST['usrname']
-    password=request.POST['password']
-    otp=request.POST['otp']
-    user=User.objects.get(username=username)
+    username = request.POST['usrname']
+    password = request.POST['password']
+    otp = request.POST['otp']
+    user = User.objects.get(username=username)
     try:
-        custdata=Customer.objects.get(login_id_id=user.id)
+        custdata = Customer.objects.get(login_id_id=user.id)
         if otp == custdata.otp:
             user.set_password(password)
             user.save()
@@ -191,7 +193,7 @@ def changepass(request):
         else:
             return redirect('changepassword')
     except Customer.DoesNotExist:
-        reseldata=Resellers.objects.get(login_id_id=user.id)
+        reseldata = Resellers.objects.get(login_id_id=user.id)
         if otp == reseldata.otp:
             user.set_password(password)
             user.save()

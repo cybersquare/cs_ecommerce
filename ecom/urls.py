@@ -10,5 +10,5 @@ urlpatterns = [
     path('view_product', views.view_product, name='view'),
     path('verifyotp',views.verifyotp, name='verifyotp'),
     path('changepassword',views.changepassword, name='changepassword'),
-    # path('changepass',views.changepass, name='changepass'),
+    path('changepass',views.changepass, name='changepass'),
 ]

@@ -4,11 +4,12 @@ from reseller.models import Resellers
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
-from django.conf import settings
+# from django.conf import settings
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
-
 # Create your views here.
+
+
 def home(request):
     return render(request, "ecom/cust_home.html")
 
@@ -169,7 +170,7 @@ def changepassword(request):
                         fail_silently=False,
                     )
                 reseldata.update(otp=otp)
-            return JsonResponse({'message': 'otp sent successfully','status' : 'success'})
+            return JsonResponse({'message': 'otp sent successfully','status' : 'success','userid' : username})
         except User.DoesNotExist:
             return JsonResponse({'message': 'Invalid username','status' : 'failed'})
     else:
@@ -185,13 +186,15 @@ def changepass(request):
         custdata=Customer.objects.get(login_id_id=user.id)
         if otp == custdata.otp:
             user.set_password(password)
-            return JsonResponse({'message': "Password changed succesfully", 'status': 'true'})
+            user.save()
+            return redirect('login')
         else:
-            return JsonResponse({'message': "Invalid OTP", 'status': 'false'})
+            return redirect('changepassword')
     except Customer.DoesNotExist:
         reseldata=Resellers.objects.get(login_id_id=user.id)
         if otp == reseldata.otp:
             user.set_password(password)
-            return JsonResponse({'message': "Password changed succesfully", 'status': 'true'})
+            user.save()
+            return redirect('login')
         else:
-            return JsonResponse({'message': "Invalid OTP", 'status': 'false'})
+            return redirect('changepassword')

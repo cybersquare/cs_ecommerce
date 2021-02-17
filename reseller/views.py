@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, tzinfo
 from common.models import Products
 from .models import ProductResellerMapping, Resellers
 from random import randint
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -19,12 +20,13 @@ def reseller_master(request):
 
 
 def reseller_home(request):
-    print(request.session['resellerid'])
+    # print(request.session['resellerid'])
     return render(request, "reseller/reseller_home.html")
 
 
 def reseller_products(request):
     return render(request, "reseller/reseller_products.html")
+
 
 @csrf_exempt
 def reseller_addProducts(request):
@@ -43,11 +45,10 @@ def reseller_addProducts(request):
         print(request.session['resellerid'])
         user = request.session['resellerid']
         resellerid = Resellers.objects.get(login_id_id=user)
-        product = Products(title = title, regproductid = regproductid, desc = description, img= img, price = price, quantity=quantity,weight=weight,weightunit=weightunit, category=category,subcategory=subcategory, vendor=vendor)
+        product = Products(title=title, regproductid=regproductid, desc=description, img=img, price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor)
         product.save()
-        mapping = ProductResellerMapping(productid_id = product.id, resellerid_id = resellerid.id)
+        mapping = ProductResellerMapping(productid_id=product.id, resellerid_id=resellerid.id)
         mapping.save()
-        
     else:
         print(request.session['resellerid'])
         return render(request, "reseller/reseller_addProduct.html")
@@ -55,22 +56,29 @@ def reseller_addProducts(request):
 
 @csrf_exempt
 def reseller_editProducts(request):
-    if request.method == "POST":
-        prdid=request.POST['id']
-        title=request.POST['product_title']
-        description=request.POST['product_description']
-        image=request.POST['product_image']
-        price=request.POST['product_price']
-        quantity=request.POST['product_quantity']
-        weight=request.POST['product_weight']
-        unit=request.POST['weight_unit']
-        category=request.POST['prdoct_category']
-        subcategory=request.POST['prdoct_subcategory']
-        vendor=request.POST['prdoct_vendor']
-        Products.objects.filter(id=prdid).update(title=title, desc=description, img=image, price=price, quantity=quantity, weight=weight, weightunit=unit, category=category, subcategory=subcategory, vendor=vendor)
-        return JsonResponse({'message': "data inserted successfully"})
-    else:
-        return render(request, "reseller/edit_product.html")
+    # Check request ajax or not
+    if request.is_ajax:
+        if request.method == "POST":
+            prdid = request.POST['id']
+            product_description = request.POST['description']
+            # Store image to a variable
+            image = request.FILES['image']
+            price = request.POST['price']
+            quantity = request.POST['quantity']
+            # Upload file to media directory
+            # fs = FileSystemStorage()
+            # filename = fs.save(image.name, image)
+            # uploaded_file_url = fs.url(filename)
+            # print(uploaded_file_url)
+            # print(image.name)
+            Products.objects.filter(id=prdid).update(desc=product_description, price=price, img=image, quantity=quantity)
+            # print("Success")
+            return JsonResponse({'message': "data inserted successfully"})
+        else:
+            # return edit page with selected product data
+            product = Products.objects.get(id=1)
+            print(product)
+            return render(request, "reseller/edit_product.html", {'product': product})
 
 
 def return_date_time():

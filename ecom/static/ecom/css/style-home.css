@@ -96,3 +96,7 @@
     margin: 10px;
     background-color: rgb(170, 182, 240);
 }
+
+.bg_none {
+    background-color: transparent;
+}

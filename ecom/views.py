@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # rendering customer home page
-@cust_login_required
+
 def home(request):
     return render(request, "ecom/cust_home.html")
 
@@ -249,7 +249,7 @@ def logout_view(request):
     logout(request)
     return redirect('/ecom/home')
 
-
+@cust_login_required
 def view_profile(request):
     id = request.session['customerid']
     logindata = User.objects.get(id=id)
@@ -301,7 +301,7 @@ def custupdateprofile(request):
     User.objects.filter(id=id).update(first_name=fname, last_name=lname)
     Customer.objects.filter(login_id_id=id).update(firstname=fname, mobile=mobile, address=address, country=country,)
     custdata = Customer.objects.get(login_id_id=id)
-    customerdata = [{'firstname': custdata.firstname, 'gender': custdata.gender, 'dateofbirth': custdata.dateofbirth, 'mobile': custdata.mobile, 'address': custdata.address, 'country': custdata.country}]
-    print(customerdata)
+    customerdata = {'firstname': custdata.firstname, 'gender': custdata.gender, 'dateofbirth': custdata.dateofbirth, 'mobile': custdata.mobile, 'address': custdata.address, 'country': custdata.country}
     userdata = User.objects.get(id=id)
-    return JsonResponse({"custdata": customerdata})
+    usrdata = {'lastname': userdata.last_name, 'email': userdata.email }
+    return JsonResponse({"custdata": customerdata, "userdata": usrdata})

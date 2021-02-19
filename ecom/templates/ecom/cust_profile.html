@@ -2,11 +2,11 @@
 
 <div class="container-fluid login-container">
     <div class="row">
-        <div class="alert alert-success alert-dismissible fade show" id="alert" style="display:none" role="alert">
-            <strong>Your password changed successfully</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="col-sm-12 fixed-top">
+            <div class="alert alert-success" id="alert" style="display: none">
+                <a class="close" onclick="$('#alert').hide()">×</a>
+                <strong>Success! Your profile updated successfully.</strong>
+            </div>
         </div>
         <div class="col-sm-12">
 
@@ -61,8 +61,11 @@
 
         </table>
     </div>
-    <div class="text-right">
+    <div class="text-center">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit Profile</button>
+    </div>
+    <div class="text-right">
+        <a href="/ecom/home">Go to Home</a>
     </div>
 </div>
 <!-- Button trigger modal -->
@@ -129,13 +132,13 @@
                 mobile: $("#userMobile").val(),
             },
             success: function(response) {
+                $('#exampleModal').modal('hide');
                 console.log("test");
                 $("#alert").show();
                 $('tr').remove();
-                console.log(response.custdata);
+                usrdata = response.userdata;
                 cstmrdata = response.custdata;
-                $('#customer_profile').append("<tr><th>First Name</th><td>" + cstmrdata.firstname + "</td>")
-
+                $('#customer_profile').append("<tr><th>First Name</th><td>" + cstmrdata.firstname + "</td></tr><tr><th>Last Name</th><td>" + usrdata.lastname + "</td></tr><tr><th>Gender</th><td>" + cstmrdata.gender + "</td></tr><tr><th>Date Of birth</th><td>" + cstmrdata.dateofbirth + "</td></tr><tr><th>Mobile</th><td>" + cstmrdata.mobile + "</td></tr><tr><th>Email</th><td>" + usrdata.email + "</td></tr><tr><th>Address</th><td>" + cstmrdata.address + "</td></tr><tr><th>Country</th><td>" + cstmrdata.country + "</td></tr>")
             }
         })
     }

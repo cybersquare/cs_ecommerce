@@ -6,6 +6,5 @@ urlpatterns = [
     path('addreseller', views.addreseller, name='addreseller'),
     path('deletereseller', views.deletereseller, name='deletereseller'),
     path('adminlogin', views.admlogin, name='adminlogin'),
-
-
+    path('verifyreseller', views.verify_reseller, name='verifyreseller')
 ]

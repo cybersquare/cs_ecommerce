@@ -46,13 +46,13 @@ def signup(request):
         mobile = request.POST['mobile']
         email = request.POST['email']
         password = request.POST['password']
-        send_mail(
-                'Subject here',
-                'Here is the message.',
-                'kiransurya032@gmail.com',
-                [email],
-                fail_silently=False,
-            )
+        # send_mail(
+        #         'Subject here',
+        #         'Here is the message.',
+        #         'kiransurya032@gmail.com',
+        #         [email],
+        #         fail_silently=False,
+        #     )
         if usertype == 'customer':
             # customer specific information
             firstname = request.POST['firstname']
@@ -64,7 +64,7 @@ def signup(request):
             newuser.last_name = lastname
             #newuser.save()
             customerdata = Customer(firstname=firstname, gender=gender, mobile=mobile, dateofbirth=dateofbirth, address=address, country=country, user_type_id=1, login_id_id=newuser.id, status='inactive')
-            # customerdata.save()
+            customerdata.save()
             # request.session['temp_data'] =  customerdata
             return redirect('login')
 
@@ -78,9 +78,10 @@ def signup(request):
             resellerbankaccountifsc = request.POST['resellerbankaccountifsc']
             newuser = User.objects.create_user(email, email, password)
             newuser.save()
-            resellerdata = Resellers(companyname=resellercompanyname, companyregid=resellercompanyid, address=address, country=country, mobile=mobile, bankaccountholder=resellerbankaccountname, bankacccountnumber=resellerbankaccountnumber, bankacccountifsc=resellerbankaccountifsc, user_type_id=2, login_id_id=newuser.id, status='inactive')
-            #resellerdata.save()
-            return redirect('otp')
+            resellerdata = Resellers(companyname=resellercompanyname, companyregid=resellercompanyid, address=address, country=country, mobile=mobile, bankaccountholder=resellerbankaccountname, bankacccountnumber=resellerbankaccountnumber, bankacccountifsc=resellerbankaccountifsc, user_type_id=2, login_id=newuser.id, status='inactive')
+            resellerdata.save()
+            # return redirect('otp')
+            return redirect('login')
     else:
         return render(request, "ecom/signup.html")
 

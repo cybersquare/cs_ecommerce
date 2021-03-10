@@ -1,240 +1,139 @@
 {% extends "reseller/reseller_master.html" %} {% load static %} {% block reseller_content %}
+<script src="{% static 'reseller/scripts/add_product.js' %}"></script>
 
-
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-<script src="{% static 'reseller/scripts/jquery-3.5.1.min.js' %}"></script>
-<script>
-    // $.ajaxSetup({
-    //     headers: {
-    //         // "X-CSRFToken": '{{csrf_token}}'
-    //     }
-    // })
-
-    function add_products() {
-        $.ajax({
-            url: 'http://127.0.0.1:8000/reseller/addProducts',
-            type: 'POST',
-            data: {
-                title: $('#title').val(),
-                regproductid: $('#regproductid').val(),
-                description: $('#description').val(),
-                image: $('#customFile').val(),
-                price: $('#price').val(),
-                quantity: $('#quantity').val(),
-                weight: $('#weight').val(),
-                weightunit: $('#weightunit').val(),
-                category: $('#category').val(),
-                subcategory: $('#subcategory').val(),
-                vendor: $('#vendor').val(),
-
-
-
-
-            },
-            success: function(response) {
-                alert(response.message)
-            }
-        })
-    }
-</script>
-
-
-
-<div class="container">
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
-            <div class="container">
-              <a class="navbar-brand text-dark font-weight-bold" href="#" >Products</a>
-
-
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-
-              </div>
-
-              <button class="btn btn-dark" id="menu-toggle">Save</button>
-
-
-            </div>
-        </nav>
-         -->
-    <div class="py-5 text-left">
-        <!-- <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
-
-        <h2>Add product</h2>
-        <!-- <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
-    </div>
-
-    <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-            <!-- <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill">3</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">-$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$20</strong>
-            </li>
-          </ul>
-
-          <form class="card p-2">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">Redeem</button>
-              </div>
-            </div>
-          </form> -->
-        </div>
-        <div class="col-md-8 order-md-1">
-            <!-- <h4 class="mb-3">Billing address</h4> -->
-            <form class="needs-validation" novalidate>
-                <div class="mb-3">
-                    <label for="title">Title</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="title" placeholder="Title of the product" required>
-                        <div class="invalid-feedback" style="width: 100%;">
-                            Product title is required.
-                        </div>
+<div class="py-5 text-left">
+    <h2>Add product</h2>
+</div>
+<div class="row">
+    <div class="col-md-8 order-md-1">
+        <form class="needs-validation" novalidate enctype="multipart/form-data" id="add_product" onload="resetSelection();">
+            <div class="mb-3">
+                <label for="title">Title</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="title" placeholder="Title of the product" required>
+                    <div class="invalid-feedback">
+                        Product title is required.
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="title">Registered product id</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="regproductid" placeholder="Registered product id" required>
-                        <div class="invalid-feedback" style="width: 100%;">
-                            Registered product id is required.
-                        </div>
+            </div>
+            <div class="mb-3">
+                <label for="regproductid">Registered product id</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="regproductid" placeholder="Registered product id" required>
+                    <div class="invalid-feedback">
+                        Registered product id is required.
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="description" required>Description </label>
-                    <textarea class="form-control" id="description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="description">Description </label>
+                <div class="input-group">
+                    <textarea class="form-control" id="description" required></textarea>
                     <div class="invalid-feedback">
                         Please enter a description about the product.
                     </div>
                 </div>
-
-
-                <div class="mb-3">
-                    <label>Upload product pictures</label>
-                    <div class="custom-file">
-                        <label>Upload a picture</label>
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                        <input type="file" class="custom-file-input" id="customFile" placeholder="choose">
-                    </div>
-                    <div class="invalid-feedback">
-                        Please add atleast one picture.
-                    </div>
+            </div>
+            <div class="mb-3">
+                <label for="customFile">Upload product pictures</label>
+                <input type="file" id="customFile" placeholder="choose" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please upload a picture.
                 </div>
-
-                <div class="mb-3">
-                    <label for="price">Price</label>
+            </div>
+            <div class="mb-3">
+                <label for="price">Price</label>
+                <div class="input-group">
                     <input type="number" class="form-control" id="price" placeholder="₹ 0.0" required>
                     <div class="invalid-feedback">
-                        Please enter price.
+                        Please enter the price.
                     </div>
                 </div>
-
-                <div class="mb-6">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" class="form-control" id="quantity" placeholder="Available quantity">
+            </div>
+            <div class="mb-3">
+                <label for="quantity">Quantity</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="quantity" placeholder="Available quantity" required>
+                    <div class="invalid-feedback">
+                        Please enter the quantity.
+                    </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-6">
-                        <label for="state">Weight</label>
-                        <input type="text" class="form-control" id="weight" placeholder="0.0">
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-6">
+                    <label for="weight">Weight</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="weight" placeholder="0.0" required>
                         <div class="invalid-feedback">
-                            Please enter weight of the product.
+                            Please enter the weight of the product.
                         </div>
                     </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="unit">Weight unit</label>
-                        <select class="custom-select d-block w-100" id="weightunit" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="weightunit">Weight unit</label>
+                    <select class="custom-select d-block w-100 form-control" id="weightunit" required>
+                        <option value="">Choose</option>
                         <option>kg</option>
                         <option>g</option>
                         <option>lb</option>
                         <option>oz</option>
-                    
                     </select>
-                        <div class="invalid-feedback">
-                            Please select a unit.
-                        </div>
+                    <div class="invalid-feedback">
+                        Please select a unit.
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-6">
-                        <label for="state">Category</label>
-                        <select class="custom-select d-block w-100" id="category" required>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-6">
+                    <label for="category">Category</label>
+                    <select class="custom-select d-block w-100" id="category" size="1" onchange="makeSubmenu(this.value);" required>
+                        <option value="" disabled selected>Choose</option>
                         <option>Gadgets</option>
-                        <option>Footwears</option>
-                        <option>Food</option>
+                        <option>Clothes</option>
+                        <option>Footwear</option>
                         
                         </select>
-                        <div class="invalid-feedback">
-                            Please select a category.
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <label for="unit">Sub category</label>
-                        <select class="custom-select d-block w-100" id="subcategory" required>
-                      <option>category</option>
-                  
-                      
-                      </select>
-                        <div class="invalid-feedback">
-                            Please select a sub category.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="price">Vendor</label>
-                    <input type="text" class="form-control" id="vendor" placeholder="ex: Nike" required>
                     <div class="invalid-feedback">
-                        Please enter a vendor name.
+                        Please select a category.
                     </div>
                 </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="button" onclick="add_products()">Save</button>
-            </form>
-        </div>
+                <div class="col-md-2 mb-3">
+                    <label for="subcategory">Sub category</label>
+                    <select class="custom-select d-block w-100" id="subcategory" size="1" required>
+                        <option value="" disabled selected>Choose</option>
+                        <option></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a sub category.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-6">
+                    <label for="vendor">Brand</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="brand" placeholder="ex: Nike" required>
+                        <div class="invalid-feedback">
+                            Please enter the brand name.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="status">Status</label>
+                    <select class="custom-select d-block w-100" id="status" required>
+                        <option value="">Choose</option>
+                        <option>Active</option>
+                        <option>Draft</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please enter the status.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            </div>
+        </form>
     </div>
 </div>
-
-
 {% endblock %}

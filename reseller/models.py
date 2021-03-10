@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from common.models import UserType, Products
+from common.models import UserType
 # from .views import return_date_time
 from datetime import datetime
 
@@ -18,14 +18,29 @@ class Resellers(models.Model):
     bankacccountifsc = models.CharField(max_length=30)
     # usertype as the foriegn key of user type table
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE)
-    login_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    login = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, default= 'inactive')
     requestdate = models.DateField(default=datetime.now)
     # requestdate = models.DateField(default=return_date_time)
 
-class ProductResellerMapping(models.Model):
-    productid = models.ForeignKey(Products, on_delete=models.CASCADE)
-    resellerid = models.ForeignKey(Resellers, on_delete=models.CASCADE)
-    
+class Products(models.Model):
+    title = models.CharField(max_length=30)
+    reg_productid = models.CharField(max_length=12)
+    desc = models.TextField()
+    img = models.ImageField(upload_to = 'product_images/', blank = True, null = True)
+    price = models.IntegerField()
+    quantity = models.IntegerField()
+    weight = models.IntegerField()
+    weightunit = models.CharField(max_length=12)
+    category = models.CharField(max_length=12)
+    subcategory = models.CharField(max_length=12)
+    vendor = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    reseller = models.ForeignKey(Resellers, on_delete=models.CASCADE)
+
+
+
+
+
 
 

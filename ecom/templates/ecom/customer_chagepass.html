@@ -1,0 +1,93 @@
+{% extends "ecom/cust_master.html" %} {% load static %} {% block content %}
+
+<div class="container-fluid login-container">
+    <div class="row">
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="form-login">
+                <br>
+                <h3 class="login-head">Change password</h3><br>
+                <p style="color: green;" id="stats">{{ msg }}</p>
+
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div id="pass_section">
+                        <input type="text" id="OTP" name="otp" class="form-control input-sm chat-input" placeholder="Enter your OTP" />
+                        <br>
+                        <input type="password" id="userpassword" name="password" class="form-control input-sm chat-input" placeholder="password" /><br>
+                        <input type="password" id="cnfpass" name="cnfPassword" class="form-control input-sm chat-input" placeholder="Confirm password" />
+                        <span class="group-btn"><br>
+                            <button class="btn btn-md" type="button" style="background-color: #00796b; color: white;" onclick="changepass()">
+                                Change password
+                            </button>
+                        </span>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+    </div>
+</div>
+<script src="{% static 'reseller/scripts/jquery-3.5.1.min.js' %}"></script>
+<script>
+    function changepass() {
+        otp = document.getElementById("OTP");
+        pass = document.getElementById("userpassword");
+        cnfpass = document.getElementById("cnfpass");
+        var x = 0;
+        if (pass.value !== cnfpass.value) {
+            pass.style.borderColor = "#FF0000";
+            cnfpass.style.borderColor = "#FF0000";
+            // document.getElementById('stats').style.color = "red";
+            // document.getElementById('stats').innerHTML = "password and confirm password missmatch";
+            x = 1;
+        } else {
+            pass.style.borderColor = "#ced4da";
+            cnfpass.style.borderColor = "#ced4da";
+        }
+        if (pass.value == "") {
+            // document.getElementById('stats').style.color = "red";
+            pass.style.borderColor = "#FF0000";
+            // document.getElementById('stats').innerHTML = "Invalid password";
+            x = 1;
+        }
+        if (otp.value.length < 4) {
+            otp.style.borderColor = "#FF0000";
+            // document.getElementById('stats').style.color = "red";
+            // document.getElementById('stats').innerHTML = "Invalid OTP";
+            x = 1;
+        } else {
+            otp.style.borderColor = "#ced4da";
+        }
+        console.log("normal")
+        if (x == 1) {
+            console.log("test")
+        } else {
+            console.log("success")
+            $.ajax({
+                url: '/ecom/customer_changepassword',
+                type: 'POST',
+                data: {
+                    password: $('#userpassword').val(),
+                    otp: $('#OTP').val(),
+                },
+                success: function(response) {
+                    if (response.status == 'success') {
+                        alert("Your password changed successfully")
+                        window.location.href = "/ecom/home"
+                    } else {
+                        document.getElementById('stats').style.color = "red";
+                        document.getElementById('stats').innerHTML = response.message;
+                    }
+                }
+            })
+        }
+    }
+</script>
+{% endblock %}
+<!-- 
+</body>
+
+</html> -->

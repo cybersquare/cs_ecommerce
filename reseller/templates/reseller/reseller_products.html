@@ -1,110 +1,77 @@
 {% extends "reseller/reseller_master.html" %} {% load static %} {% block reseller_content %}
+<script src="{% static 'reseller/scripts/delete_product.js' %}"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-      <div class="container">
-        <a class="navbar-brand text-dark font-weight-bold" href="#" >Products</a>
-        
-        
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-light">
+    <div class="container">
+        <a class="navbar-brand text-dark font-weight-bold" href="#">Products</a>
+
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
         </div>
         <button class="btn btn-primary" id="menu-toggle">Add product</button>
-      </div>
-    </nav>
-  
-    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-        <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-        <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav mr-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link text-dark" href="#">All
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-light">
+    <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link text-dark" href="#">All
                       <span class="sr-only">(current)</span>
                     </a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Status
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item text-dark" href="#">Active</a>
-                      <a class="dropdown-item" href="#">Draft</a>
-                      <a class="dropdown-item" href="#">Archieved</a>
-                    </div>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">filter 3</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">filter 4</a>
-                  </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0"> 
-                <input class="form-control mr-sm-2" type="text" placeholder="Search"> 
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button> 
-            </form>
-        </div>
-    </nav>
-   
-    <div class="row text-center" style="padding-top: 26pt;">
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Product title</h4>
-            <h6>Stock</h6>
-            <h6>Status</h6>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Edit Product</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Product title</h4>
-            <h6>Stock</h6>
-            <h6>Status</h6>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Edit Product</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Product title</h4>
-            <h6>Stock</h6>
-            <h6>Status</h6>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Edit Product</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Product title</h4>
-            <h6>Stock</h6>
-            <h6>Status</h6>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Edit Product</a>
-          </div>
-        </div>
-      </div>
-
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item text-dark" href="#">Active</a>
+                    <a class="dropdown-item" href="#">Draft</a>
+                    <a class="dropdown-item" href="#">Archieved</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="#">filter 3</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="#">filter 4</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
-   
+</nav>
+
+<div class="row text-center" style="padding-top: 26pt;">
+    {% for product in products %}
+
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+            <img class="card-img-top" src="/media/{{ product.img }}">
+            <div class="card-body">
+                <h4 class="card-title">{{product.title}}</h4>
+                <h6>{{product.quantity}} in stock</h6>
+                <h6>Status : {{product.status}}</h6>
+                <h6>Vendor : {{product.vendor}}</h6>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary" id="edit" href="editProducts/{{ product.id }}">Edit</a>
+                <button onclick="delete_product('{{ product.id }}')" class="btn btn-danger">Delete</button>
+                <!-- <a href="" class="btn btn-danger" onclick="delete_product('{{ product.id }}')">Delete</a> -->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+</div>
+<!-- onclick="location.href = 'editProducts'" -->
+
 
 {% endblock %}
-
-

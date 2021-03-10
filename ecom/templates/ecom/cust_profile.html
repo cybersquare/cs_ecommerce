@@ -1,0 +1,150 @@
+{% extends "ecom/cust_master.html" %} {% load static %} {% block content %}
+
+<div class="container-fluid login-container">
+    <div class="row">
+        <div class="col-sm-12 fixed-top">
+            <div class="alert alert-success" id="alert" style="display: none">
+                <a class="close" onclick="$('#alert').hide()">×</a>
+                <strong>Success! Your profile updated successfully.</strong>
+            </div>
+        </div>
+        <div class="col-sm-12">
+
+            {% if profiledata.gender == "male" %}
+            <!-- Logo for Male users -->
+            <img src="{% static 'ecom/images/png-male.png' %}" class="rounded mx-auto d-block" height="200px" width="200px">
+            <!--  -->
+            {% else %}
+            <!-- Logo for female users -->
+            <img src="{% static 'ecom/images/png-female.png' %}" class="rounded mx-auto d-block" height="200px" width="200px">
+            <!--  -->
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <table class="table table-striped" id="customer_profile">
+
+            <tr>
+                <th>First Name</th>
+                <td>{{ profiledata.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ userdata.last_name }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ profiledata.gender }}</td>
+            </tr>
+            <tr>
+                <th>Date Of birth</th>
+                <td>{{ profiledata.dateofbirth }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ profiledata.mobile }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ userdata.email }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ profiledata.address }}</td>
+            </tr>
+
+            <tr>
+                <th>Country</th>
+                <td>{{ profiledata.country }}</td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit Profile</button>
+    </div>
+    <div class="text-right">
+        <a href="/ecom/home">Go to Home</a>
+    </div>
+</div>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div id="custom">
+                        <div class="form-row form-group">
+                            <div class="col">
+                                <label for="">First name</label>
+                                <input type="text" class="form-control" id="fname" name="firstname" value="{{ profiledata.firstname }}">
+                            </div>
+                            <div class="col">
+                                <label for="">Last name (optional)</label>
+                                <input type="text" class="form-control" name="lastname" id="lname" value="{{ userdata.last_name }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="adrs">Address</label>
+                        <textarea name="address" id="adrs" cols="30" rows="3" class="form-control" id="adrs">{{ profiledata.address }}</textarea>
+                    </div>
+                    <div class="form-group ">
+                        <label for="cntry">Country</label>
+                        <select name="country" class="form-control" id="cntry">
+                                <option  disabled selected value="{{ profiledata.firstname }}">{{ profiledata.country }}</option>
+                                <option>India</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">mobile</label>
+                        <input id="userMobile" class="form-control input-sm chat-input" name="mobile" value="{{ profiledata.mobile }}" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateprofile()">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function updateprofile() {
+        $.ajax({
+            url: '/ecom/profile_update',
+            type: 'POST',
+            data: {
+                firstname: $("#fname").val(),
+                lastname: $("#lname").val(),
+                address: $("#adrs").val(),
+                country: $("#cntry").val(),
+                mobile: $("#userMobile").val(),
+            },
+            success: function(response) {
+                $('#exampleModal').modal('hide');
+                console.log("test");
+                $("#alert").show();
+                $('tr').remove();
+                usrdata = response.userdata;
+                cstmrdata = response.custdata;
+                $('#customer_profile').append("<tr><th>First Name</th><td>" + cstmrdata.firstname + "</td></tr><tr><th>Last Name</th><td>" + usrdata.lastname + "</td></tr><tr><th>Gender</th><td>" + cstmrdata.gender + "</td></tr><tr><th>Date Of birth</th><td>" + cstmrdata.dateofbirth + "</td></tr><tr><th>Mobile</th><td>" + cstmrdata.mobile + "</td></tr><tr><th>Email</th><td>" + usrdata.email + "</td></tr><tr><th>Address</th><td>" + cstmrdata.address + "</td></tr><tr><th>Country</th><td>" + cstmrdata.country + "</td></tr>")
+            }
+        })
+    }
+</script>
+{% endblock %}
+<!-- 
+</body>
+
+</html> -->

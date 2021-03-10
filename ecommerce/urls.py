@@ -25,6 +25,6 @@ urlpatterns = [
     path('reseller/', include('reseller.urls')),
     path('ecomadmin/', include('ecomadmin.urls')),
     
-]
+]+static(settings.MEDIA_URL, document_root =  settings.MEDIA_ROOT)
 
-urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+# urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

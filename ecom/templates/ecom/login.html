@@ -11,12 +11,12 @@
                 <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
                     <input type="text" id="username" name="userName" class="form-control input-sm chat-input" placeholder="username" />
-                    </br><br>
+                    </br>
                     <input type="password" id="userpassword" name="userPassword" class="form-control input-sm chat-input" placeholder="password" />
                     </br>
                     <div class="wrapper">
                         <span class="group-btn">
-                            <br>     
+      
                             <!-- <a href="#" class="btn btn-light btn-md">login <i class="fa fa-sign-in"></i></a> -->
                             <button class="btn btn-md" type="submit" style="background-color: #00796b; color: white;" onclick="return validate_login()">
                                 login <i class="fa fa-sign-in"></i>
@@ -24,7 +24,8 @@
                         </span><br>
                         <span>
                             <br>
-                            <a href="" ><label for="" class="fgt-password">Forgot password?</label></a>
+                            <a href="/ecom/changepassword"><label for="" class="">Forgot password?</label></a><br>
+                            <a href="/ecom/signup"><label for="" class="">Create an account?</label></a>
                         </span>
                     </div>
                 </form>

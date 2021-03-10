@@ -3,23 +3,18 @@ from django.urls import reverse, resolve
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from . import views
-
 # from rest_framework.test import APIClient
 # from rest_framework import status
-
-
 # Create your tests here.
+
 
 class TestReseller(TestCase):
     def test_login(self):
         # def setUp(self):
         # self.factory = RequestFactory()
         newuser = [
-            {"userName":"rishaa@gmail.com","password":"123"}
+            {"userName": "rishaa@gmail.com", "password": "123"}
         ]
-           
-        
-
         url = reverse('login')
         print("&&&&&", url)
         res = self.client.post(url, newuser[0])
@@ -34,40 +29,13 @@ class TestReseller(TestCase):
     #         "usrname": "test",
     #         "passwd": "user"
     #     }
-
     #     url = reverse('login')
     #     res = self.client.get(url)
     #     print("seee here############")
     #     print(res.data)
     #     self.assertEquals(res.status_code, 200)
     # def test_login(self):
-
-    
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#testcases tested by user - id 2 & 3
-
+# testcases tested by user - id 2 & 3
 # from .models import Customer
 # from django.contrib.auth.models import User
 # # Create your tests here.
@@ -81,14 +49,10 @@ class TestReseller(TestCase):
 #         req_data = req["setUp"][0]
 #         user = User.objects.get(id = req_data["login_id"])
 #         self.assertEqual(user.first_name,"surya")
-
-
-    # customer_obj = Customer.objects.create(firstname = req_data["firstName"], 
-    #                 mobile = req_data["mobile"], gender = req_data["gender"], 
-    #                 dateofbirth = req_data["dateofbirth"], address = req_data["address"], 
-    #                 country = req_data["country"], status = req_data["status"], 
+    # customer_obj = Customer.objects.create(firstname = req_data["firstName"],
+    #                 mobile = req_data["mobile"], gender = req_data["gender"],
+    #                 dateofbirth = req_data["dateofbirth"], address = req_data["address"],
+    #                 country = req_data["country"], status = req_data["status"],
     #                 user_type = req_data["user_type"], login_id = req_data["login_id"])
-
 # test = MyTest()
 # test.setUp(data_set)
-

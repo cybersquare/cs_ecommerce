@@ -15,3 +15,4 @@ class Customer(models.Model):
     # usertype as the foriegn key of user type table
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE)
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    otp = models.CharField(max_length=70)

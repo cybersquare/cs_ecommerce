@@ -18,6 +18,7 @@ def reseller_master(request):
 
 
 def reseller_home(request):
+    # print(request.session['resellerid'])
     return render(request, "reseller/reseller_home.html")
 
 
@@ -26,6 +27,7 @@ def reseller_products(request):
     resellerid = Resellers.objects.get(login_id=loginid)
     products = list(Products.objects.all().values().filter(reseller_id=resellerid))
     return render(request, "reseller/reseller_products.html", {'products': products})
+
 
 @csrf_exempt
 def reseller_addProducts(request):

@@ -33,15 +33,15 @@
               </button>
             <img src="{% static '/images/cs_ecom_logo.png' %} " alt=" " class="logo-nav">
         </div>
-        <div class="collapse  navbar-collapse" id="navbarSupportedContent">
-            <form class="mx-2 my-auto d-inline w-100">
+        <div class="collapse d-inline  navbar-collapse" id="navbarSupportedContent">
+            <form class="mx-2 my-auto d-inline w-100" action="search_products" method="POST">
                 <div class="input-group">
-                    <input type="text" class="form-control border border-right-0" placeholder="Search...">
+                    <input type="text" name="searchdata" id="serch" class="form-control border border-right-0" placeholder="Search...">
                     <span class="input-group-append">
-                    <button class="btn btn-secondary border border-left-0 searh-btn" type="button">
+                    <button class="btn btn-secondary border border-left-0 searh-btn" type="submit" id="srch">
                         <i class="fa fa-search "></i>
                     </button>
-                </span>
+                    </span>
                 </div>
             </form>
             <ul class="navbar-nav mr-auto " style="margin-left: 30px;">
@@ -124,6 +124,32 @@
 
     {% block content %} {% endblock %} {% include 'footer.html' %}
 
+    <script>
+        // $('#srch').click(function() {
+        //     var searchdata = $("#serch").val();
+        //     $.ajax({
+        //         url: 'search_products',
+        //         type: 'post',
+        //         data: {
+        //             searchdata: searchdata,
+        //         },
+        //         success: function(response) {
+        //             // window.location = '/ecom/search_products';
+        //             console.log(response.status);
+        //             $("#test").val() = response.status;
+        //         }
+        //     })
+        // })
+
+        // $('#search').keyup(function() {
+        //     if (this.value.length > 3) {
+        //         searchword = this.value;
+        //         console.log(searchword + "sasd")
+        //         window.location = '/ecom/search_products';
+        //         console.log(searchword)
+        //     }
+        // })
+    </script>
 </body>
 
 </html>

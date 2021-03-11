@@ -12,18 +12,22 @@ def mngreseller(request):
 
 
 def addreseller(request):
-        reqdata = Resellers.objects.filter(status='inactive')
+        reqdata = Resellers.objects.all()
         userdata = User.objects.all()
         return render(request, "admin/add_reseller.html", {"userrequests": reqdata, "alldata": userdata})
 
 
 def verify_reseller(request):
+    print("load success")
     userid=request.GET['userid']
+    print("user id" + userid)
     status=request.GET['status']
-    # Resellers.objects.filter(login_id_id = userid).update(status=status)
+    print("Status" + status)
+    Resellers.objects.filter(login_id = userid).update(status=status)
     reseldata=Resellers.objects.all()
     usrdata=User.objects.all()
-    resellerdata=[{'companyname': resel.companyname, 'companyid': resel.companyregid, 'address': resel.address, 'country': resel.country, 'mobile': resel.mobile, 'bankaccountholder': resel.bankaccountholder, 'bankacccountnumber': resel.bankacccountnumber, 'bankacccountifsc': resel.bankacccountifsc, 'login_id_id': resel.login_id_id, 'status': resel.status} for resel in reseldata]
+    print(usrdata)
+    resellerdata=[{'companyname': resel.companyname, 'companyid': resel.companyregid, 'address': resel.address, 'country': resel.country, 'mobile': resel.mobile, 'bankaccountholder': resel.bankaccountholder, 'bankacccountnumber': resel.bankacccountnumber, 'bankacccountifsc': resel.bankacccountifsc, 'login_id': resel.login_id, 'status': resel.status} for resel in reseldata]
     userdata=[{'email': usr.email, 'joindate': usr.date_joined} for usr in usrdata]
     return JsonResponse({'usrdata': userdata, 'resellerdata':resellerdata})
 

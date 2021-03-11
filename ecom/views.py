@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from ecommerce.decoratos import cust_login_required
 from .models import Customer, User
-from reseller.models import Resellers
+from reseller.models import Resellers,Products
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
@@ -33,8 +33,7 @@ def user_login(request):
                 # Login operation for customers
                 customerdata = Customer.objects.get(login_id=user.id)
                 request.session['customerid'] = user.id
-                # if customer didn't complete otp verification send
-                # otp and verifying it
+                # if customer didn't complete otp verification send otp and verifying it
                 if customerdata.status == 'otpverify':
                     otp = randint(1000, 9999)
                     send_mail(
@@ -55,8 +54,7 @@ def user_login(request):
                 # Login operation for resellers
                 resellerdata = Resellers.objects.get(login_id=user.id)
                 request.session['resellerid'] = user.id
-                # if Reseller didn't complete otp verification send
-                #  otp and verifying it
+                # if Reseller didn't complete otp verification send otp and verifying it
                 if resellerdata.status == 'otpverify':
                     # Generate otp and sending to mail
                     otp = randint(1000, 9999)
@@ -67,7 +65,7 @@ def user_login(request):
                         [user.email],
                         fail_silently=False,
                     )
-                    request.session['otpid'] = resellerdata.login_id_id
+                    request.session['otpid'] = resellerdata.login_id
                     Resellers.objects.filter(login_id=user.id).update(otp=otp)
                     return redirect('verifyotp')
                 # if Reseller already completed otp verification
@@ -125,7 +123,7 @@ def signup(request):
             resellerbankaccountifsc = request.POST['resellerbankaccountifsc']
             newuser = User.objects.create_user(email, email, password)
             newuser.save()
-            resellerdata = Resellers(companyname=resellercompanyname, companyregid=resellercompanyid, address=address, country=country, mobile=mobile, bankaccountholder=resellerbankaccountname, bankacccountnumber=resellerbankaccountnumber, bankacccountifsc=resellerbankaccountifsc, user_type_id=2, login_id_id=newuser.id, status='otpverify', otp=str(otp))
+            resellerdata = Resellers(companyname=resellercompanyname, companyregid=resellercompanyid, address=address, country=country, mobile=mobile, bankaccountholder=resellerbankaccountname, bankacccountnumber=resellerbankaccountnumber, bankacccountifsc=resellerbankaccountifsc, user_type_id=2, login_id=newuser.id, status='otpverify', otp=str(otp))
             resellerdata.save()
             user = User.objects.get(username=email)
             request.session['otpid'] = user.id
@@ -137,8 +135,16 @@ def signup(request):
 
 
 # Rendering search product page
+@csrf_exempt
 def search_products(request):
-    return render(request, "ecom/search_products.html")
+    if request.method == "POST":
+        search_word = request.POST['searchdata']
+        print(search_word)
+        srch_products=Products.objects.filter(title__contains=search_word)
+        print(srch_products)
+        return render(request, "ecom/search_products.html",{"search_products":srch_products})
+    else:
+        return render(request, "ecom/search_products.html")
 
 
 # Rendering Product view page
@@ -161,10 +167,10 @@ def verifyotp(request):
             else:
                 return render(request, "ecom/verify_otp.html", {"msg": "Invalid otp"})
         except Customer.DoesNotExist:
-            userdata = Resellers.objects.get(login_id_id=id)
+            userdata = Resellers.objects.get(login_id=id)
             # Verifying OTP in reseller table
             if(otp == userdata.otp):
-                Resellers.objects.filter(login_id_id=id).update(status='inactive')
+                Resellers.objects.filter(login_id=id).update(status='inactive')
                 return redirect('/reseller/home')
             else:
                 return render(request, "ecom/verify_otp.html", {"msg": "Invalid otp"})
@@ -194,7 +200,7 @@ def changepassword(request):
                 custdata.update(otp=otp)
             except Customer.DoesNotExist:
                 # Send otp to Resellers for changing password
-                reseldata = Resellers.objects.filter(login_id_id=user.id)
+                reseldata = Resellers.objects.filter(login_id=user.id)
                 otp = randint(1000, 9999)
                 send_mail(
                         'please verify your otp',
@@ -234,7 +240,7 @@ def changepass(request):
             return JsonResponse({"message": 'Incorrect OTP', "status": 'false'})
     except Customer.DoesNotExist:
         # Verifying Reseller otp and changing password
-        reseldata = Resellers.objects.get(login_id_id=user.id)
+        reseldata = Resellers.objects.get(login_id=user.id)
         if otp == reseldata.otp:
             user.set_password(password)
             user.save()

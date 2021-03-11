@@ -227,7 +227,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ products.title }}</h5>
                             <p class="card-text">{{ products.desc }}<br>Rs. {{ products.price }}</p>
-                            <a href="#" class="btn orange-btn ">View Product</a>
+                            <a href="/ecom/view_product/{{ products.id }}" class="btn orange-btn ">View Product</a>
                         </div>
                         {% if forloop.counter|divisibleby:3 == 0 %}
                     </div>

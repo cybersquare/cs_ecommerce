@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 # Create your views here.
 
 
@@ -140,7 +141,7 @@ def search_products(request):
     if request.method == "POST":
         search_word = request.POST['searchdata']
         print(search_word)
-        srch_products=Products.objects.filter(title__contains=search_word)
+        srch_products=Products.objects.filter(Q(title__icontains=search_word) | Q(vendor__icontains=search_word) | Q(category__icontains=search_word) ,status='Active')
         print(srch_products)
         return render(request, "ecom/search_products.html",{"search_products":srch_products})
     else:
@@ -148,8 +149,10 @@ def search_products(request):
 
 
 # Rendering Product view page
-def view_product(request):
-    return render(request, "ecom/view_product.html")
+def view_product(request,id):
+    print(id)
+    productdetails = Products.objects.get(id=id)
+    return render(request, "ecom/view_product.html",{ 'productdata':productdetails })
 
 
 # OTP verification

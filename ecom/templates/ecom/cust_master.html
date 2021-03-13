@@ -55,6 +55,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="/ecom/viewprofile" type="button">Profile</a>
+                        <a class="dropdown-item" type="button" href="/ecom/viewBag">View Bag</a>
                         <a class="dropdown-item" type="button">My orders</a>
                         <a class="dropdown-item" href="/ecom/customer_changepassword" type="button">Change password</a>
                         <a class="dropdown-item" href="/ecom/logout" type="button">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
@@ -67,7 +68,7 @@
                 <!--  -->
                 {% else %}
                 <div class="login-nav">
-                    <button onclick="location.href = 'login'" type="button" class="btn">Login</button>
+                    <button onclick="location.href = '/ecom/login'" type="button" class="btn">Login</button>
                 </div>
                 <!-- <div class="login-nav">
                     <button onclick="location.href = 'signup'" type="button" class="btn">Sign up</button>
@@ -125,22 +126,6 @@
     {% block content %} {% endblock %} {% include 'footer.html' %}
 
     <script>
-        // $('#srch').click(function() {
-        //     var searchdata = $("#serch").val();
-        //     $.ajax({
-        //         url: 'search_products',
-        //         type: 'post',
-        //         data: {
-        //             searchdata: searchdata,
-        //         },
-        //         success: function(response) {
-        //             // window.location = '/ecom/search_products';
-        //             console.log(response.status);
-        //             $("#test").val() = response.status;
-        //         }
-        //     })
-        // })
-
         // $('#search').keyup(function() {
         //     if (this.value.length > 3) {
         //         searchword = this.value;

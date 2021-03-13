@@ -12,7 +12,10 @@ urlpatterns = [
     path('verifyotp', views.verifyotp, name='verifyotp'),
     path('changepassword', views.changepassword, name='changepassword'),
     path('changepass', views.changepass, name='changepass'),
-    path('viewprofile',views.view_profile, name='viewprofile'),
-    path('customer_changepassword',views.cust_change_password, name="customer_changepassword"),
-    path('profile_update',views.custupdateprofile, name="profile_update"),
+    path('viewprofile', views.view_profile, name='viewprofile'),
+    path('customer_changepassword', views.cust_change_password, name="customer_changepassword"),
+    path('profile_update', views.custupdateprofile, name="profile_update"),
+    path('addtobag', views.add_to_bag, name="addtobag"),
+    path('viewBag', views.view_bag, name="viewBag"),
+    path('updateQuantity', views.update_quantity, name="updateQuantity"),
 ]

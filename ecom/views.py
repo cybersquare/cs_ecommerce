@@ -1,11 +1,12 @@
 # flake8:noqa: E501
 from django.shortcuts import render, redirect
 from ecommerce.decoratos import cust_login_required
-from .models import Customer, User
+from .models import Customer, User, Orders
 from reseller.models import Resellers,Products
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
+from rest_framework import serializers
 # from django.conf import settings
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
@@ -138,14 +139,28 @@ def signup(request):
 # Rendering search product page
 @csrf_exempt
 def search_products(request):
+    # search data based on keyword
     if request.method == "POST":
         search_word = request.POST['searchdata']
-        print(search_word)
+        search_list=search_word.split(' ')
+        print(search_list)
         srch_products=Products.objects.filter(Q(title__icontains=search_word) | Q(vendor__icontains=search_word) | Q(category__icontains=search_word) ,status='Active')
+        # for word in search_list:
+        #     q |= Q(title__icontains = search_list)
+        # srch_products=Products.objects.filter(q)
         print(srch_products)
         return render(request, "ecom/search_products.html",{"search_products":srch_products})
     else:
         return render(request, "ecom/search_products.html")
+
+
+def update_quantity(request):
+    order_quantity=request.GET['quanity']
+    print(order_quantity)
+    order_id=request.GET['id']
+    print(order_id)
+    Orders.objects.filter(id=order_id).update(quantity=order_quantity)
+    return JsonResponse({"status": "success"})
 
 
 # Rendering Product view page
@@ -153,6 +168,37 @@ def view_product(request,id):
     print(id)
     productdetails = Products.objects.get(id=id)
     return render(request, "ecom/view_product.html",{ 'productdata':productdetails })
+
+
+@csrf_exempt
+def add_to_bag(request):
+    prod_id=request.POST['id']
+    print(prod_id)
+    quantity=request.POST['quantity']
+    print(quantity)
+    try:
+        cust_id=request.session['customerid']
+        orderdata=Orders(product_id_id=prod_id,quantity=quantity,customerid_id=cust_id,status='added_to_bag')
+        orderdata.save()
+        return JsonResponse({"status": "success"})
+    except KeyError:
+        return JsonResponse({"status": "error"})
+
+
+@csrf_exempt
+def view_bag(request):
+    if request.method == 'POST':
+        cust_id = request.session['customerid']
+        bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag')
+        bag_ids = bagdata.values_list('product_id_id')
+        productdata = Products.objects.filter(id__in=bag_ids)
+        data = serializers.serialize('json', list(bagdata))
+    else:
+        cust_id = request.session['customerid']
+        bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag')
+        bag_ids = bagdata.values_list('product_id_id')
+        productdata = Products.objects.filter(id__in=bag_ids)
+        return render(request,"ecom/view_bag.html",{'bagdata': bagdata, 'productdata': productdata})
 
 
 # OTP verification

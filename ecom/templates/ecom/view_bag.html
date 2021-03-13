@@ -1,0 +1,69 @@
+{% extends "ecom/cust_master.html" %} {% block content %}{% load static %}
+<!--  -->
+<div class="container">
+    <div class="row" style="min-height: 300px;">
+        <h2>Your Bag</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in bagdata %}
+                <tr>
+                    <!-- <td></td> -->
+
+                    {% for product in productdata %} {% if order.product_id_id == product.id %}
+                    <td><img src="/media/{{ product.img }}" alt="" srcset="" height="100px" width="100px"></td>
+                    <td>{{ product.title }}</td>
+                    <td>
+                        <input type="number" onchange="update_quantity(this,'{{order.id}}')" value="{{ order.quantity }}" min="1">
+                    </td>
+                    <td>{{ product.price }} x {{ order.quantity }} = </td>
+                    {% endif %}{% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--  -->
+<script>
+    function update_quantity(quanity, id) {
+        console.log(quanity.value);
+        console.log(typeof(quanity.value))
+        console.log(typeof(id))
+        console.log(id);
+        $.ajax({
+            url: 'updateQuantity',
+            type: 'get',
+            data: {
+                quanity: parseInt(quanity.value),
+                id: id,
+            },
+            success: function(response) {
+                console.log(response.status);
+                if (response.status == "success") {
+                    console.log(response.status);
+                    load_data()
+                }
+            }
+        })
+    }
+
+    function load_data() {
+        $.ajax({
+            url: '/ecom/viewBag',
+            type: 'POST',
+            success: function(response) {
+
+            }
+        })
+    }
+</script>
+{% endblock %}

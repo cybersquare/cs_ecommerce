@@ -5,29 +5,20 @@
         <div class="col-md-12">
             <ul class="nav ">
                 <li class="nav-item">
-                    <a class="nav-link  link-dark" href="#">Home /</a>
+                    <a class="nav-link  link-dark" href="">Home /</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-dark  " href="#">Accessories /</a>
+                    <a class="nav-link link-dark" href="">{{ productdata.category }} /</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-dark  " href="#">Women Accessories /</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-dark  " href="#">Watches /</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-bold  disabled" href="#">Daniel Klein Watches></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-bold  disabled" href="#">More By Daniel Klein</a>
+                    <a class="nav-link link-dark  " href="">{{ productdata.subcategory }} /</a>
                 </li>
             </ul>
         </div>
         <!-- end of navigation links to other pages -->
         <!-- start of product pictures -->
         <div class="col-md-8">
-            <img src="/media/{{ productdata.img }}" class="card-img-top" alt="...">
+            <img src="/media/{{ productdata.img }}" class="card-img-top" alt="..." style="width:100%">
             <!-- <div class="row">
                 <div class="col">
                     <div class="thumbnail pb-2 ">
@@ -69,12 +60,45 @@
             <button type="button" class="btn-xs rounded-3 bg-transparent" disabled>4.5 stars</button>
             <hr>
             <h4 style="display: inline;" class="p-1">Rs. {{productdata.price}} </h4><br><br>
-            <h6 class="font-weight-bolder">SELECT SIZE</h6>
-            <button type="button" class="btn btn-outline-secondary">One Size</button><br><br>
-            <button type="button" class="btn orange-btn">Add to Bag</button>
+            <h6 class="font-weight-bolder">Quantity required</h6>
+            <input type="text" class="form-control" id="quantity" value="1" placeholder="Enter quantity">
+            <!-- <select class="form-select" aria-label="Default select example">
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select> -->
+            <br><br>
+            <button type="button" id="btn_add" onclick="addtobag('{{productdata.id}}')" class="btn orange-btn" href="">Add to Bag</button>
             <button type="button" class="btn border-dark">Wishlist</button>
         </div>
         <!-- end of product details -->
     </div>
 </div>
+<script>
+    function addtobag(id) {
+        $.ajax({
+            url: '/ecom/addtobag',
+            type: 'post',
+            data: {
+                quantity: quantity,
+                id: id,
+                quantity: $("#quantity").val(),
+            },
+            success: function(response) {
+                if (response.status == 'success') {
+                    $("<div title='Product added to bag'>Product added to bag successfully</div>").dialog();
+                    $("#btn_add").html('Added to bag');
+                    $("#btn_add").prop('disabled', 'false')
+                } else {
+                    $("<div title='Please Login'>Login is required before order</div>").dialog();
+                }
+            }
+        })
+    }
+</script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js" integrity="sha256-JklDYODbg0X+8sPiKkcFURb5z7RvlNMIaE3RA2z97vw=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+<!-- <div id="dial"></div> -->
 {% endblock %}

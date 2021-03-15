@@ -6,7 +6,7 @@ from reseller.models import Resellers,Products
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
-from rest_framework import serializers
+# from rest_framework import serializers
 # from django.conf import settings
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
@@ -192,7 +192,7 @@ def view_bag(request):
         bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag')
         bag_ids = bagdata.values_list('product_id_id')
         productdata = Products.objects.filter(id__in=bag_ids)
-        data = serializers.serialize('json', list(bagdata))
+        bgdata=[{'email': usr.email, 'joindate': usr.date_joined} for bg in bgdata]
     else:
         cust_id = request.session['customerid']
         bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag')

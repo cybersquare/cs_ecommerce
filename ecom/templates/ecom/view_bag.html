@@ -21,91 +21,113 @@
                     <td><img src="/media/{{ product.img }}" alt="" srcset="" height="100px" width="100px"></td>
                     <td>{{ product.title }}</td>
                     <td>
-                        <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.counter }}')" value="{{ order.quantity }}" min="1">
+                        <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.parentloop.counter }}')" value="{{ order.quantity }}" min="1" max="99" style="width: 40px;">
                     </td>
-                    <td><span>&#8377;</span><input type="number" id="price{{ forloop.counter }}" value="{{ product.price }}" min="1" readonly></td>
+                    <td><span>&#8377;</span><input type="number" id="price{{ forloop.parentloop.counter }}" value="{{ product.price }}" min="1" readonly></td>
                     {% endif %}{% endfor %}
                 </tr>
                 {% endfor %}
+                <tr>
+                    <td></td>
+                    <td><b> total_ammount </b></td>
+                    <td></td>
+                    <td><span>&#8377;</span><input type="text" id="total_ammount" value="{{ totalprice }}" readonly></td>
+                </tr>
 
             </tbody>
         </table>
-        <button id="rzp-button1"> Pay </button>
+        <button id="rzp-button1" class="btn btn-success btn-lg float-right" onclick="pay()"> Checkout </button>
     </div>
-</div>
+</div> <br>
 <!-- Razor pay integration started -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    var options = {
-        "key": "rzp_test_jznmHCFBf6ZMUd", // Enter the Key ID generated from the Dashboard
-        "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        "currency": "INR",
-        "name": "Acme Corp",
-        "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
-        "id": "1234",
-        // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler": function(response) {
-            alert(response.razorpay_payment_id);
-            //alert(response.razorpay_id);
-            // alert(response.razorpay_order_id);
-            // alert(response.razorpay_signature)
-        },
-        "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9999999999"
-        },
-        "notes": {
-            "address": "Razorpay Corporate Office"
-        },
-        "theme": {
-            "color": "#3399cc"
-        }
-    };
-    var rzp1 = new Razorpay(options);
-    rzp1.on('payment.failed', function(response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        // alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-    });
-    document.getElementById('rzp-button1').onclick = function(e) {
-        rzp1.open();
-        e.preventDefault();
+    function pay() {
+        ammount = $("#total_ammount").val()
+        console.log(ammount);
+        $.ajax({
+            url: '/ecom/orderProduct',
+            type: 'POST',
+            data: {
+                totalprice: ammount * 100,
+            },
+            success: function(response) {
+                console.log("payment_id = " + response.id);
+                var options = {
+                    "key": "rzp_test_jznmHCFBf6ZMUd", // Enter the Key ID generated from the Dashboard
+                    "amount": response.ammount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "Cybersquare",
+                    "description": "Place order",
+                    "image": "https://cs-ecom.herokuapp.com/static/images/cs_ecom_logo.png",
+                    "id": "1234",
+                    "order_id": response.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function(response) {
+                        console.log(response.razorpay_payment_id);
+                        console.log(response.razorpay_order_id);
+                        console.log(response.razorpay_signature)
+                        updatePayment()
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function(response) {
+                    alert(response.error.code);
+                    alert(response.error.description);
+                    alert(response.error.source);
+                    alert(response.error.step);
+                    alert(response.error.reason);
+                    // alert(response.error.metadata.order_id);
+                    alert(response.error.metadata.payment_id);
+                });
+                rzp1.open();
+            }
+        })
+    }
+
+    function updatePayment() {
+        $.ajax({
+            url: '/ecom/updatePayment',
+            type: 'get',
+            success: function(response) {
+                alert("Your order placed successfully")
+                window.location.reload();
+            }
+        })
     }
 </script>
-<!-- End of razor pay integration -->
+
 <script>
     function update_quantity(quanity, id, price, priceid) {
-        console.log(quanity.value);
-        console.log("price" + price);
-        console.log(typeof(quanity.value))
-        console.log(typeof(id))
-        console.log(id);
-        console.log('priceid' + priceid);
         totalprice = parseInt(price) * parseInt(quanity.value);
-        console.log(totalprice);
         $("#" + priceid + "").val(totalprice);
+        // maxprice()
         $.ajax({
-            url: 'updateQuantity',
+            url: '/ecom/updateQuantity',
             type: 'get',
             data: {
                 quanity: parseInt(quanity.value),
                 id: id,
             },
             success: function(response) {
-                console.log(response.status);
-                if (response.status == "success") {
-                    console.log(response.status);
-                    load_data()
-                }
+                console.log(response.price);
+                $("#total_ammount").val(response.price);
             }
         })
     }
+
+    // function maxprice() {
+    //     console.log("max price calculation")
+    //     maxprice = 0;
+    //     console.log(maxprice)
+    //     for (i = 1; i <= 10; i++) {
+    //         console.log($("#" + i + "").val());
+    //         maxprice = maxprice + parseInt($("#" + i + "").val());
+    //         console.log(maxprice);
+    //     }
+    // }
 
     function load_data() {
         $.ajax({

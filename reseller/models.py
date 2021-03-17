@@ -23,6 +23,8 @@ class Resellers(models.Model):
     requestdate = models.DateField(default=datetime.now)
     otp = models.CharField(max_length=70)
     # requestdate = models.DateField(default=return_date_time)
+    def __str__(self): 
+         return self.companyname
 
 class Products(models.Model):
     title = models.CharField(max_length=30)
@@ -38,6 +40,8 @@ class Products(models.Model):
     vendor = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     reseller = models.ForeignKey(Resellers, on_delete=models.CASCADE)
+    def __str__(self): 
+         return self.title
 
 
 

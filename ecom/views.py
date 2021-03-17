@@ -1,7 +1,8 @@
 # flake8:noqa: E501
+import razorpay
 from django.shortcuts import render, redirect
 from ecommerce.decoratos import cust_login_required
-from .models import Customer, User, Orders
+from .models import Customer, User, Orders, Payment
 from reseller.models import Resellers,Products
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -16,8 +17,8 @@ from django.db.models import Q
 
 
 # rendering customer home page
-
 def home(request):
+    "Display home page"
     return render(request, "ecom/cust_home.html")
 
 
@@ -84,7 +85,7 @@ def user_login(request):
 def signup(request):
     # Perform signup operations if method = POST
     if request.method == "POST":
-        # Read common information for customer and reseller
+        # Read common information for customer and reseller from HttpRequest
         usertype = request.POST['usertype']
         address = request.POST['address']
         country = request.POST['country']
@@ -160,14 +161,45 @@ def update_quantity(request):
     order_id=request.GET['id']
     print(order_id)
     Orders.objects.filter(id=order_id).update(quantity=order_quantity)
-    return JsonResponse({"status": "success"})
+    cust_id = request.session['customerid']
+    bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag')
+    bag_ids = bagdata.values_list('product_id_id')
+    productdata = Products.objects.filter(id__in=bag_ids)
+    price = 0
+    for prod in productdata:
+        for bg in bagdata:
+            if bg.product_id_id == prod.id:
+                price = price + (bg.quantity * prod.price)
+    return JsonResponse({"price": price})
+
+
+def updatepayment(request):
+    userid=request.session['customerid']
+    Orders.objects.filter(customerid=userid, status='added_to_bag').update(status='paid')
+    return JsonResponse({'resp': "success"})
+
+@csrf_exempt
+def order_product(request):
+    userid=request.session['customerid']
+    # for calculate total ammount
+    products_orderdata = Orders.objects.filter(customerid=userid, status='added_to_bag')
+    order_amount = request.POST['totalprice']
+    order_currency = 'INR'
+    order_receipt = 'order_rcptid_11'
+    notes = {'Shipping address': 'Bommanahalli, Bangalore'}
+    type(order_amount)
+    client = razorpay.Client(auth=('rzp_test_jznmHCFBf6ZMUd','hMGwzenl3b1QwDmJxDtyAUNy'))
+    payment = client.order.create({"amount": order_amount, "currency": order_currency, "receipt": order_receipt, 'notes': notes})
+    # order_data = Payment()
+    print(payment)
+    return JsonResponse( payment)
 
 
 # Rendering Product view page
 def view_product(request,id):
     print(id)
     productdetails = Products.objects.get(id=id)
-    return render(request, "ecom/view_product.html",{ 'productdata':productdetails })
+    return render(request, "ecom/view_product.html",{ 'productdata': productdetails })
 
 
 @csrf_exempt
@@ -198,7 +230,13 @@ def view_bag(request):
         bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag')
         bag_ids = bagdata.values_list('product_id_id')
         productdata = Products.objects.filter(id__in=bag_ids)
-        return render(request,"ecom/view_bag.html",{'bagdata': bagdata, 'productdata': productdata})
+        price = 0
+        for prod in productdata:
+            for bg in bagdata:
+                if bg.product_id_id == prod.id:
+                    price = price + (bg.quantity * prod.price)
+        print(price)
+        return render(request,"ecom/view_bag.html",{'bagdata': bagdata, 'productdata': productdata, 'totalprice': price})
 
 
 # OTP verification

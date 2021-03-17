@@ -50,6 +50,7 @@ def admlogin(request):
                     resellerdata = Resellers.objects.get(login_id=user.id)
                     return render(request, "admin/admin_login.html", {"loginerror": "Administartor credentials invalid"})
                 except Resellers.DoesNotExist:
+                    request.session['adminid'] = user.id
                     return redirect('managereseller')
         else:
             return render(request, "admin/admin_login.html", {"loginerror": "Administartor credentials invalid"})

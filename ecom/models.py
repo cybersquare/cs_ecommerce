@@ -18,6 +18,8 @@ class Customer(models.Model):
     user_type = models.ForeignKey(UserType, on_delete=models.CASCADE)
     login_id = models.ForeignKey(User, on_delete=models.CASCADE)
     otp = models.CharField(max_length=70)
+    def __str__(self): 
+         return self.firstname
 
 
 class Orders(models.Model):
@@ -26,3 +28,12 @@ class Orders(models.Model):
     orderdate = models.DateField(default=datetime.date.today)
     quantity = models.IntegerField()
     status = models.CharField(max_length=30)
+    def __str__(self): 
+         return self.product_id
+
+
+class Payment(models.Model):
+    order_id = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    ammount = models.CharField(max_length=20)
+    payment_id = models.CharField(max_length=100)
+    paid = models.BooleanField(default=False)

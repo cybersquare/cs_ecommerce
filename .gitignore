@@ -1,3 +1,7 @@
 **/*.pyc
 *.pyc
 /ecommerce/settings.py
+/reseller/migrations
+/ecom/migrations
+/ecomadmin/migrations
+/common/migrations

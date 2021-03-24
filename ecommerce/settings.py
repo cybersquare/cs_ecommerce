@@ -181,10 +181,5 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, '/ecomadmin/static'),
    ]
 
-EMAIL_HOST_USER = 'kiransurya032@gmail.com'
-EMAIL_HOST_PASSWORD = '8606326406'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 
 django_heroku.settings(locals())

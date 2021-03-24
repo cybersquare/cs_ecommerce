@@ -38,14 +38,14 @@ def user_login(request):
                 request.session['customerid'] = user.id
                 # if customer didn't complete otp verification send otp and verifying it
                 if customerdata.status == 'otpverify':
-                    otp = randint(1000, 9999)
-                    send_mail(
-                        'please verify your otp',
-                        str(otp),
-                        'kiransurya032@gmail.com',
-                        [user.email],
-                        fail_silently=False,
-                    )
+                #     otp = randint(1000, 9999)
+                #     send_mail(
+                #         'please verify your otp',
+              #           str(otp),
+                 #        'kiransurya032@gmail.com',
+               #          [user.email],
+               #          fail_silently=False,
+              #       )
                     request.session['otpid'] = customerdata.login_id_id
                     Customer.objects.filter(login_id=user.id).update(otp=otp)
                     return redirect('verifyotp')
@@ -60,14 +60,14 @@ def user_login(request):
                 # if Reseller didn't complete otp verification send otp and verifying it
                 if resellerdata.status == 'otpverify':
                     # Generate otp and sending to mail
-                    otp = randint(1000, 9999)
-                    send_mail(
-                        'please verify your otp',
-                        str(otp),
-                        'kiransurya032@gmail.com',
-                        [user.email],
-                        fail_silently=False,
-                    )
+                #     otp = randint(1000, 9999)
+                #     send_mail(
+                #         'please verify your otp',
+                 #        str(otp),
+                 #        'kiransurya032@gmail.com',
+               #          [user.email],
+               #          fail_silently=False,
+               #      )
                     request.session['otpid'] = resellerdata.login_id
                     Resellers.objects.filter(login_id=user.id).update(otp=otp)
                     return redirect('verifyotp')

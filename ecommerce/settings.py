@@ -182,7 +182,7 @@ STATICFILES_DIRS = [
    ]
 
 
-EMAIL_HOST_USER = 'kiransurya032@gmail.com'
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = '8606326406'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

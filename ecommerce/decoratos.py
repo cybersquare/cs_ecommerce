@@ -9,3 +9,12 @@ def cust_login_required(func):
         else:
             return func(request, *args, **kwargs)
     return wrap
+
+
+def admin_login_required(func):
+    def wrap(request, *args, **kwargs):
+        if not (request.session.get('adminid')):
+            return redirect('/ecomadmin/adminlogin')
+        else:
+            return func(request, *args, **kwargs)
+    return wrap

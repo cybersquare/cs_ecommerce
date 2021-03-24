@@ -13,6 +13,8 @@ from random import randint
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+# from django.conf.settings import EMAIL_HOST_USER
+from django.conf.global_settings import EMAIL_HOST_USER
 # Create your views here.
 
 
@@ -42,7 +44,7 @@ def user_login(request):
                     send_mail(
                         'please verify your otp',
                         str(otp),
-                        'content@baabte.com',
+                        EMAIL_HOST_USER,
                         [user.email],
                         fail_silently=False,
                     )
@@ -64,7 +66,7 @@ def user_login(request):
                     send_mail(
                         'please verify your otp',
                         str(otp),
-                        'content@baabte.com',
+                        EMAIL_HOST_USER,
                         [user.email],
                         fail_silently=False,
                     )
@@ -97,7 +99,7 @@ def signup(request):
         send_mail(
                 'please verify your otp',
                 str(otp),
-                'content@baabte.com',
+                EMAIL_HOST_USER,
                 [email],
                 fail_silently=False,
             )
@@ -137,7 +139,7 @@ def signup(request):
         return render(request, "ecom/signup.html")
 
 
-# Rendering search product page
+
 @csrf_exempt
 def search_products(request):
     # search data based on keyword
@@ -145,14 +147,12 @@ def search_products(request):
         search_word = request.POST['searchdata']
         search_list=search_word.split(' ')
         print(search_list)
-        srch_products=Products.objects.filter(Q(title__icontains=search_word) | Q(vendor__icontains=search_word) | Q(category__icontains=search_word) ,status='Active')
-        # for word in search_list:
-        #     q |= Q(title__icontains = search_list)
-        # srch_products=Products.objects.filter(q)
+        srch_products=Products.objects.filter(Q(title__icontains=search_word) | Q(vendor__icontains=search_word) | Q(category__icontains=search_word) | Q(subcategory__icontains=search_word), status='Active')
         print(srch_products)
+        # Rendering search product page
         return render(request, "ecom/search_products.html",{"search_products":srch_products})
     else:
-        return render(request, "ecom/search_products.html")
+        return redirect('/ecom/home')
 
 
 def update_quantity(request):
@@ -181,7 +181,6 @@ def updatepayment(request):
 @csrf_exempt
 def order_product(request):
     userid=request.session['customerid']
-    # for calculate total ammount
     products_orderdata = Orders.objects.filter(customerid=userid, status='added_to_bag')
     order_amount = request.POST['totalprice']
     order_currency = 'INR'
@@ -190,14 +189,11 @@ def order_product(request):
     type(order_amount)
     client = razorpay.Client(auth=('rzp_test_jznmHCFBf6ZMUd','hMGwzenl3b1QwDmJxDtyAUNy'))
     payment = client.order.create({"amount": order_amount, "currency": order_currency, "receipt": order_receipt, 'notes': notes})
-    # order_data = Payment()
-    print(payment)
     return JsonResponse( payment)
 
 
 # Rendering Product view page
 def view_product(request,id):
-    print(id)
     productdetails = Products.objects.get(id=id)
     return render(request, "ecom/view_product.html",{ 'productdata': productdetails })
 
@@ -237,6 +233,20 @@ def view_bag(request):
                     price = price + (bg.quantity * prod.price)
         print(price)
         return render(request,"ecom/view_bag.html",{'bagdata': bagdata, 'productdata': productdata, 'totalprice': price})
+
+
+def view_orders(request):
+    cust_id = request.session['customerid']
+    bagdata = Orders.objects.filter(customerid=cust_id).exclude(status__in='added_to_bag')
+    bag_ids = bagdata.values_list('product_id_id')
+    productdata = Products.objects.filter(id__in=bag_ids)
+    price = 0
+    for prod in productdata:
+        for bg in bagdata:
+            if bg.product_id_id == prod.id:
+                price = price + (bg.quantity * prod.price)
+    print(price)
+    return render(request,"ecom/view_orders.html",{'bagdata': bagdata, 'productdata': productdata})
 
 
 # OTP verification
@@ -280,7 +290,7 @@ def changepassword(request):
                 send_mail(
                         'please verify your otp',
                         str(otp),
-                        'content@baabte.com',
+                        EMAIL_HOST_USER,
                         [username],
                         fail_silently=False,
                     )
@@ -292,7 +302,7 @@ def changepassword(request):
                 send_mail(
                         'please verify your otp',
                         str(otp),
-                        'content@baabte.com',
+                        EMAIL_HOST_USER,
                         [username],
                         fail_silently=False,
                     )
@@ -375,7 +385,7 @@ def cust_change_password(request):
         send_mail(
             'OTP for reset password in cs ecommerce application',
             str(otp),
-            'content@baabte.com',
+            EMAIL_HOST_USER,
             [userdata.email],
             fail_silently=False,
         )

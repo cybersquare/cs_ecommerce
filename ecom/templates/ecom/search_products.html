@@ -223,7 +223,7 @@
                     {% endif %}
 
                     <div class="card" style="width: 18rem;">
-                        <img src="/media/{{ products.img }}" class="card-img-top" alt="...">
+                        <img src="/media/{{ products.img }}" class="card-img-top" style="height: 250px; width: 100%;" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ products.title }}</h5>
                             <p class="card-text">{{ products.desc }}<br>Rs. {{ products.price }}</p>
@@ -232,33 +232,9 @@
                         {% if forloop.counter|divisibleby:3 == 0 %}
                     </div>
                     {% endif %}
-
                 </div>
                 {% endfor %}
-                <!-- <div class="col-md">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{% static '/ecom/images/DressBerry.jpg'%}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Dress Berry</h5>
-                            <p class="card-text">Women analogue Watch<br>Rs. 1399</p>
-                            <a href="#" class="btn orange-btn  ">View Product</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{% static '/ecom/images/Fossil.webp'%}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Fossil</h5>
-                            <p class="card-text">Women CECILE Watch<br>Rs. 6377</p>
-                            <a href="#" class="btn orange-btn ">View Product</a>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- end of products display  -->
             </div>
-
         </div>
-        {% endblock %}
+    </div>
+    {% endblock %}

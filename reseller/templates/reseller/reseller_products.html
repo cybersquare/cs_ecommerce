@@ -1,19 +1,13 @@
 {% extends "reseller/reseller_master.html" %} {% load static %} {% block reseller_content %}
 <script src="{% static 'reseller/scripts/delete_product.js' %}"></script>
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-light">
     <div class="container">
         <a class="navbar-brand text-dark font-weight-bold" href="#">Products</a>
-
-
         <div class="collapse navbar-collapse" id="navbarResponsive">
         </div>
         <button class="btn btn-primary" id="menu-toggle">Add product</button>
     </div>
 </nav>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-light">
     <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
     <div class="collapse navbar-collapse" id="navbarColor02">
@@ -46,10 +40,8 @@
         </form>
     </div>
 </nav>
-
 <div class="row text-center" style="padding-top: 26pt;">
     {% for product in products %}
-
     <div class="col-lg-3 col-md-6 mb-4">
         <div class="card h-100">
             <img class="card-img-top" src="/media/{{ product.img }}">
@@ -62,16 +54,9 @@
             <div class="card-footer">
                 <a class="btn btn-primary" id="edit" href="editProducts/{{ product.id }}">Edit</a>
                 <button onclick="delete_product('{{ product.id }}')" class="btn btn-danger">Delete</button>
-                <!-- <a href="" class="btn btn-danger" onclick="delete_product('{{ product.id }}')">Delete</a> -->
             </div>
         </div>
     </div>
     {% endfor %}
-
-
-
 </div>
-<!-- onclick="location.href = 'editProducts'" -->
-
-
 {% endblock %}

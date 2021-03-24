@@ -4,7 +4,8 @@ if (window.history.replaceState) {
 }
 
 function validate_login() {
-    signinstatus = 1;
+    console.log("test")
+    status = 1;
     username = document.getElementById("admusername");
     password = document.getElementById("admpassword");
     if (username.value == "") {
@@ -20,6 +21,7 @@ function validate_login() {
         password.style.borderColor = "#ced4da";
 
     }
+    console.log(status)
     if (status == 0) {
         return false;
     }

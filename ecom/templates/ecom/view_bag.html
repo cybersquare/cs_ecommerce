@@ -103,7 +103,6 @@
     function update_quantity(quanity, id, price, priceid) {
         totalprice = parseInt(price) * parseInt(quanity.value);
         $("#" + priceid + "").val(totalprice);
-        // maxprice()
         $.ajax({
             url: '/ecom/updateQuantity',
             type: 'get',
@@ -117,17 +116,6 @@
             }
         })
     }
-
-    // function maxprice() {
-    //     console.log("max price calculation")
-    //     maxprice = 0;
-    //     console.log(maxprice)
-    //     for (i = 1; i <= 10; i++) {
-    //         console.log($("#" + i + "").val());
-    //         maxprice = maxprice + parseInt($("#" + i + "").val());
-    //         console.log(maxprice);
-    //     }
-    // }
 
     function load_data() {
         $.ajax({

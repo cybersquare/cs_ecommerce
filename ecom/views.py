@@ -42,7 +42,7 @@ def user_login(request):
                     send_mail(
                         'please verify your otp',
                         str(otp),
-                        'kiransurya032@gmail.com',
+                        'content@baabte.com',
                         [user.email],
                         fail_silently=False,
                     )
@@ -64,7 +64,7 @@ def user_login(request):
                     send_mail(
                         'please verify your otp',
                         str(otp),
-                        'kiransurya032@gmail.com',
+                        'content@baabte.com',
                         [user.email],
                         fail_silently=False,
                     )
@@ -97,7 +97,7 @@ def signup(request):
         send_mail(
                 'please verify your otp',
                 str(otp),
-                'kiransurya032@gmail.com',
+                'content@baabte.com',
                 [email],
                 fail_silently=False,
             )
@@ -280,7 +280,7 @@ def changepassword(request):
                 send_mail(
                         'please verify your otp',
                         str(otp),
-                        'kiransurya032@gmail.com',
+                        'content@baabte.com',
                         [username],
                         fail_silently=False,
                     )
@@ -292,7 +292,7 @@ def changepassword(request):
                 send_mail(
                         'please verify your otp',
                         str(otp),
-                        'kiransurya032@gmail.com',
+                        'content@baabte.com',
                         [username],
                         fail_silently=False,
                     )
@@ -375,7 +375,7 @@ def cust_change_password(request):
         send_mail(
             'OTP for reset password in cs ecommerce application',
             str(otp),
-            'kiransurya032@gmail.com',
+            'content@baabte.com',
             [userdata.email],
             fail_silently=False,
         )

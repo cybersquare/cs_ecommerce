@@ -68,8 +68,8 @@ def ang_signup(request):
                 user = User.objects.get(username=email)
                 customer = Customer.objects.get(login_id_id=user.id)
                 newuserdetails = serializers.serialize('json', [customer])
-                responseStatus = [{"msg": "Registreration successfull"}]
-                return Response(responseStatus, newuserdetails, status=status.HTTP_201_CREATED)
+                # responseStatus = [{"msg": "Registreration successfull"}]
+                return Response( newuserdetails, status=status.HTTP_201_CREATED)
             else:
                 # Read reseller specific information and signing up
                 resellercompanyname = userdetails['resellercompanyname']
@@ -84,13 +84,12 @@ def ang_signup(request):
                 user = User.objects.get(username=email)
                 reseller = Resellers.objects.get(login_id=user.id)
                 newuserdetails = serializers.serialize('json', [reseller])
-                # responseStatus = [{"msg": "User registred successfully", "status_code": "201"}]
-                responseStatus = [{"msg": "Registreration successfull"}]
-                return Response(newuserdetails, responseStatus, status=status.HTTP_201_CREATED)
+                # responseStatus = [{"msg": "Registreration successfull"}]
+                return Response(newuserdetails,  status=status.HTTP_201_CREATED)
     # Rendering signup page
     else:
-        responseStatus = [{"msg": "An error occured while login"}]
-        return Response(newuserdetails, responseStatus, status=status.HTTP_400_BAD_REQUEST)
+        # responseStatus = [{"msg": "An error occured while login"}]
+        return Response(newuserdetails, status=status.HTTP_400_BAD_REQUEST)
 
 
 # OTP verification

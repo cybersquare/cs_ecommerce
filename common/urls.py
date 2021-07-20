@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('testing', views.test, name='testing'),
+    path('Ang_AllProducts', views.ang_view_product, name='Ang_AllProducts'),
+    path('Ang_Signup', views.ang_signup, name="Ang_Signup")
 ]

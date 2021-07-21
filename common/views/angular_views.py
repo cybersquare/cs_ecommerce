@@ -22,7 +22,7 @@ def ang_view_product(request):
     all_products=Products.objects.all()
     allproductlist = serializers.serialize('json', all_products)
     print(allproductlist)
-    return HttpResponse(allproductlist, content_type="application/json")
+    return Response(allproductlist, content_type="application/json")
 
 # insert login credentials
 @csrf_exempt
@@ -93,24 +93,26 @@ def ang_signup(request):
 
 
 # OTP verification
-def otpVerify(request):
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def otpVerification(request):
     # Verifying otp if method POST
+
     if request.method == "POST":
-        # id = request.session['otpid']
-        # otp = request.POST['inp_otp']
-        try:
-            userdata = Customer.objects.get(login_id_id=id)
-            # Verifying OTP in customer table
-            if(otp == userdata.otp):
-                Customer.objects.filter(login_id_id=id).update(status='active')
-                return redirect('/ecom/home')
-            else:
-                return render(request, "ecom/verify_otp.html", {"msg": "Invalid otp"})
-        except Customer.DoesNotExist:
-            userdata = Resellers.objects.get(login_id=id)
-            # Verifying OTP in reseller table
-            if(otp == userdata.otp):
-                Resellers.objects.filter(login_id=id).update(status='inactive')
-                return redirect('/reseller/home')
-            else:
-                return render(request, "ecom/verify_otp.html", {"msg": "Invalid otp"})
+        # Read common information for customer and reseller from HttpRequest
+        userdetails = request.data
+        id = int(userdetails['userid'])
+        # Updating OTP status
+        if Customer.objects.filter(login_id_id=id).exists():
+            # userdata = Customer.objects.get(login_id_id=id)
+            # Customer otp verification
+            Customer.objects.filter(login_id_id=id).update(status='active')
+            return Response(status=status.HTTP_201_CREATED)
+        elif Resellers.objects.filter(login_id=id).exists():
+            # Reseller OTP verification
+            Resellers.objects.filter(login_id=id).update(status='inactive')
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -97,7 +97,6 @@ def ang_signup(request):
 @api_view(['GET', 'POST'])
 def otpVerification(request):
     # Verifying otp if method POST
-
     if request.method == "POST":
         # Read common information for customer and reseller from HttpRequest
         userdetails = request.data
@@ -114,5 +113,77 @@ def otpVerification(request):
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# Login process
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def ang_Login(request):
+    if request.method == 'POST':
+        logindata = request.data
+        username = logindata['userName']
+        passwd = logindata['userPassword']
+        print("Authentication startsssssss")
+        user = authenticate(username=username, password=passwd)
+        if user is not None:
+            login(request, user)
+            try:
+                # Login operation for customers
+                customerdata = Customer.objects.get(login_id=user.id)
+                # if customer didn't complete otp verification send otp and verifying it
+                if customerdata.status == 'otpverify':
+                    print("OTP verification working")
+                    otp = randint(1000, 9999)
+                    send_mail(
+                        'please verify your otp',
+                        str(otp),
+                        EMAIL_HOST_USER,
+                        [user.email],
+                        fail_silently=False,
+                    )
+                    Customer.objects.filter(login_id=user.id).update(otp=otp)
+                    loginDetails=Customer.objects.filter(login_id=user.id).first()
+                    user_login=serializers.serialize('json', [loginDetails])
+                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+                # if customer already completed otp verification redirect
+                # to home page
+                else:
+                    print("OTP already verified")
+                    loginDetails=Customer.objects.filter(login_id=user.id).first()
+                    customer_login=serializers.serialize('json', [loginDetails])
+                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+
+            except Customer.DoesNotExist:
+                # Login operation for resellers
+                resellerdata = Resellers.objects.get(login_id=user.id)
+                # if Reseller didn't complete otp verification send otp and verifying it
+                if resellerdata.status == 'otpverify':
+                    print("OTP verification working")
+                    # Generate otp and sending to mail
+                    otp = randint(1000, 9999)
+                    send_mail(
+                        'please verify your otp',
+                        str(otp),
+                        EMAIL_HOST_USER,
+                        [user.email],
+                        fail_silently=False,
+                    )
+                    Resellers.objects.filter(login_id=user.id).update(otp=otp)
+                    loginDetails=Customer.objects.filter(login_id=user.id).first()
+                    user_login=serializers.serialize('json', [customerdata])
+                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+                # if Reseller already completed otp verification
+                # redirect to home page
+                else:
+                    print("OTP already verified")
+                    loginDetails=Customer.objects.filter(login_id=user.id)
+                    user_login=serializers.serialize('json', [customerdata])
+                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+        # If credentials are wrong, paasing a error message
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

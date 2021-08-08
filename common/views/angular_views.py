@@ -114,10 +114,9 @@ def otpVerification(request):
             responseStatus = {"status": "OTP verified successfully"}
             return Response(status=status.HTTP_200_OK)
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_404_NOT_FOUND)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
 
 
 # Login process
@@ -149,7 +148,7 @@ def ang_Login(request):
                     Customer.objects.filter(login_id=user.id).update(otp=otp)
                     loginDetails=Customer.objects.filter(login_id=user.id)
                     user_login=serializers.serialize('json', [loginDetails])
-                    return Response(user_login, status=status.HTTP_200_OK)
+                    return Response(user_login, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if customer already completed otp verification redirect
                 # to home page
                 else:
@@ -176,7 +175,7 @@ def ang_Login(request):
                     Resellers.objects.filter(login_id=user.id).update(otp=otp)
                     loginDetails=Customer.objects.filter(login_id=user.id).first()
                     user_login=serializers.serialize('json', [customerdata])
-                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+                    return Response(customer_login, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if Reseller already completed otp verification
                 # redirect to home page
                 else:
@@ -186,6 +185,6 @@ def ang_Login(request):
                     return Response(customer_login, status=status.HTTP_202_ACCEPTED)
         # If credentials are wrong, paasing a error message
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

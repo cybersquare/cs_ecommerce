@@ -42,7 +42,7 @@ def ang_signup(request):
         try:
             user= User.objects.get(username=email)
             responseStatus = {"status": "User already exist"}
-            return Response(responseStatus, status=status.HTTP_201_CREATED)
+            return Response(responseStatus, status=status.HTTP_208_ALREADY_REPORTED)
         except User.DoesNotExist:
             # Generate otp and sending to mail
             otp = randint(1000, 9999)
@@ -89,7 +89,7 @@ def ang_signup(request):
     # Rendering signup page
     else:
         responseStatus = {"status": "Invalid request type"}
-        return Response(responseStatus)
+        return Response(responseStatus, )
 
 
 # OTP verification
@@ -106,11 +106,13 @@ def otpVerification(request):
             # userdata = Customer.objects.get(login_id_id=id)
             # Customer otp verification
             Customer.objects.filter(login_id_id=id).update(status='active')
-            return Response(status=status.HTTP_201_CREATED)
+            responseStatus = {"status": "OTP verified successfully"}
+            return Response(responseStatus, status=status.HTTP_200_OK)
         elif Resellers.objects.filter(login_id=id).exists():
             # Reseller OTP verification
             Resellers.objects.filter(login_id=id).update(status='inactive')
-            return Response(status=status.HTTP_201_CREATED)
+            responseStatus = {"status": "OTP verified successfully"}
+            return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -145,16 +147,16 @@ def ang_Login(request):
                         fail_silently=False,
                     )
                     Customer.objects.filter(login_id=user.id).update(otp=otp)
-                    loginDetails=Customer.objects.filter(login_id=user.id).first()
+                    loginDetails=Customer.objects.filter(login_id=user.id)
                     user_login=serializers.serialize('json', [loginDetails])
-                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+                    return Response(user_login, status=status.HTTP_200_OK)
                 # if customer already completed otp verification redirect
                 # to home page
                 else:
                     print("OTP already verified")
-                    loginDetails=Customer.objects.filter(login_id=user.id).first()
+                    loginDetails=Customer.objects.filter(login_id=user.id).values('login_id')
                     customer_login=serializers.serialize('json', [loginDetails])
-                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+                    return Response(customer_login, status=status.HTTP_200_OK)
 
             except Customer.DoesNotExist:
                 # Login operation for resellers

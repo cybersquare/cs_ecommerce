@@ -112,7 +112,7 @@ def otpVerification(request):
             # Reseller OTP verification
             Resellers.objects.filter(login_id=id).update(status='inactive')
             responseStatus = {"status": "OTP verified successfully"}
-            return Response(status=status.HTTP_200_OK)
+            return Response(responseStatus, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
     else:
@@ -146,7 +146,7 @@ def ang_Login(request):
                         fail_silently=False,
                     )
                     Customer.objects.filter(login_id=user.id).update(otp=otp)
-                    loginDetails=Customer.objects.filter(login_id=user.id)
+                    loginDetails=Customer.objects.filter(login_id=user.id).values('login_id','otp')
                     user_login=serializers.serialize('json', [loginDetails])
                     return Response(user_login, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if customer already completed otp verification redirect
@@ -173,7 +173,8 @@ def ang_Login(request):
                         fail_silently=False,
                     )
                     Resellers.objects.filter(login_id=user.id).update(otp=otp)
-                    loginDetails=Customer.objects.filter(login_id=user.id).first()
+                    # loginDetails=Customer.objects.filter(login_id=user.id).first()values('login_id','otp')
+                    loginDetails=Customer.objects.filter(login_id=user.id).values('login_id','otp')
                     user_login=serializers.serialize('json', [customerdata])
                     return Response(customer_login, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if Reseller already completed otp verification
@@ -182,9 +183,10 @@ def ang_Login(request):
                     print("OTP already verified")
                     loginDetails=Customer.objects.filter(login_id=user.id)
                     user_login=serializers.serialize('json', [customerdata])
-                    return Response(customer_login, status=status.HTTP_202_ACCEPTED)
+                    return Response(customer_login, status=status.HTTP_200_OK)
         # If credentials are wrong, paasing a error message
         else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            responseStatus = {"status": "Login Failed.... Please check your username and password are correct"}
+            return Response(responseStatus, status=status.HTTP_401_UNAUTHORIZED)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -18,11 +18,16 @@ from reseller.models import Resellers,Products
 # Create your views here.
 
 # return all products details
+@csrf_exempt
+@api_view(['GET', 'POST'])
 def ang_view_product(request):
-    all_products=Products.objects.all()
-    allproductlist = serializers.serialize('json', all_products)
-    print(allproductlist)
-    return Response(allproductlist, content_type="application/json")
+    if request.method=="GET":
+        all_products=Products.objects.all()
+        allproductlist = serializers.serialize('json', all_products)
+        return Response(allproductlist, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
 
 # insert login credentials
 @csrf_exempt

@@ -73,7 +73,7 @@ def ang_signup(request):
                 user = User.objects.get(username=email)
                 customer = Customer.objects.get(login_id_id=user.id)
                 # newuserdetails = serializers.serialize('json', [customer])
-                responseStatus = {"status": "Registreration successfull", "otp": customer.otp}
+                responseStatus = {"status": "Registreration successfull", "otp": customer.otp, "id": user.id}
                 return Response( responseStatus, status=status.HTTP_201_CREATED)
             else:
                 # Read reseller specific information and signing up
@@ -89,7 +89,7 @@ def ang_signup(request):
                 user = User.objects.get(username=email)
                 reseller = Resellers.objects.get(login_id=user.id)
                 # newuserdetails = serializers.serialize('json', [reseller])
-                responseStatus = {"status": "Registreration successfull", "otp": reseller.otp}
+                responseStatus = {"status": "Registreration successfull", "otp": reseller.otp, "id": user.id}
                 return Response(responseStatus, status=status.HTTP_400_BAD_REQUEST)
     # Rendering signup page
     else:

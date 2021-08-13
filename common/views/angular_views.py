@@ -199,3 +199,19 @@ def ang_Login(request):
             return Response(responseStatus, status=status.HTTP_401_UNAUTHORIZED)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# Reseller views section
+# Get seller products
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def get_res_products(request):
+    if request.method == "POST":
+        userdata=request.body
+        # loginid = int('2')
+        loginid = userdata[id]
+        products = Products.objects.filter(reseller_id=loginid)
+        productdetails = serializers.serialize('json', products)
+        return Response(productdetails, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

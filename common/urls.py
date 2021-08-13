@@ -7,4 +7,6 @@ urlpatterns = [
     path('otpVerify', views.otpVerification, name="otpVerify"),
     path('Ang_Login', views.ang_Login, name="Ang_Login"),
     path('RegisterUser', views.registerUser, name="RegisterUser"),
+    path('GetResProducts', views.get_res_products, name="GetResProducts")
+    
 ]

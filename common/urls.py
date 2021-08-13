@@ -6,4 +6,5 @@ urlpatterns = [
     path('Ang_Signup', views.ang_signup, name="Ang_Signup"),
     path('otpVerify', views.otpVerification, name="otpVerify"),
     path('Ang_Login', views.ang_Login, name="Ang_Login"),
+    path('RegisterUser', views.registerUser, name="RegisterUser"),
 ]

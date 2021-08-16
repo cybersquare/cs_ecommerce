@@ -196,7 +196,7 @@ def ang_Login(request):
         # If credentials are wrong, paasing a error message
         else:
             responseStatus = {"status": "Login Failed.... Please check your username and password are correct"}
-            return Response(responseStatus, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(responseStatus, status=status.status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 

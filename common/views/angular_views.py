@@ -189,7 +189,7 @@ def ang_Login(request):
                 # redirect to home page
                 else:
                     print("OTP already verified")
-                    loginDetails=Customer.objects.filter(login_id=user.id)
+                    loginDetails=Customer.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
                     resp = {"msg": "Login successfull","customerType": "reseller", "id": user.id}
                     return Response(resp, status=status.HTTP_200_OK)

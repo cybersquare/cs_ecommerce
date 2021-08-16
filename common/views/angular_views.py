@@ -90,11 +90,11 @@ def ang_signup(request):
                 reseller = Resellers.objects.get(login_id=user.id)
                 # newuserdetails = serializers.serialize('json', [reseller])
                 responseStatus = {"status": "Registeration successfull", "otp": reseller.otp, "id": user.id}
-                return Response(responseStatus, status=status.HTTP_400_BAD_REQUEST)
+                return Response(responseStatus, status=status.HTTP_201_CREATED)
     # Rendering signup page
     else:
         responseStatus = {"status": "Invalid request type"}
-        return Response(responseStatus, )
+        return Response(responseStatus)
 
 
 # OTP verification
@@ -207,9 +207,10 @@ def ang_Login(request):
 @api_view(['GET', 'POST'])
 def get_res_products(request):
     if request.method == "POST":
-        userdata=request.body
+        userdata=json.loads(request.body)
+        print(userdata[id])
         # loginid = int('2')
-        loginid = userdata[id]
+        loginid = int(userdata.id)
         products = Products.objects.filter(reseller_id=loginid)
         productdetails = serializers.serialize('json', products)
         return Response(productdetails, status=status.HTTP_200_OK)

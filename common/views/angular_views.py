@@ -153,7 +153,7 @@ def ang_Login(request):
                     Customer.objects.filter(login_id=user.id).update(otp=otp)
                     loginDetails=Customer.objects.filter(login_id=user.id).values('login_id','otp')
                     # user_login=serializers.serialize('json', [loginDetails])
-                    resp={"msg": "otp verify", "id": user.id, "otp": loginDetails.otp }
+                    resp={"msg": "otp verify", "id": user.id,"customerType": "customer", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if customer already completed otp verification redirect
                 # to home page
@@ -183,7 +183,7 @@ def ang_Login(request):
                     # loginDetails=Customer.objects.filter(login_id=user.id).first()values('login_id','otp')
                     loginDetails=Customer.objects.filter(login_id=user.id).values('login_id','otp')
                     # user_login=serializers.serialize('json', [customerdata])
-                    resp={"msg": "otp verify", "id": user.id, "otp": loginDetails.otp }
+                    resp={"msg": "otp verify", "id": user.id,"customerType": "reseller", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if Reseller already completed otp verification
                 # redirect to home page
@@ -191,7 +191,7 @@ def ang_Login(request):
                     print("OTP already verified")
                     loginDetails=Customer.objects.filter(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
-                    resp = {"msg": "Login successfull","customerType": "customer", "id": user.id}
+                    resp = {"msg": "Login successfull","customerType": "reseller", "id": user.id}
                     return Response(resp, status=status.HTTP_200_OK)
         # If credentials are wrong, paasing a error message
         else:

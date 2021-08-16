@@ -151,7 +151,7 @@ def ang_Login(request):
                         fail_silently=False,
                     )
                     Customer.objects.filter(login_id=user.id).update(otp=otp)
-                    loginDetails=Customer.objects.filter(login_id=user.id)
+                    loginDetails=Customer.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [loginDetails])
                     resp={"msg": "otp verify", "id": user.id,"customerType": "customer", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
@@ -159,7 +159,7 @@ def ang_Login(request):
                 # to home page
                 else:
                     print("OTP already verified")
-                    loginDetails=Customer.objects.filter(login_id=user.id).values('login_id')
+                    loginDetails=Customer.objects.get(login_id=user.id).values('login_id')
                     resp = {"msg": "Login successfull", "customerType": "customer" , "id": user.id}
                     # customer_login=serializers.serialize('json', [loginDetails])
                     return Response(resp, status=status.HTTP_200_OK)
@@ -181,7 +181,7 @@ def ang_Login(request):
                     )
                     Resellers.objects.filter(login_id=user.id).update(otp=otp)
                     # loginDetails=Customer.objects.filter(login_id=user.id).first()values('login_id','otp')
-                    loginDetails=Customer.objects.filter(login_id=user.id)
+                    loginDetails=Customer.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
                     resp={"msg": "otp verify", "id": user.id,"customerType": "reseller", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)

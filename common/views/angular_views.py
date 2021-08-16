@@ -138,7 +138,7 @@ def ang_Login(request):
             login(request, user)
             try:
                 # Login operation for customers
-                customerdata = Customer.objects.get(login_id=user.id)
+                customerdata = Customer.objects.get(login_id_id=user.id)
                 # if customer didn't complete otp verification send otp and verifying it
                 if customerdata.status == 'otpverify':
                     print("OTP verification working")
@@ -150,8 +150,8 @@ def ang_Login(request):
                         [user.email],
                         fail_silently=False,
                     )
-                    Customer.objects.filter(login_id=user.id).update(otp=otp)
-                    loginDetails=Customer.objects.get(login_id=user.id)
+                    Customer.objects.filter(login_id_id=user.id).update(otp=otp)
+                    loginDetails=Customer.objects.get(login_id_id=user.id)
                     # user_login=serializers.serialize('json', [loginDetails])
                     resp={"msg": "otp verify", "id": user.id,"customerType": "customer", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
@@ -159,7 +159,7 @@ def ang_Login(request):
                 # to home page
                 else:
                     print("OTP already verified")
-                    loginDetails=Customer.objects.get(login_id=user.id).values('login_id')
+                    loginDetails=Customer.objects.get(login_id_id=user.id).values('login_id')
                     resp = {"msg": "Login successfull", "customerType": "customer" , "id": user.id}
                     # customer_login=serializers.serialize('json', [loginDetails])
                     return Response(resp, status=status.HTTP_200_OK)

@@ -73,7 +73,7 @@ def ang_signup(request):
                 user = User.objects.get(username=email)
                 customer = Customer.objects.get(login_id_id=user.id)
                 # newuserdetails = serializers.serialize('json', [customer])
-                responseStatus = {"status": "Registeration successfull", "otp": customer.otp, "id": user.id}
+                responseStatus = {"status": "Registration successfull", "otp": customer.otp, "id": user.id}
                 return Response( responseStatus, status=status.HTTP_201_CREATED)
             else:
                 # Read reseller specific information and signing up
@@ -89,7 +89,7 @@ def ang_signup(request):
                 user = User.objects.get(username=email)
                 reseller = Resellers.objects.get(login_id=user.id)
                 # newuserdetails = serializers.serialize('json', [reseller])
-                responseStatus = {"status": "Registeration successfull", "otp": reseller.otp, "id": user.id}
+                responseStatus = {"status": "Registration successfull", "otp": reseller.otp, "id": user.id}
                 return Response(responseStatus, status=status.HTTP_201_CREATED)
     # Rendering signup page
     else:
@@ -153,14 +153,14 @@ def ang_Login(request):
                     Customer.objects.filter(login_id_id=user.id).update(otp=otp)
                     loginDetails=Customer.objects.get(login_id_id=user.id)
                     # user_login=serializers.serialize('json', [loginDetails])
-                    resp={"msg": "otp verify", "id": user.id,"customerType": "customer", "otp": loginDetails.otp }
+                    resp={"status": "otp verify", "id": user.id,"customerType": "customer", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if customer already completed otp verification redirect
                 # to home page
                 else:
                     print("OTP already verified")
-                    loginDetails=Customer.objects.get(login_id_id=user.id).values('login_id')
-                    resp = {"msg": "Login successfull", "customerType": "customer" , "id": user.id}
+                    loginDetails=Customer.objects.get(login_id_id=user.id)
+                    resp = {"status": "Login successfull", "customerType": "customer" , "id": user.id}
                     # customer_login=serializers.serialize('json', [loginDetails])
                     return Response(resp, status=status.HTTP_200_OK)
 
@@ -183,7 +183,7 @@ def ang_Login(request):
                     # loginDetails=Customer.objects.filter(login_id=user.id).first()values('login_id','otp')
                     loginDetails=Customer.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
-                    resp={"msg": "otp verify", "id": user.id,"customerType": "reseller", "otp": loginDetails.otp }
+                    resp={"status": "otp verify", "id": user.id,"customerType": "reseller", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                 # if Reseller already completed otp verification
                 # redirect to home page
@@ -191,11 +191,11 @@ def ang_Login(request):
                     print("OTP already verified")
                     loginDetails=Customer.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
-                    resp = {"msg": "Login successfull","customerType": "reseller", "id": user.id}
+                    resp = {"status": "Login successfull","customerType": "reseller", "id": user.id}
                     return Response(resp, status=status.HTTP_200_OK)
         # If credentials are wrong, paasing a error message
         else:
-            responseStatus = {"status": "Login Failed.... Please check your username and password are correct"}
+            responseStatus = {"status": "Login Failed","msg": "Please check your username and password are correct"}
             return Response(responseStatus, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

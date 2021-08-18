@@ -203,14 +203,13 @@ def ang_Login(request):
 
 # Reseller views section
 # Get seller products
-@csrf_exempt
 @api_view(['GET', 'POST'])
+@csrf_exempt
 def get_res_products(request):
     if request.method == "POST":
         userdata=json.loads(request.body)
-        print(userdata[id])
         # loginid = int('2')
-        loginid = int(userdata.id)
+        loginid = int(userdata['id'])
         products = Products.objects.filter(reseller_id=loginid)
         productdetails = serializers.serialize('json', products)
         return Response(productdetails, status=status.HTTP_200_OK)

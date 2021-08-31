@@ -1,3 +1,4 @@
+from itertools import chain
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.http import HttpResponse
@@ -211,7 +212,33 @@ def get_res_products(request):
         # loginid = int('2')
         loginid = int(userdata['id'])
         products = Products.objects.filter(reseller_id=loginid)
-        productdetails = serializers.serialize('json', products)
+        if not products:
+            print("no products")
+            # productdetails = serializers.serialize('json', products)
+            # productdetails.append({"stat","no prod"})
+            return Response('no products', status=status.HTTP_200_OK)
+        else:
+            # products.append({"stat","prod available"})
+            productdetails = serializers.serialize('json', products)
         return Response(productdetails, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+def approveReseller(request):
+    if request.method == "GET":
+        resdata=Resellers.objects.filter(status="inactive").select_related('login')
+        login_data=[]
+        for res in resdata:
+            login_data.append(res.login)
+        # resdataset= resdata | login_data
+        queryset = list(chain(resdata, login_data ))
+        userdata=serializers.serialize('json', queryset)
+        return Response(userdata, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    # reqdata = Resellers.objects.all().filter(status="inactive")
+    # userdata = User.objects.all()
+    # return render(request, "admin/add_reseller.html", {"userrequests": reqdata, "alldata": userdata})
+    

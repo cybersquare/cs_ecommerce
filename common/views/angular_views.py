@@ -1,4 +1,5 @@
 from itertools import chain
+from django.http import response
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.http import HttpResponse
@@ -231,14 +232,34 @@ def approveReseller(request):
         resdata=Resellers.objects.filter(status="inactive").select_related('login')
         login_data=[]
         for res in resdata:
-            login_data.append(res.login)
-        # resdataset= resdata | login_data
-        queryset = list(chain(resdata, login_data ))
-        userdata=serializers.serialize('json', queryset)
-        return Response(userdata, status=status.HTTP_200_OK)
+            print(res.login.id)
+            resp = {"rId": res.login.id, "rName": res.companyname, "rAddress": res.address, "email": res.login.username, "contact": res.mobile, "AccNumber": res.bankacccountnumber, "AccIFSC":res.bankacccountifsc, "AccHolderName":res.bankaccountholder}
+            login_data.append(resp)
+        return Response(login_data, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    # reqdata = Resellers.objects.all().filter(status="inactive")
-    # userdata = User.objects.all()
-    # return render(request, "admin/add_reseller.html", {"userrequests": reqdata, "alldata": userdata})
-    
+
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def AngProfileView(request):
+    if request.method == "POST":
+        userdata= json.loads(request.body)
+        # userdata=json.loads(request.body)
+        id = int(userdata['id'])
+        usertype = userdata['usertype']
+        # id = 3
+        # usertype = "reseller"
+        if usertype == "customer":
+            userdata = Customer.objects.select_related('login_id').get(login_id_id=id)
+            print(userdata.firstname)
+            response={"name": userdata.firstname, "address": userdata.address, "dob": userdata.dateofbirth, "gender": userdata.gender, "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login_id.username}
+        elif usertype == "reseller":
+            print("reseller works")
+            userdata = Resellers.objects.select_related('login').get(login_id=id)
+            response={"Rname": userdata.companyname,"Rid": userdata.companyregid,"address":userdata.address,"usertype":"reseller", "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login.email}
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(response, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

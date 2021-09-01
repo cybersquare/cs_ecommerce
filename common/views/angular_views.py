@@ -245,21 +245,31 @@ def approveReseller(request):
 def AngProfileView(request):
     if request.method == "POST":
         userdata= json.loads(request.body)
-        # userdata=json.loads(request.body)
         id = int(userdata['id'])
         usertype = userdata['usertype']
-        # id = 3
-        # usertype = "reseller"
         if usertype == "customer":
             userdata = Customer.objects.select_related('login_id').get(login_id_id=id)
-            print(userdata.firstname)
             response={"name": userdata.firstname, "address": userdata.address, "dob": userdata.dateofbirth, "gender": userdata.gender, "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login_id.username}
         elif usertype == "reseller":
-            print("reseller works")
             userdata = Resellers.objects.select_related('login').get(login_id=id)
             response={"Rname": userdata.companyname,"Rid": userdata.companyregid,"address":userdata.address,"usertype":"reseller", "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login.email}
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(response, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@csrf_exempt
+def AngVerifyReseller(request):
+    if request.method == "PUT":
+        resellerdata=json.loads(request.body)
+        userid=int(resellerdata['id'])
+        ResStatus=resellerdata['status']
+        print(userid)
+        print(status)
+        Resellers.objects.filter(login_id=userid).update(status=ResStatus)
+        return Response({'status': "success", 'msg':"Reseller request updated"}, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

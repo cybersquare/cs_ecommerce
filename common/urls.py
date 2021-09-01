@@ -10,4 +10,5 @@ urlpatterns = [
     path('GetResProducts', views.get_res_products, name="GetResProducts"),
     path('ResellersApproval', views.approveReseller, name="ResellersApproval"),
     path('Profiledetails', views.AngProfileView, name="Profiledetails"),
+    path('resellerVerification', views.AngVerifyReseller, name="resellerVerification"),
 ]

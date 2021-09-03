@@ -214,9 +214,6 @@ def get_res_products(request):
         loginid = int(userdata['id'])
         products = Products.objects.filter(reseller_id=loginid)
         if not products:
-            print("no products")
-            # productdetails = serializers.serialize('json', products)
-            # productdetails.append({"stat","no prod"})
             return Response('no products', status=status.HTTP_200_OK)
         else:
             # products.append({"stat","prod available"})
@@ -232,7 +229,6 @@ def approveReseller(request):
         resdata=Resellers.objects.filter(status="inactive").select_related('login')
         login_data=[]
         for res in resdata:
-            print(res.login.id)
             resp = {"rId": res.login.id, "rName": res.companyname, "rAddress": res.address, "email": res.login.username, "contact": res.mobile, "AccNumber": res.bankacccountnumber, "AccIFSC":res.bankacccountifsc, "AccHolderName":res.bankaccountholder}
             login_data.append(resp)
         return Response(login_data, status=status.HTTP_200_OK)
@@ -267,9 +263,45 @@ def AngVerifyReseller(request):
         resellerdata=json.loads(request.body)
         userid=int(resellerdata['id'])
         ResStatus=resellerdata['status']
-        print(userid)
-        print(status)
         Resellers.objects.filter(login_id=userid).update(status=ResStatus)
-        return Response({'status': "success", 'msg':"Reseller request updated"}, status=status.HTTP_200_OK)
+        resp = {'status': "success", 'msg':"Reseller request updated"}
+        return Response(resp,status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@csrf_exempt
+def AngViewReseller(request):
+    if request.method == "GET":
+        resellerdata=Resellers.objects.all().select_related('login')
+        resellerList=[]
+        for reseller in resellerdata:
+            resp={"rName":reseller.companyname, "rAddress":reseller.address, "email": reseller.login.email, "contact": reseller.mobile }
+            resellerList.append(resp)
+        # resellerdata = serializers.serialize('json', resellerdata)
+        return Response(resellerList, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def AngAdminLogin(request):
+    if request.method == "POST":
+        admindata = request.data
+        usrname = admindata['user']
+        passwd = admindata['password']
+        user = authenticate(username=usrname, password=passwd)
+        if user is not None:
+            if Customer.objects.filter(login_id=user.id) or Resellers.objects.filter(login_id=user.id):
+                resp={"status": "failed"}
+                return Response( resp, status=status.HTTP_200_OK)
+            else:
+                resp={"status": "success", "adminid": user.id }
+                return Response( resp, status=status.HTTP_200_OK)
+        else:
+            resp={"status": "failed"}
+            return Response( resp, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -127,7 +127,7 @@ def otpVerification(request):
 
 
 # Login process
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @csrf_exempt
 def ang_Login(request):
     if request.method == 'POST':

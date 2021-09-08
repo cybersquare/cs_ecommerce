@@ -321,6 +321,7 @@ def ResAddProduct(request):
         quantity = data['quantity']
         weight = data['weight']
         weightunit = data['weightunit']
+        imgUrl=data['imageURL']
         category = data['category']
         subcategory = data['subcategory']
         vendor = data['vendor']

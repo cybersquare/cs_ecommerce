@@ -13,4 +13,5 @@ urlpatterns = [
     path('resellerVerification', views.AngVerifyReseller, name="resellerVerification"),
     path('AngAllResellers', views.AngViewReseller, name="AngAllResellers"),
     path('AngAdminLogin', views.AngAdminLogin, name="AngAdminLogin"),
+    path('AngAddProduct', views.ResAddProduct, name="AngAddProduct"),
 ]

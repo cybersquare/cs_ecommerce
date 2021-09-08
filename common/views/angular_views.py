@@ -298,10 +298,37 @@ def AngAdminLogin(request):
                 resp={"status": "failed"}
                 return Response( resp, status=status.HTTP_200_OK)
             else:
-                resp={"status": "success", "adminid": user.id }
+                resp={"status": "success", "adminid": user.id}
                 return Response( resp, status=status.HTTP_200_OK)
         else:
             resp={"status": "failed"}
             return Response( resp, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def ResAddProduct(request):
+    try:
+        print("Execution started")
+        data=request.data
+        title = data['title']
+        regproductid = data['regproductid']
+        description = data['description']
+        # img = request.FILES['image']
+        price = data['price']
+        quantity = data['quantity']
+        weight = data['weight']
+        weightunit = data['weightunit']
+        category = data['category']
+        subcategory = data['subcategory']
+        vendor = data['vendor']
+        status = data['status']
+        resellerid = data['resellerid']
+        product = Products(title=title, reg_productid=regproductid, desc=description, img="no image", price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor, status=status, reseller_id=resellerid)
+        product.save()
+        product_id = product.pk
+        return Response({'status': "Success"})   
+    except:
+        return Response({'staus': 'failed'})

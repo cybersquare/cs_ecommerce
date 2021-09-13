@@ -12,6 +12,7 @@ from random import randint
 from django.core.mail import send_mail
 from django.conf.global_settings import EMAIL_HOST_USER
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Q
 import json
 
 # importing models from app
@@ -223,7 +224,7 @@ def get_res_products(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def approveReseller(request):
     if request.method == "GET":
         resdata=Resellers.objects.filter(status="inactive").select_related('login')
@@ -333,5 +334,17 @@ def ResAddProduct(request):
         return Response({'status': "Success"})   
     except:
         return Response({'staus': 'failed'})
+
+
+@csrf_exempt
+def search_products(request):
+    # search data based on keyword
+    if request.method == "POST":
+        data=request.data
+        search_word = data['searchdata']
+        search_list=search_word.split(' ')
+        srch_products=Products.objects.filter(Q(title__icontains=search_word) | Q(vendor__icontains=search_word) | Q(category__icontains=search_word) | Q(subcategory__icontains=search_word), status='Active')
+        # Rendering search product page
+        return render(request, "ecom/search_products.html",{"search_products":srch_products})
 
 

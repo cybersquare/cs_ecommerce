@@ -49,11 +49,7 @@ def reseller_addProducts(request):
         product = Products(title=title, reg_productid=regproductid, desc=description, img=img, price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor, status=status, reseller_id=resellerid)
         product.save()
         product_id = product.pk
-        return JsonResponse({'msg':'successfully added'})    
-        if product_id.exists():
-            return JsonResponse({'msg':'successfully added'})
-        else:
-            return JsonResponse({'msg':'Something went wrong'})
+        return JsonResponse({'msg':'successfully added'})
     else:
         return render(request, "reseller/reseller_addProduct.html")
 

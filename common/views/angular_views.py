@@ -204,9 +204,12 @@ def ang_Login(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+# def fnConverQtoList(querySet):
+#     return []
+
 # Reseller views section
 # Get seller products
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @csrf_exempt
 def get_res_products(request):
     if request.method == "POST":
@@ -217,9 +220,14 @@ def get_res_products(request):
         if not products:
             return Response('no products', status=status.HTTP_200_OK)
         else:
+            print(products)
+            # products = fnConverQtoList(products)
+            prod_list=[]
+            for prod in products:
+                prod_list=[{"title": prod.title, "reg_productid": prod.reg_productid, "desc": prod.desc, "vendor": "vendor", "status": prod.status}]
             # products.append({"stat","prod available"})
-            productdetails = serializers.serialize('json', products)
-        return Response(productdetails, status=status.HTTP_200_OK)
+            # productdetails = serializers.serialize('json', products)
+        return Response(prod_list, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 

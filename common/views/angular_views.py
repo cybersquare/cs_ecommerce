@@ -358,6 +358,9 @@ def search_products(request):
         resp=[]
         for res in srch_products:
             resp.append({"id":res.id,"title":res.title,"reg_productid":res.reg_productid,"desc":res.desc,"price":res.price,"vendor":res.vendor})
-        return Response(resp)   
+        if len(resp) == 0:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(resp, status=status.HTTP_200_OK)   
 
 

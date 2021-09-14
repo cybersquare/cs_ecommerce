@@ -224,7 +224,7 @@ def get_res_products(request):
             # products = fnConverQtoList(products)
             prod_list=[]
             for prod in products:
-                prod_list.append({"title": prod.title, "reg_productid": prod.reg_productid, "desc": prod.desc, "vendor": "vendor", "status": prod.status})
+                prod_list.append({"title": prod.title, "reg_productid": prod.reg_productid, "desc": prod.desc, "vendor": "vendor","price": prod.price,"quantity":prod.quantity,"weight": prod.weight,"weightunit": prod.weightunit,"category": prod.category,"subcategory": prod.subcategory ,"status": prod.status})
             # products.append({"stat","prod available"})
             # productdetails = serializers.serialize('json', products)
         return Response(prod_list, status=status.HTTP_200_OK)

@@ -344,6 +344,7 @@ def ResAddProduct(request):
         return Response({'staus': 'failed'})
 
 
+@api_view(['POST'])
 @csrf_exempt
 def search_products(request):
     # search data based on keyword
@@ -353,6 +354,11 @@ def search_products(request):
         search_list=search_word.split(' ')
         srch_products=Products.objects.filter(Q(title__icontains=search_word) | Q(vendor__icontains=search_word) | Q(category__icontains=search_word) | Q(subcategory__icontains=search_word), status='Active')
         # Rendering search product page
-        return render(request, "ecom/search_products.html",{"search_products":srch_products})
+        # print(srch_products)
+        resp=[]
+        for res in srch_products:
+            resp.append({"id":res.id,"title":res.title,"reg_productid":res.reg_productid,"desc":res.desc,"image":res.img,"price":res.price,"vendor":res.vendor})
+        print(resp)
+        return Response({"status":"success"})   
 
 

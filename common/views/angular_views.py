@@ -224,7 +224,7 @@ def get_res_products(request):
             # products = fnConverQtoList(products)
             prod_list=[]
             for prod in products:
-                prod_list.append({"title": prod.title, "reg_productid": prod.reg_productid, "desc": prod.desc, "vendor": "vendor","price": prod.price,"quantity":prod.quantity,"weight": prod.weight,"weightunit": prod.weightunit,"category": prod.category,"subcategory": prod.subcategory ,"status": prod.status})
+                prod_list.append({"title": prod.title, "reg_productid": prod.reg_productid, "desc": prod.desc, "vendor": prod.vendor,"price": prod.price,"quantity":prod.quantity,"weight": prod.weight,"weightunit": prod.weightunit,"category": prod.category,"subcategory": prod.subcategory ,"status": prod.status})
             # products.append({"stat","prod available"})
             # productdetails = serializers.serialize('json', products)
         return Response(prod_list, status=status.HTTP_200_OK)
@@ -357,8 +357,7 @@ def search_products(request):
         # print(srch_products)
         resp=[]
         for res in srch_products:
-            resp.append({"id":res.id,"title":res.title,"reg_productid":res.reg_productid,"desc":res.desc,"image":res.img,"price":res.price,"vendor":res.vendor})
-        print(resp)
-        return Response({"status":"success"})   
+            resp.append({"id":res.id,"title":res.title,"reg_productid":res.reg_productid,"desc":res.desc,"price":res.price,"vendor":res.vendor})
+        return Response(resp)   
 
 

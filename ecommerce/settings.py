@@ -94,13 +94,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'ecom',
+        'NAME': 'd4v9j0fe08jdcq',
 
-        'USER': 'postgres',
+        'USER': 'znlmihmfwalguo',
 
-        'PASSWORD': 'Surya@123',
+        'PASSWORD': '3631c0e52ce865d9f43962e0c7ca03e8b711cc113b962f1bc16ce63cf8e3989a',
 
-        'HOST': 'localhost',
+        'HOST': 'ec2-54-156-73-147.compute-1.amazonaws.com',
 
         'PORT': '5432',
 

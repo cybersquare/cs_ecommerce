@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
+# import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +27,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['https://cs-ecom.herokuapp.com/', 'cs-ecom.herokuapp.com', '127.0.0.1','localhost','*']
 
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'reseller',
     'common',
     'ecomadmin',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -84,44 +87,20 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-# DATABASES = {
 
-#     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-#         'NAME': 'ecom',
-
-#         'USER': 'ecommerce',
-
-#         'PASSWORD': '1234',
-
-#         'HOST': '127.0.0.1',
-
-#         'PORT': '5432',
-
-#     }
-
-# }
 DATABASES = {
 
     'default': {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'd4v9j0fe08jdcq',
+        'NAME': 'ecom',
 
-        'USER': 'znlmihmfwalguo',
+        'USER': 'postgres',
 
-        'PASSWORD': '3631c0e52ce865d9f43962e0c7ca03e8b711cc113b962f1bc16ce63cf8e3989a',
+        'PASSWORD': 'Surya@123',
 
-        'HOST': 'ec2-54-156-73-147.compute-1.amazonaws.com',
+        'HOST': 'localhost',
 
         'PORT': '5432',
 
@@ -185,8 +164,8 @@ STATICFILES_DIRS = [
    ]
 
 
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_USER = 'suryakiran@baabte.com'
+EMAIL_HOST_PASSWORD = 'suryakiran123'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -196,4 +175,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/ecom/login/'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

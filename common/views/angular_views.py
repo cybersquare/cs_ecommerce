@@ -361,7 +361,7 @@ def search_products(request):
         if len(resp) == 0:
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
-            return Response(resp, status=status.HTTP_200_OK)   
+            return Response(resp, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -391,3 +391,9 @@ def reseller_updateProducts(request):
         except Products.DoesNotExist:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
+def Ang_view_product(request):
+    data=request.data
+    id=int(data['productid'])
+    productdetails = Products.objects.get(id=id)
+    respDetails={"title": productdetails.title, "regProductid": productdetails.reg_productid, "description": productdetails.desc, "price": productdetails.price, "weight": productdetails.weight, "weightunit": productdetails.weightunit, "category": productdetails.category, "subcategory": productdetails.subcategory, "vendor": productdetails.vendor}
+    return Response(respDetails, status=status.HTTP_200_OK)

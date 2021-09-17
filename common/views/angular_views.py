@@ -397,3 +397,16 @@ def Ang_view_product(request):
     productdetails = Products.objects.get(id=id)
     respDetails={"title": productdetails.title, "regProductid": productdetails.reg_productid, "description": productdetails.desc, "price": productdetails.price, "weight": productdetails.weight, "weightunit": productdetails.weightunit, "category": productdetails.category, "subcategory": productdetails.subcategory, "vendor": productdetails.vendor}
     return Response(respDetails, status=status.HTTP_200_OK)
+
+
+def Ang_addToCart(request):
+    try:
+        data=request.data
+        prod_id=data['prodid']
+        quantity=data['quantity']
+        cust_id=data['customerid']
+        orderdata=Orders(product_id_id=prod_id,quantity=quantity,customerid_id=cust_id,status='added_to_bag')
+        orderdata.save()
+        return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
+    except KeyError:
+        return JsonResponse({"message": "Something went wrong"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)

@@ -361,12 +361,12 @@ def search_products(request):
         if len(resp) == 0:
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
-            return Response(resp, status=status.HTTP_200_OK)
+            return Response(resp, status=status.HTTP_200_OK)   
 
 
 @api_view(['POST'])
 @csrf_exempt
-def reseller_deleteProducts(request):
+def resDeleteProducts(request):
     if request.method == "POST":
         data=request.data
         get_id= int(data['product_id'])
@@ -380,7 +380,7 @@ def reseller_deleteProducts(request):
 
 @api_view(['POST'])
 @csrf_exempt
-def reseller_updateProducts(request):
+def resUpdateProducts(request):
     if request.method == "POST":
         data=request.data
         get_id= int(data['product_id'])
@@ -391,6 +391,29 @@ def reseller_updateProducts(request):
         except Products.DoesNotExist:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+@api_view(['POST'])
+@csrf_exempt
+def changepassword(request):
+    if request.method == "POST":
+        data=request.data
+        username = data['usrname']
+        password = data['password']
+        old_pass = data['otp']
+        try:
+            user = User.objects.get(username=username)
+            # Verifying customer otp and changing password
+            if user.password == old_pass:
+                user.set_password(password)
+                user.save()
+                # return redirect('login')
+                return Response({"message": 'Your password changed successfully'}, status=status.HTTP_200_OK)
+            else:
+                # return redirect('changepassword')
+                return Response({"message": 'incorrect password'},)
+        except User.DoesNotExist:
+            return Response({"message": 'invalid username'},status=status.HTTP_204_NO_CONTENT)
+            
 def Ang_view_product(request):
     data=request.data
     id=int(data['productid'])
@@ -410,3 +433,4 @@ def Ang_addToCart(request):
         return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
     except KeyError:
         return JsonResponse({"message": "Something went wrong"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        

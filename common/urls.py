@@ -15,4 +15,6 @@ urlpatterns = [
     path('AngAdminLogin', views.AngAdminLogin, name="AngAdminLogin"),
     path('AngAddProduct', views.ResAddProduct, name="AngAddProduct"),
     path('searchProducts', views.search_products, name="searchProducts"),
+    path('resellerDeleteProducts',views.reseller_deleteProducts, name="resellerDeleteProducts"),
+    path('resellerUpdateProducts',views.reseller_updateProducts, name="resellerUpdateProducts"),
 ]

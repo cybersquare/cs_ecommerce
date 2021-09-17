@@ -364,3 +364,30 @@ def search_products(request):
             return Response(resp, status=status.HTTP_200_OK)   
 
 
+@api_view(['POST'])
+@csrf_exempt
+def reseller_deleteProducts(request):
+    if request.method == "POST":
+        data=request.data
+        get_id= int(data['product_id'])
+        try:
+            instance = Products.objects.get(id=get_id)
+            instance.delete()
+            return Response({'msg':'The product deleted'}, status=status.HTTP_200_OK)
+        except Products.DoesNotExist:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def reseller_updateProducts(request):
+    if request.method == "POST":
+        data=request.data
+        get_id= int(data['product_id'])
+        print("haai hello")
+        try:
+            Products.objects.filter(id=get_id).update(title=data['title'], desc=data['description'], price=data['price'], quantity=data['quantity'], status=data['status'])
+            return Response({'msg':'The product updated successfully'}, status=status.HTTP_200_OK)
+        except Products.DoesNotExist:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+

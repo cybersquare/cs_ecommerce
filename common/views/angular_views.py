@@ -325,22 +325,22 @@ def ResAddProduct(request):
         title = data['title']
         regproductid = data['regproductid']
         description = data['description']
-        # img = request.FILES['image']
+        img = request.FILES['imageURL']
         price = data['price']
         quantity = data['quantity']
         weight = data['weight']
         weightunit = data['weightunit']
-        imgUrl=data['imageURL']
+        # imgUrl=data['imageURL']
         category = data['category']
         subcategory = data['subcategory']
         vendor = data['vendor']
         status = data['status']
         resellerid = data['resellerid']
-        product = Products(title=title, reg_productid=regproductid, desc=description, img=imgUrl, price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor, status=status, reseller_id=resellerid)
+        product = Products(title=title, reg_productid=regproductid, desc=description, img=img, price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor, status=status, reseller_id=resellerid)
         product.save()
         product_id = product.pk
         return Response({'status': "Success"})   
-    except:
+    except KeyError:
         return Response({'staus': 'failed'})
 
 
@@ -413,24 +413,29 @@ def changepassword(request):
                 return Response({"message": 'incorrect password'},)
         except User.DoesNotExist:
             return Response({"message": 'invalid username'},status=status.HTTP_204_NO_CONTENT)
-            
+
+
+@api_view(['POST'])
+@csrf_exempt
 def Ang_view_product(request):
     data=request.data
     id=int(data['productid'])
     productdetails = Products.objects.get(id=id)
-    respDetails={"title": productdetails.title, "regProductid": productdetails.reg_productid, "description": productdetails.desc, "price": productdetails.price, "weight": productdetails.weight, "weightunit": productdetails.weightunit, "category": productdetails.category, "subcategory": productdetails.subcategory, "vendor": productdetails.vendor}
+    respDetails={"prodid": productdetails.id ,"title": productdetails.title, "regProductid": productdetails.reg_productid, "description": productdetails.desc, "price": productdetails.price, "weight": productdetails.weight, "weightunit": productdetails.weightunit, "category": productdetails.category, "subcategory": productdetails.subcategory, "vendor": productdetails.vendor}
     return Response(respDetails, status=status.HTTP_200_OK)
 
 
+@api_view(['POST'])
+@csrf_exempt
 def Ang_addToCart(request):
     try:
         data=request.data
-        prod_id=data['prodid']
-        quantity=data['quantity']
-        cust_id=data['customerid']
-        orderdata=Orders(product_id_id=prod_id,quantity=quantity,customerid_id=cust_id,status='added_to_bag')
-        orderdata.save()
+        prod_id=int(data['prodid'])
+        quantity=int(data['quantity'])
+        cust_id=int(data['customerid'])
+        # orderdata=Orders(product_id_id=prod_id,quantity=quantity,customerid_id=cust_id,status='added_to_bag')
+        # orderdata.save()
         return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
     except KeyError:
-        return JsonResponse({"message": "Something went wrong"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        return Response({"message": "Something went wrong"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         

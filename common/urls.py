@@ -18,4 +18,5 @@ urlpatterns = [
     path('ProductView', views.Ang_view_product, name="ProductView"),
     path('resDeleteProducts',views.resDeleteProducts, name="reseleteProducts"),
     path('resUpdateProducts',views.resUpdateProducts, name="resUpdateProducts"),
+    path('ProductAddToCart',views.Ang_addToCart, name="ProductAddToCart"),
 ]

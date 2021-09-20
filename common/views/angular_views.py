@@ -213,7 +213,7 @@ def ang_Login(request):
 @csrf_exempt
 def get_res_products(request):
     if request.method == "POST":
-        userdata=json.loads(request.body)
+        userdata=request.data
         # loginid = int('2')
         loginid = int(userdata['id'])
         products = Products.objects.filter(reseller_id=loginid)

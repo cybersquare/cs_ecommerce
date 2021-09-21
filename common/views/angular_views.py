@@ -135,7 +135,7 @@ def ang_Login(request):
         logindata = request.data
         username = logindata['userName']
         passwd = logindata['userPassword']
-        print("Authentication startsssssss")
+        
         user = authenticate(username=username, password=passwd)
         if user is not None:
             login(request, user)
@@ -168,6 +168,7 @@ def ang_Login(request):
                     return Response(resp, status=status.HTTP_200_OK)
 
             except Customer.DoesNotExist:
+                print("Exception working")
                 # Login operation for resellers
                 resellerdata = Resellers.objects.get(login_id=user.id)
                 # if Reseller didn't complete otp verification send otp and verifying it
@@ -184,7 +185,7 @@ def ang_Login(request):
                     )
                     Resellers.objects.filter(login_id=user.id).update(otp=otp)
                     # loginDetails=Customer.objects.filter(login_id=user.id).first()values('login_id','otp')
-                    loginDetails=Customer.objects.get(login_id=user.id)
+                    loginDetails=Resellers.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
                     resp={"status": "OTP not verified", "id": user.id,"customerType": "reseller", "otp": loginDetails.otp }
                     return Response(resp, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
@@ -192,7 +193,7 @@ def ang_Login(request):
                 # redirect to home page
                 else:
                     print("OTP already verified")
-                    loginDetails=Customer.objects.get(login_id=user.id)
+                    loginDetails=Resellers.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
                     resp = {"status": "Login successfull","customerType": "reseller", "id": user.id}
                     return Response(resp, status=status.HTTP_200_OK)

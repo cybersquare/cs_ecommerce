@@ -164,8 +164,8 @@ STATICFILES_DIRS = [
    ]
 
 
-EMAIL_HOST_USER = 'suryakiran@baabte.com'
-EMAIL_HOST_PASSWORD = 'suryakiran123'
+EMAIL_HOST_USER = 'content@baabte.com'
+EMAIL_HOST_PASSWORD = 'content123'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

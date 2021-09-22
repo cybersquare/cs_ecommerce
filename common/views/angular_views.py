@@ -195,7 +195,7 @@ def ang_Login(request):
                     print("OTP already verified")
                     loginDetails=Resellers.objects.get(login_id=user.id)
                     # user_login=serializers.serialize('json', [customerdata])
-                    resp = {"status": "Login successfull","customerType": "reseller", "id": user.id}
+                    resp = {"status": "Login successful","customerType": "reseller", "id": user.id}
                     return Response(resp, status=status.HTTP_200_OK)
         # If credentials are wrong, paasing a error message
         else:
@@ -385,7 +385,6 @@ def resUpdateProducts(request):
     if request.method == "POST":
         data=request.data
         get_id= int(data['product_id'])
-        print("haai hello")
         try:
             Products.objects.filter(id=get_id).update(title=data['title'], desc=data['description'], price=data['price'], quantity=data['quantity'], status=data['status'])
             return Response({'msg':'The product updated successfully'}, status=status.HTTP_200_OK)
@@ -434,9 +433,34 @@ def Ang_addToCart(request):
         prod_id=int(data['prodid'])
         quantity=int(data['quantity'])
         cust_id=int(data['customerid'])
-        # orderdata=Orders(product_id_id=prod_id,quantity=quantity,customerid_id=cust_id,status='added_to_bag')
-        # orderdata.save()
+        orderdata=Orders(product_id_id=prod_id,quantity=quantity,customerid_id=cust_id,status='added_to_bag')
+        orderdata.save()
         return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
     except KeyError:
         return Response({"message": "Something went wrong"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-        
+
+
+@api_view(['POST'])
+@csrf_exempt
+def AngViewCart(request):
+    if request.method == "POST":
+        try:
+            data=request.data
+            cust_id = int(data['customerid'])
+            bagdata = Orders.objects.filter(customerid=cust_id, status='added_to_bag').select_related('product_id')
+            # print(bagdata)
+            totalAmmount=0
+            cartproduct=[]
+            cnt=False
+            for orderdata in bagdata:
+                cnt=True
+                totalAmmount=totalAmmount+(orderdata.product_id.price*orderdata.quantity)
+                cartproduct.append({"productname": orderdata.product_id.title, "imgurl": orderdata.product_id.img.url, "productPrice": orderdata.product_id.price, "quantity": orderdata.quantity, "productid": orderdata.product_id.id})
+            cartdata={"totalAmmount": totalAmmount, "productdata": cartproduct}
+            print(cnt)
+            if cnt == True:
+                return Response(cartdata, status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_204_NO_CONTENT)
+        except KeyError:
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)

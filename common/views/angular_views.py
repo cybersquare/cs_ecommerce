@@ -398,18 +398,18 @@ def changepassword(request):
     if request.method == "POST":
         data=request.data
         username = data['usrname']
-        password = data['password']
-        old_pass = data['otp']
+        password = data['newpassword']
+        old_pass = data['oldpassword']
         try:
             user = User.objects.get(username=username)
+
             # Verifying customer otp and changing password
-            if user.password == old_pass:
+            usr = authenticate(username=username, password=old_pass)
+            if usr is not None:
                 user.set_password(password)
                 user.save()
-                # return redirect('login')
                 return Response({"message": 'Your password changed successfully'}, status=status.HTTP_200_OK)
             else:
-                # return redirect('changepassword')
                 return Response({"message": 'incorrect password'},)
         except User.DoesNotExist:
             return Response({"message": 'invalid username'},status=status.HTTP_204_NO_CONTENT)

@@ -20,4 +20,5 @@ urlpatterns = [
     path('resUpdateProducts',views.resUpdateProducts, name="resUpdateProducts"),
     path('ProductAddToCart',views.Ang_addToCart, name="ProductAddToCart"),
     path('AngViewCart',views.AngViewCart, name="AngViewCart"),
+    path('changePassword', views.changepassword, name="changePassword")
 ]

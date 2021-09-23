@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+import razorpay
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -464,3 +465,29 @@ def AngViewCart(request):
                 return Response(status=status.HTTP_204_NO_CONTENT)
         except KeyError:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def createOrder(request):
+    data=request.data
+    userid=int(data['customerid'])
+    # products_orderdata = Orders.objects.filter(customerid=userid, status='added_to_bag')
+    order_amount = int(data['totalprice'])* 100
+    order_currency = 'INR'
+    address=data['address']
+    order_receipt = 'order_rcptid_11'
+    # notes = {'Shipping address': 'Bommanahalli, Bangalore'}
+    notes = {'Shipping address': address}
+    client = razorpay.Client(auth=('rzp_test_jznmHCFBf6ZMUd','hMGwzenl3b1QwDmJxDtyAUNy'))
+    payment = client.order.create({"amount": order_amount, "currency": order_currency, "receipt": order_receipt, 'notes': notes})
+    print(payment)
+    return Response( payment, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def PlaceOrder(request):
+    userid=request.data['customerid']
+    Orders.objects.filter(customerid=userid, status='added_to_bag').update(status='paid')
+    return Response({'resp': "success"}, status=status.HTTP_200_OK)

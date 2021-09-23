@@ -218,7 +218,8 @@ def get_res_products(request):
         userdata=request.data
         # loginid = int('2')
         loginid = int(userdata['id'])
-        products = Products.objects.filter(reseller_id=loginid)
+        resllerdetails=Resellers.objects.get(login_id=loginid)
+        products = Products.objects.filter(reseller_id=resllerdetails.id)
         if not products:
             return Response('no products', status=status.HTTP_200_OK)
         else:

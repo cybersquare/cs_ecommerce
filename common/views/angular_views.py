@@ -338,7 +338,8 @@ def ResAddProduct(request):
         vendor = data['vendor']
         status = data['status']
         resellerid = data['resellerid']
-        product = Products(title=title, reg_productid=regproductid, desc=description, img=img, price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor, status=status, reseller_id=resellerid)
+        resllerdetails=Resellers.objects.get(login_id=resellerid)
+        product = Products(title=title, reg_productid=regproductid, desc=description, img=img, price=price, quantity=quantity, weight=weight, weightunit=weightunit, category=category, subcategory=subcategory, vendor=vendor, status=status, reseller_id=resllerdetails.id)
         product.save()
         product_id = product.pk
         return Response({'status': "Success"})   

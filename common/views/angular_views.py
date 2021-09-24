@@ -535,5 +535,5 @@ def AngEditProfile(request):
     # usrdata = {'lastname': userdata.last_name, 'email': userdata.email }
     else:
         User.objects.filter(id=id).update(first_name=fname)
-        Resellers.objects.filter(login_id_id=id).update(companyname=fname, mobile=mobile, address=address, country=country)
+        Resellers.objects.filter(login_id=id).update(companyname=fname, mobile=mobile, address=address, country=country)
     return Response({"msg": "Profile updated"}, status=status.HTTP_200_OK)

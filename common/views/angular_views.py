@@ -520,16 +520,20 @@ def viewOrders(request):
 @csrf_exempt
 def AngEditProfile(request):
     data= request.data
-    fname = data['firstname']
-    lname = data['lastname']
     address = data['address']
     country = data['country']
     mobile = data['mobile']
+    fname = data['firstname']
     id = int(data['customerid'])
-    User.objects.filter(id=id).update(first_name=fname, last_name=lname)
-    Customer.objects.filter(login_id_id=id).update(firstname=fname, mobile=mobile, address=address, country=country,)
+    if data['customertype'] == "customer": 
+        lname = data['lastname']
+        User.objects.filter(id=id).update(first_name=fname, last_name=lname)
+        Customer.objects.filter(login_id_id=id).update(firstname=fname, mobile=mobile, address=address, country=country,)
     # custdata = Customer.objects.get(login_id_id=id)
     # customerdata = {'firstname': custdata.firstname, 'gender': custdata.gender, 'dateofbirth': custdata.dateofbirth, 'mobile': custdata.mobile, 'address': custdata.address, 'country': custdata.country}
     # userdata = User.objects.get(id=id)
     # usrdata = {'lastname': userdata.last_name, 'email': userdata.email }
+    else:
+        User.objects.filter(id=id).update(first_name=fname)
+        Resellers.objects.filter(login_id_id=id).update(companyname=fname, mobile=mobile, address=address, country=country)
     return Response({"msg": "Profile updated"}, status=status.HTTP_200_OK)

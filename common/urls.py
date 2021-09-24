@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from . import views
 
@@ -23,4 +24,6 @@ urlpatterns = [
     path('changePassword', views.changepassword, name="changePassword"),
     path('createOrder', views.createOrder, name="createOrder"),
     path("PlaceOrder", views.PlaceOrder, name="PlaceOrder"),
+    path("viewOrders", views.viewOrders, name="viewOrders"),
+    path('AngEditProfile', views.AngEditProfile, name="AngEditProfile"),
 ]

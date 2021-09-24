@@ -493,3 +493,43 @@ def PlaceOrder(request):
     userid=request.data['customerid']
     Orders.objects.filter(customerid=userid, status='added_to_bag').update(status='paid')
     return Response({'resp': "success"}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def viewOrders(request):
+    try:
+        cust_id = request.data['customerid']
+        bagdata = Orders.objects.filter(customerid_id=cust_id).exclude(status__in='added_to_bag').select_related('product_id')
+        # bag_ids = bagdata.values_list('product_id_id')
+        # productdata = Products.objects.filter(id__in=bag_ids)
+        price = 0
+        for data in bagdata:
+            print(data.orderdate)
+        # for prod in productdata:
+        #     for bg in bagdata:
+        #         if bg.product_id_id == prod.id:
+        #             price = price + (bg.quantity * prod.price)
+        # print(price)
+        return Response({'data': "bagdata"})
+    except Orders.DoesNotExist:
+        return Response({"customerid": "1"})
+
+
+@api_view(['POST'])
+@csrf_exempt
+def AngEditProfile(request):
+    data= request.data
+    fname = data['firstname']
+    lname = data['lastname']
+    address = data['address']
+    country = data['country']
+    mobile = data['mobile']
+    id = int(data['customerid'])
+    User.objects.filter(id=id).update(first_name=fname, last_name=lname)
+    Customer.objects.filter(login_id_id=id).update(firstname=fname, mobile=mobile, address=address, country=country,)
+    # custdata = Customer.objects.get(login_id_id=id)
+    # customerdata = {'firstname': custdata.firstname, 'gender': custdata.gender, 'dateofbirth': custdata.dateofbirth, 'mobile': custdata.mobile, 'address': custdata.address, 'country': custdata.country}
+    # userdata = User.objects.get(id=id)
+    # usrdata = {'lastname': userdata.last_name, 'email': userdata.email }
+    return Response({"msg": "Profile updated"}, status=status.HTTP_200_OK)

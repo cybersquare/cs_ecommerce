@@ -504,14 +504,20 @@ def viewOrders(request):
         # bag_ids = bagdata.values_list('product_id_id')
         # productdata = Products.objects.filter(id__in=bag_ids)
         price = 0
-        for data in bagdata:
-            print(data.orderdate)
+        purchasedetails=[]
+        totAmmount=0
+        for bgdata in bagdata:
+            # resp={"orderdate": bgdata.orderdate}
+            price=bgdata.product_id.price * bgdata.quantity
+            totAmmount= totAmmount+price
+            purchasedetails.append({"orderdate": bgdata.orderdate, "productName": bgdata.product_id.title, "ammount": price, "quantity": bgdata.quantity})
+        resp={"totalammount": totAmmount, "purchaseproducts": purchasedetails}
         # for prod in productdata:
         #     for bg in bagdata:
         #         if bg.product_id_id == prod.id:
         #             price = price + (bg.quantity * prod.price)
         # print(price)
-        return Response({'data': "bagdata"})
+        return Response(resp)
     except Orders.DoesNotExist:
         return Response({"customerid": "1"})
 

@@ -72,7 +72,7 @@ def ang_signup(request):
                 newuser.first_name = firstname
                 newuser.last_name = lastname
                 newuser.save()
-                customerdata = Customer(firstname=firstname,gender=gender, mobile=mobile, dateofbirth=dateofbirth, address=address, country=country, user_type_id=1, login_id_id=newuser.id, status='otpverify', otp=str(otp))
+                customerdata = Customer(firstname=firstname, lastname=lastname,gender=gender, mobile=mobile, dateofbirth=dateofbirth, address=address, country=country, user_type_id=1, login_id_id=newuser.id, status='otpverify', otp=str(otp))
                 customerdata.save()
                 user = User.objects.get(username=email)
                 customer = Customer.objects.get(login_id_id=user.id)
@@ -257,7 +257,7 @@ def AngProfileView(request):
         usertype = userdata['usertype']
         if usertype == "customer":
             userdata = Customer.objects.select_related('login_id').get(login_id_id=id)
-            response={"name": userdata.firstname, "address": userdata.address, "dob": userdata.dateofbirth, "gender": userdata.gender, "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login_id.username}
+            response={"fname": userdata.firstname, "lname": userdata.lastname, "address": userdata.address, "dob": userdata.dateofbirth, "gender": userdata.gender, "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login_id.username}
         elif usertype == "reseller":
             userdata = Resellers.objects.select_related('login').get(login_id=id)
             response={"Rname": userdata.companyname,"Rid": userdata.companyregid,"address":userdata.address,"usertype":"reseller", "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login.email}

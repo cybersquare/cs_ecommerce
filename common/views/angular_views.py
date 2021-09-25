@@ -258,7 +258,7 @@ def AngProfileView(request):
         if usertype == "customer":
             userdata = Customer.objects.select_related('login_id').get(login_id_id=id)
             cutsdata= User.objects.get(id=id)
-            response={"fname": cutsdata.firstname, "lname": cutsdata.lastname, "address": userdata.address, "dob": userdata.dateofbirth, "gender": userdata.gender, "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login_id.username}
+            response={"fname": cutsdata.first_name, "lname": cutsdata.last_name, "address": userdata.address, "dob": userdata.dateofbirth, "gender": userdata.gender, "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login_id.username}
         elif usertype == "reseller":
             userdata = Resellers.objects.select_related('login').get(login_id=id)
             response={"Rname": userdata.companyname,"Rid": userdata.companyregid,"address":userdata.address,"usertype":"reseller", "country": userdata.country, "mobile": userdata.mobile, "email":userdata.login.email}

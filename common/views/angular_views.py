@@ -362,7 +362,7 @@ def search_products(request):
         # print(srch_products)
         resp=[]
         for res in srch_products:
-            resp.append({"id":res.id,"title":res.title,"reg_productid":res.reg_productid,"desc":res.desc,"price":res.price,"vendor":res.vendor})
+            resp.append({"id":res.id,"title":res.title,"reg_productid":res.reg_productid, "desc":res.desc, "img": res.img.url, "price":res.price,"vendor":res.vendor})
         if len(resp) == 0:
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
@@ -406,7 +406,6 @@ def changepassword(request):
         old_pass = data['oldpassword']
         try:
             user = User.objects.get(username=username)
-
             # Verifying customer otp and changing password
             usr = authenticate(username=username, password=old_pass)
             if usr is not None:
@@ -416,7 +415,7 @@ def changepassword(request):
             else:
                 return Response({"message": 'incorrect password'},)
         except User.DoesNotExist:
-            return Response({"message": 'invalid username'},status=status.HTTP_204_NO_CONTENT)
+            return Response({"message": 'invalid username'}, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
@@ -425,7 +424,7 @@ def Ang_view_product(request):
     data=request.data
     id=int(data['productid'])
     productdetails = Products.objects.get(id=id)
-    respDetails={"prodid": productdetails.id ,"title": productdetails.title, "regProductid": productdetails.reg_productid, "description": productdetails.desc, "price": productdetails.price, "weight": productdetails.weight, "weightunit": productdetails.weightunit, "category": productdetails.category, "subcategory": productdetails.subcategory, "vendor": productdetails.vendor}
+    respDetails={"prodid": productdetails.id ,"title": productdetails.title, "regProductid": productdetails.reg_productid,"img": productdetails.img.url, "description": productdetails.desc, "price": productdetails.price, "weight": productdetails.weight, "weightunit": productdetails.weightunit, "category": productdetails.category, "subcategory": productdetails.subcategory, "vendor": productdetails.vendor}
     return Response(respDetails, status=status.HTTP_200_OK)
 
 
@@ -476,7 +475,7 @@ def createOrder(request):
     data=request.data
     userid=int(data['customerid'])
     # products_orderdata = Orders.objects.filter(customerid=userid, status='added_to_bag')
-    order_amount = int(data['totalprice'])* 100
+    order_amount = int(data['totalprice']) * 100
     order_currency = 'INR'
     address=data['address']
     order_receipt = 'order_rcptid_11'

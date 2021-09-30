@@ -23,14 +23,14 @@ from reseller.models import Resellers,Products
 
 # return all products details
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def ang_view_product(request):
-    if request.method=="GET":
-        all_products=Products.objects.all()
-        allproductlist = serializers.serialize('json', all_products)
-        return Response(allproductlist, status=status.HTTP_200_OK)
-    else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    all_products=Products.objects.filter(status="Active")
+    prodDetails=[]
+    for products in all_products:
+        prodDetails.append({'Pname': products.title, 'Pid': products.id, "RegPid": products.reg_productid, "description": products.desc, "img": products.img.url, "price": products.price, "vendor": products.vendor})
+    # allproductlist = serializers.serialize('json', all_products)
+    return Response(prodDetails, status=status.HTTP_200_OK)
     
 
 # insert login credentials
@@ -532,7 +532,7 @@ def AngEditProfile(request):
     mobile = data['mobile']
     fname = data['firstname']
     id = int(data['customerid'])
-    if data['customertype'] == "customer": 
+    if data['customertype'] == "customer":
         lname = data['lastname']
         User.objects.filter(id=id).update(first_name=fname, last_name=lname)
         Customer.objects.filter(login_id_id=id).update(firstname=fname, mobile=mobile, address=address, country=country,)

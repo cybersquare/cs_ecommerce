@@ -72,7 +72,7 @@ def ang_signup(request):
                 newuser.first_name = firstname
                 newuser.last_name = lastname
                 newuser.save()
-                customerdata = Customer(firstname=firstname, lastname=lastname,gender=gender, mobile=mobile, dateofbirth=dateofbirth, address=address, country=country, user_type_id=1, login_id_id=newuser.id, status='otpverify', otp=str(otp))
+                customerdata = Customer(firstname=firstname, gender=gender, mobile=mobile, dateofbirth=dateofbirth, address=address, country=country, user_type_id=1, login_id_id=newuser.id, status='otpverify', otp=str(otp))
                 customerdata.save()
                 user = User.objects.get(username=email)
                 customer = Customer.objects.get(login_id_id=user.id)
